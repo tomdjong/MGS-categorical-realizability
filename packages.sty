@@ -1,0 +1,129 @@
+\usepackage[a4paper,bottom=1in]{geometry}
+% Fix fancyhdr warnings
+\setlength{\headheight}{14.5pt}
+
+\usepackage[english]{babel}
+
+% Only used for text generation in the template
+%
+\usepackage{lipsum}
+%%
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{csquotes}
+
+\usepackage[final]{microtype}
+
+\usepackage[ttscale=.75]{libertine}
+\usepackage[libertine]{newtxmath}
+
+% Set nicer (= less bold, less vertical spacing) mathcal font
+\usepackage[cal=cm]{mathalpha}
+
+% Set up the opening page for the chapters
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+{\Huge}
+{\filleft\textsc{\chaptertitlename} \thechapter}
+{4ex}
+{\bfseries
+  \titlerule%
+  \vspace{2ex}%
+\filright}
+[\vspace{2ex}%
+\titlerule]
+
+% Set up the headers and footers
+\usepackage{fancyhdr}
+\usepackage{ifthen}
+\pagestyle{fancy}
+\fancyhf{}
+% Use ifthenelse to work around the fact that we wish to have alternate headers
+% but a onesided document
+% (https://tex.stackexchange.com/questions/69100/distinguish-even-odd-pages-in-header-with-oneside-option)
+\fancyhead[R]{\ifthenelse{\isodd{\value{page}}}{\thepage\hfill\textsc{\nouppercase\leftmark}}{}}
+\fancyhead[L]{\ifthenelse{\isodd{\value{page}}}{}{\textsc{\nouppercase\rightmark}\hfill\thepage}}
+\fancyfoot[C]{\tiny{If you find an inaccuracy of any kind, please go to \url{https://github.com/tomdjong/MGS-categorical-realizability\#fixing-inaccuracies}.}}
+
+% Remove page numbers on the first page of a chapter
+% https://tex.stackexchange.com/questions/278420/remove-page-number-on-chapter-page
+\fancypagestyle{plain}{%
+  \renewcommand{\headrulewidth}{0pt}%
+  \fancyhf{}%
+  \fancyfoot[C]{\tiny{If you find an inaccuracy of any kind, please go to
+      \url{https://github.com/tomdjong/MGS-categorical-realizability\#fixing-inaccuracies}.}}
+}
+
+% See the excellent biblatex documentation for more information
+\usepackage[
+backend=biber,%
+style=alphabetic,%
+block=ragged,%
+backref=true,%
+useprefix=true,%
+maxnames=8,%
+minnames=7,%
+minalphanames=3,%
+maxalphanames=4,%
+backrefstyle=two]%
+{biblatex}
+\addbibresource{references.bib}
+\renewcommand{\subtitlepunct}{\addcolon\addspace}
+
+% Enumerations and tables
+\usepackage{calc}
+\usepackage[shortlabels]{enumitem}
+\setlist{nosep}
+\setlist[description]{font={\textnormal},labelindent=\parindent}
+
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage[width=.8\textwidth]{caption}
+\captionsetup[table]{skip=1em}
+
+% Math packages
+\usepackage{mathtools}
+
+\usepackage{savesym}
+\usepackage{amsmath}
+\savesymbol{openbox}
+\usepackage{amsthm}
+
+\usepackage{thmtools}
+\usepackage{thm-restate}
+\savesymbol{Bbbk}
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+
+\usepackage{bussproofs}
+
+% For keeping track of the total number of exercises
+\usepackage{totcount}
+
+% tocbibind allows us to have the toc in the toc
+\usepackage[notbib,notindex]{tocbibind}
+
+% Used in hyperref's setup, and must be loaded before tikz-cd.
+\usepackage[dvipsnames]{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{tikz-cd}
+
+\usepackage[
+  colorlinks=true  % Remove the boxes
+, linktocpage=true % Make page numbers (not section titles) links in ToC
+, linkcolor=NavyBlue    % Colour for internal links
+, citecolor=Green  % Colour for bibliographical citations
+, urlcolor=BrickRed % Colour for (external) urls
+%
+% Metadata
+%
+, pdftitle={Categorical realizability}%
+, pdfauthor={Tom de Jong}%
+, pdfsubject={Lecture notes and exercises for MGS 2024}%
+, pdfkeywords={category theory, computability theory, logic, realizability, logic}
+]{hyperref}
+
+\usepackage[noabbrev,capitalize]{cleveref}
+\creflabelformat{equation}{#2\textup{#1}#3} % Write Equation x.y.z instead of Equation (x.y.z)
+\Crefname{exercise}{Exercise}{eEercises}
