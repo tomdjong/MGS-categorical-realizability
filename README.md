@@ -1,6 +1,6 @@
 # Categorical realizability
 
-Lecture notes with exercises for the introductory course on *categorical realizability* at the
+Lecture notes with exercises for the advanced course on *categorical realizability* at the
 [Midlands Graduate School (MGS)
 2024](https://www.cs.le.ac.uk/events/mgs2024).
 
