@@ -1,17 +1,30 @@
 \DeclarePairedDelimiter{\set}{\{}{\}}
 \DeclarePairedDelimiter{\pa}{(}{)}
 
+\newcommand{\pto}{\rightharpoonup}
+
 \newcommand{\Nat}{\mathbb N}
 
-\newcommand{\lambdadot}[2]{\mathop{\lambda}{#1}\mathrel{.}#2}
+%\newcommand{\lambdadot}[2]{\mathop{\lambda}{#1}\mathrel{.}#2}
 
-\newcommand{\pca}{\mathtt}
-\newcommand{\var}{\pca}
+\newcommand{\pcafont}{\mathtt}
+% \DeclareMathOperator{\kcomb}{\mathtt{\mathbf{k}}}
+%\DeclareMathOperator{\scomb}{\mathbf{s}}%{\pcafont{s}}
+\newcommand{\kcomb}{\textbf{\texttt{k}}}
+\newcommand{\scomb}{\textbf{\texttt{s}}}
+\newcommand{\icomb}{\textbf{\texttt{i}}}
+\newcommand{\pair}{\textbf{\texttt{pair}}}
+\newcommand{\pca}[1]{\operatorname{\pcafont{#1}}}
+\newcommand{\numeral}[1]{\operatorname\underline{\pcafont{#1}}}
 
-\DeclareMathOperator{\pcak}{\pca{k}}
-\DeclareMathOperator{\pcas}{\pca{s}}
+\renewcommand{\AA}{\mathcal A}
 
-\newcommand{\numeral}[1]{\underline{\pca{#1}}}
+\newcommand{\prenum}[1]{\varphi_{#1}}
+
+\newcommand{\Kone}{\mathcal{K}_1}
+
+\newcommand{\var}{}
+\newcommand{\lambdapca}[2]{\langle{\var{#1}}\rangle.\,{#2}}
 
 \newcommand{\catfont}{\mathsf}
 \newcommand{\Set}{\catfont{Set}}
