@@ -95,10 +95,10 @@ As previously mentioned, the k- and s-combinators of a pca \(\AA\) give us an
 interface for writing basic programs. For example, if we define\footnote{Note
   that this indeed defines an element of \(\AA\)
   by~\cref{def:pca}\ref{s-defined}.}
-\(\icomb \coloneq \scomb\,\kcomb\,\kcomb\) then \(\icomb\) acts as the
+\(\icomb \coloneq \scomb\kcomb\kcomb\) then \(\icomb\) acts as the
 identity combinator:
 \[
-  \icomb\pca{a} = \scomb\,\kcomb\,\kcomb\pca{a} = \kcomb\pca{a}(\kcomb\pca{a}) =
+  \icomb\pca{a} = \scomb\kcomb\kcomb\pca{a} = \kcomb\pca{a}(\kcomb\pca{a}) =
   {\pca{a}}.
 \]
 
@@ -107,12 +107,145 @@ directly in terms of \(\kcomb\) and \(\scomb\). It is possible, however, to
 define something resembling \(\lambda\)-abstraction for our pca, allowing us to
 write the clearer \(\icomb \coloneq \lambdapca{x}{\var{x}}\) instead.
 
-\textcolor{Mulberry}{Define terms, notation for substitution, combinatory completeness}
+\begin{definition}[Terms over a pca]
+  We fix a countably infinite set of variables, typically denoted by
+  \(x,y,z,u,v,w,x_0,x_1,\dots\), and inductively define a \textbf{term} over a
+  pca~\(\AA\) to be:
+  \begin{enumerate}[(i)]
+  \item a variable,
+  \item an element of \(\AA\),
+  \item given two terms \(s\) and \(t\), we may form a new term denoted by \(s\,t\).
+  \end{enumerate}
+  A term without variables is called \textbf{closed}.
+\end{definition}
 
-\begin{exercise}\label{exer:test-exercise}
-  Show something...
+\begin{notation}
+  If \(t\) is a term, then we write \(t[\pca{a_1}/x_1,\dots,\pca{a_n}/x_n]\) for
+  the \emph{closed} term obtained by substituting the element
+  \(\pca{a_i} \in \AA\) for the variable \(x_i\) (which may or may not occur in
+  \(t\)).
+\end{notation}
+
+\begin{definition}[Defined terms]
+  A closed term is \textbf{defined} if, when we interpret \({s\,t}\) as
+  \(s\) applied to \(t\) in \(\AA\), all these applications are defined.
+
+  We extend this to terms with variables: such a term \(t\) is \textbf{defined}
+  if for all possible substitutions of all variables in \(t\) by elements of
+  \(\AA\), the resulting closed term obtained via substitution is defined.
+\end{definition}
+
+For example, the terms \(\kcomb\scomb\icomb\) and \(\scomb x\,y\) are defined.
+
+\begin{notation}
+  We extend Kleene equality from closed terms to all terms over \(\AA\): given
+  two terms \(s\) and \(t\) whose variables are among \(x_1,\dots,x_n\), we
+  write \(t_1 \simeq t_2\) if for all \(\pca{a_1},\dots,\pca{a_n} \in \AA\), we
+  have
+  \[
+    t_1[\pca{a_1}/x_1,\dots,\pca{a_n}/x_n] \simeq
+    t_2[\pca{a_1}/x_1,\dots,\pca{a_n}/x_n]
+  \]
+  as closed terms.
+\end{notation}
+
+We now define something resembling \(\lambda\)-abstraction for pcas.
+
+\begin{definition}[``\(\lambda\)-abstraction'' in a pca, \(\lambdapca{x}{t}\)]
+  For a variable \(x\) and a term \(t\), we define a new term, denoted by
+  \(\lambdapca{x}{t}\), by recursion on terms:
+  \begin{itemize}
+  \item \(\lambdapca{x}{x} \coloneqq \icomb = \scomb\kcomb\kcomb\),
+  \item \(\lambdapca{x}{y} \coloneqq \kcomb y\) if \(y\) is a variable different from \(x\),
+  \item \(\lambdapca{x}{\pca{a}} \coloneqq \kcomb\pca{a}\) for \(\pca{a} \in \AA\),
+  \item \(\lambdapca{x}{(t_1\,t_2)} \coloneqq \scomb(\lambdapca{x}{t_1})\,(\lambdapca{x}{t_2})\).
+  \end{itemize}
+\end{definition}
+
+\begin{exercise}[Combinatory completeness]\label{exer:properties-of-lambda-pca}
+  Prove that for every variable \(x\) and term~\(t\), the following properties
+  of \(\lambdapca{x}{t}\) hold:
+  \begin{enumerate}[(i)]
+  \item The variables of \(\lambdapca{x}{t}\) are exactly those of \(t\) minus
+    \(x\).
+  \item\label{lambda-pca-def} The term \(\lambdapca{x}{t}\) is defined.
+  \item For all \(\pca{a} \in \AA\), we have
+    \((\lambdapca{x}{t})\pca{a} \simeq t[\pca{a}/x]\).
+  \end{enumerate}
 \end{exercise}
 
+\begin{notation}
+  We write \(\lambdapca{xy}{t}\) for the term
+  \(\lambdapca{x}({\lambdapca{y}{t}})\) and similarly for more variables.
+\end{notation}
+
+Suppose we have a term \(t\) featuring only the variables \(x\), \(y\) and
+\(z\), e.g., \(t \coloneqq z\kcomb x(\kcomb y)\).
+%
+We think of \(t\) as a \emph{partial} function
+\(\AA \times \AA \times \AA \pto \AA\), taking three inputs \(\pca{a}\),
+\(\pca{b}\) and \(\pca{c}\) that we may substitute in \(t\) for \(x\), \(y\) and
+\(z\), respectively, and that results in the term
+\(\pca{c}\kcomb\pca{a}(\kcomb\pca{b})\) which has no variables.
+%
+Combinatory completeness says that terms can be internalised in a pca. Indeed,
+we can represent \(t\) in \(\AA\) as \(\lambdapca{xyz}{t}\). Note that this is
+indeed an element of \(\AA\) by virtue
+of~\cref{exer:properties-of-lambda-pca}\ref{lambda-pca-def} and the fact that
+\(\lambdapca{xyz}{t}\) is a closed term.
+
+% \begin{theorem}[Combinatory completeness]
+%   For every term \(t\) with variables \(x_1,\dots,x_{n+1}\), there is an element
+%   \(\pca{a} \in \AA\) such that for all
+%   \(\pca{b_1},\dots,\pca{b_{n+1}} \in \AA\), we have:
+%   \begin{enumerate}[(i)]
+%   \item \(\pca{a}\pca{b_1}\cdots\pca{b_n}\) is defined, and
+%   \item \(\pca{a}\pca{b_1}\cdots\pca{b_n}\pca{b_{n+1}}\)
+%   \end{enumerate}
+% \end{theorem}
+% \begin{proof}
+% \end{proof}
+
+% \begin{remark}
+%   While similar to \(\lambda\)-abstraction, we deliberately do not use the
+%   \(\lambda\)-symbol, because it might suggest that the ``\(\beta\)-law''
+%   \(\lambdapca{x}{t_1}[t_2/x] \simeq t_1[t/2]
+% \end{remark}
+
+It is now time to make use of combinatory completeness to construct some more
+combinators. We will do this in very much the same way as one encodes constructs
+in untyped \(\lambda\)-calculus.
+
+\begin{definition}[Booleans, \(\pcatrue\), \(\pcafalse\)]
+  We define the booleans as the closed terms
+  \[
+    \pcatrue \coloneqq \lambdapca{xy}{x}
+    \quad\text{and}\quad
+    \pcafalse \coloneqq \lambdapca{xy}{y}.
+  \]
+\end{definition}
+
+\begin{definition}[Pairing and projection combinators]
+  We define the closed terms
+  \[
+    \pcapair \coloneqq \lambdapca{xyz}{z}{xy},
+    \quad
+    \pcafst \coloneqq \lambdapca{w}{w\pcatrue}
+    \quad
+    \text{and}
+    \quad
+    \pcafst \coloneqq \lambdapca{w}{w\pcafalse}.
+  \]
+\end{definition}
+
+\begin{exercise}\label{exer:pairing-projection}
+  For all elements \(\pca{a}\), \(\pca{b} \in \AA\), prove that:
+  \begin{enumerate}[(i)]
+  \item \(\pcapair \pca{a} \pca{b}\) is defined.
+  \item \(\pcafst(\pcapair\pca{a}\pca{b}) = \pca{a}\) and
+    \(\pcasnd(\pcapair\pca{a}\pca{b}) = \pca{b}\) hold.
+  \end{enumerate}
+\end{exercise}
 
 \section{Topological examples}
 \cite{Scott1976}
@@ -120,7 +253,10 @@ write the clearer \(\icomb \coloneq \lambdapca{x}{\var{x}}\) instead.
 
 \section{List of exercises}
 \begin{enumerate}
-\item \cref{exer:test-exercise}: On relating...
+\item \cref{exer:properties-of-lambda-pca} On the fundamental properties of
+  \(\lambdapca{x}{t}\).
+\item \cref{exer:properties-of-lambda-pca} On the properties of the pairing and
+  projection combinators.
 \end{enumerate}
 
 

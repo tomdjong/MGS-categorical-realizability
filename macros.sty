@@ -8,12 +8,15 @@
 %\newcommand{\lambdadot}[2]{\mathop{\lambda}{#1}\mathrel{.}#2}
 
 \newcommand{\pcafont}{\mathtt}
+\newcommand{\pcacomb}[1]{\operatorname{\mathbf{#1}}}
 % \DeclareMathOperator{\kcomb}{\mathtt{\mathbf{k}}}
 %\DeclareMathOperator{\scomb}{\mathbf{s}}%{\pcafont{s}}
-\newcommand{\kcomb}{\textbf{\texttt{k}}}
-\newcommand{\scomb}{\textbf{\texttt{s}}}
-\newcommand{\icomb}{\textbf{\texttt{i}}}
-\newcommand{\pair}{\textbf{\texttt{pair}}}
+\newcommand{\kcomb}{\pcacomb{k}}
+% {\mathbf{k}}%{\textbf{\texttt{k}}}
+\newcommand{\scomb}{\pcacomb{s}}
+% {\mathbf{s}}%{\textbf{\texttt{s}}}
+\newcommand{\icomb}{\pcacomb{i}}
+% {\mathbf{i}}%{\textbf{\texttt{i}}}
 \newcommand{\pca}[1]{\operatorname{\pcafont{#1}}}
 \newcommand{\numeral}[1]{\operatorname\underline{\pcafont{#1}}}
 
@@ -25,6 +28,13 @@
 
 \newcommand{\var}{}
 \newcommand{\lambdapca}[2]{\langle{\var{#1}}\rangle.\,{#2}}
+
+\newcommand{\pcatrue}{\pcacomb{true}}
+\newcommand{\pcafalse}{\pcacomb{false}}
+
+\newcommand{\pcapair}{\pcacomb{pair}}
+\newcommand{\pcafst}{\pcacomb{fst}}
+\newcommand{\pcasnd}{\pcacomb{snd}}
 
 \newcommand{\catfont}{\mathsf}
 \newcommand{\Set}{\catfont{Set}}
