@@ -51,6 +51,7 @@ parameterised application: it takes two codes for programs \(\pca{f}\) and
   %
   We will always use the \texttt{teletype font} for arbitrary elements of a pca
   to reinforce the idea that these should be thought of as (codes of) programs.
+  \textcolor{Mulberry}{TODO: combinator font}
 \end{notation}
 
 The point of the k- and s-combinators is that they provide us with a (very
@@ -59,6 +60,8 @@ minimal) programming interface which we will explore in~\cref{TODO}.
 We prefer to give two examples first to strengthen our intuition for pcas.
 
 \section{Basic examples}
+
+\textcolor{Mulberry}{TODO: Trivial pca}
 
 \begin{example}[Untyped \(\lambda\)-calculus as a pca, \(\Lambda\)]
   Write \(\Lambda\) for the closed terms of the untyped \(\lambda\)-calculus
@@ -206,6 +209,7 @@ of~\cref{exer:properties-of-lambda-pca}\ref{lambda-pca-def} and the fact that
 % \begin{proof}
 % \end{proof}
 
+\textcolor{Mulberry}{TODO: remark about (lack of) \(\beta\)-law}
 % \begin{remark}
 %   While similar to \(\lambda\)-abstraction, we deliberately do not use the
 %   \(\lambda\)-symbol, because it might suggest that the ``\(\beta\)-law''
@@ -213,37 +217,124 @@ of~\cref{exer:properties-of-lambda-pca}\ref{lambda-pca-def} and the fact that
 % \end{remark}
 
 It is now time to make use of combinatory completeness to construct some more
-combinators. We will do this in very much the same way as one encodes constructs
-in untyped \(\lambda\)-calculus.
+combinators. We will do this in very much the same way as one encodes these
+constructs in the untyped \(\lambda\)-calculus.
 
-\begin{definition}[Booleans, \(\pcatrue\), \(\pcafalse\)]
-  We define the booleans as the closed terms
-  \[
-    \pcatrue \coloneqq \lambdapca{xy}{x}
-    \quad\text{and}\quad
-    \pcafalse \coloneqq \lambdapca{xy}{y}.
-  \]
-\end{definition}
+\subsubsection*{Booleans and conditional}
 
-\begin{definition}[Pairing and projection combinators]
-  We define the closed terms
-  \[
-    \pcapair \coloneqq \lambdapca{xyz}{z}{xy},
-    \quad
-    \pcafst \coloneqq \lambdapca{w}{w\pcatrue}
-    \quad
-    \text{and}
-    \quad
-    \pcafst \coloneqq \lambdapca{w}{w\pcafalse}.
-  \]
-\end{definition}
+We define the booleans as the closed terms
+\[
+  \pcatrue \coloneqq \lambdapca{xy}{x} \quad\text{and}\quad \pcafalse \coloneqq
+  \lambdapca{xy}{y},
+\]
+and the conditional as the closed term
+\[
+  \pcaif \coloneq \lambdapca{x}{x}.
+\]
+%
+Note that for arbitrary \(\pca{a}\), \(\pca{b} \in \AA\), we can calculate:
+\[
+  \pcaif\pcatrue\pca{a}\pca{b} = \pcatrue\pca{a}\pca{b} = \pca{a}
+  \quad
+  \text{and}
+  \quad
+  \pcaif\pcafalse\pca{a}\pca{b} = \pcafalse\pca{a}\pca{b} = \pca{b}.
+\]
+
+\subsubsection*{Pairing and projection}
+
+We define the closed terms
+\[
+  \pcapair \coloneqq \lambdapca{xyz}{z}{xy},
+  \quad
+  \pcafst \coloneqq \lambdapca{w}{w\pcatrue}
+  \quad
+  \text{and}
+  \quad
+  \pcafst \coloneqq \lambdapca{w}{w\pcafalse}.
+\]
 
 \begin{exercise}\label{exer:pairing-projection}
   For all elements \(\pca{a}\), \(\pca{b} \in \AA\), prove that:
   \begin{enumerate}[(i)]
   \item \(\pcapair \pca{a} \pca{b}\) is defined.
-  \item \(\pcafst(\pcapair\pca{a}\pca{b}) = \pca{a}\) and
-    \(\pcasnd(\pcapair\pca{a}\pca{b}) = \pca{b}\) hold.
+  \item \(\pcafst{(\pcapair\pca{a}\pca{b})} = \pca{a}\) and
+    \(\pcasnd{(\pcapair\pca{a}\pca{b})} = \pca{b}\) hold.
+  \end{enumerate}
+\end{exercise}
+
+\subsubsection*{Fixed points}
+
+We also have the fixed point combinators which are traditionally denoted by
+\(\pcay\) and \(\pcaz\):
+\begin{align*}
+  \pcay &\coloneqq \pcaw\pcaw &\text{with}&& \pcaw &\coloneq \lambdapca{xy}{y\,(x\,x\,y)} \\
+  \pcaz &\coloneqq \pcau\pcau &\text{with}&& \pcau &\coloneq \lambdapca{xyz}{y\,(x\,x\,y)\,z}
+\end{align*}
+These combinators satisfy:
+\[
+  \pcay\pca{f} \simeq \pca{f}{(\pcay\pca{f})},
+    \quad
+  \pcaz\pca{f} \text { is defined}
+    \quad\text{and}\quad
+  \pcaz\pca{f}\pca{a} \simeq \pca{f}{(\pcaz\pca{f})}\pca{a}
+\]
+for all elements \(\pca{f},\pca{a} \in \AA\).
+
+\subsubsection*{Curry numerals and fundamental arithmetic}
+
+For each natural number \(n \in \Nat\), we define the corresponding
+\textbf{Curry numeral} \(\numeral{n}\) inductively by:
+\[
+  \numeral{0} \coloneq \icomb
+  \quad\text{and}\quad
+  \numeral{n+1} \coloneq \pcapair\pcafalse\numeral{n}.
+\]
+
+\begin{exercise}\label{exer:arithmetic}
+  Define closed terms \(\pcasucc\), \(\pcapred\) and \(\pcaiszero\) such that
+  for any natural number \(n \in \Nat\) the following equations hold:
+  \begin{align*}
+    \pcasucc\numeral{n} = \numeral{n+1},
+    \quad
+    \pcapred\numeral{0} = \numeral{0},
+    \quad
+    \pcapred\numeral{n+1} = \numeral{n}, \\
+    %\quad
+    \pcaiszero\numeral{0} = \pcatrue
+    \quad\text{and}\quad
+    \pcaiszero\numeral{n+1} = \pcafalse.
+  \end{align*}
+
+\end{exercise}
+
+\subsubsection*{Primitive recursion}
+
+The following \textbf{primitive recursion} combinator for Curry numerals will
+come in useful when we consider the natural numbers object in the category of
+assemblies later (\cref{TODO}).
+
+\begin{exercise}\label{exer:primitive-recursion}
+  Construct a closed term \(\pcarec\) such that for all
+  \(\pca{f},\pca{a} \in \AA\) and \(n \in \Nat\) it satisfies:
+  \[
+    \pcarec\pca{a}\pca{f}\numeral{0} = a
+    \quad\text{and}\quad
+    \pcarec\pca{a}\pca{f}\numeral{n+1} \simeq \pca{f}\numeral{n}{(\pcarec\pca{a}\pca{f}\numeral{n})}
+  \]
+  \emph{Hint:} The essential ingredients are a zero test, predecessor and
+  repeated application which are provided by \(\pcaiszero\), \(\pcapred\) and
+  \(\pcaz\), respectively.
+\end{exercise}
+
+\textcolor{Mulberry}{TODO: CHECK AND FINISH}
+\begin{exercise}
+  Show that the following are equivalent for any pca \(\AA\):
+  \begin{enumerate}[(i)]
+  \item The combinators \(\kcomb\) and \(\scomb\) are distinct.
+  \item The pca \(\AA\) is not the trivial pca.
+  \item The Curry numerals in \(\AA\) are all distinct, i.e., the map
+    \(n \in \Nat \mapsto \numeral{n} \in \AA\) is an injection.
   \end{enumerate}
 \end{exercise}
 

@@ -11,14 +11,9 @@
 \newcommand{\pcacomb}[1]{\operatorname{\mathbf{#1}}}
 % \DeclareMathOperator{\kcomb}{\mathtt{\mathbf{k}}}
 %\DeclareMathOperator{\scomb}{\mathbf{s}}%{\pcafont{s}}
-\newcommand{\kcomb}{\pcacomb{k}}
-% {\mathbf{k}}%{\textbf{\texttt{k}}}
-\newcommand{\scomb}{\pcacomb{s}}
-% {\mathbf{s}}%{\textbf{\texttt{s}}}
-\newcommand{\icomb}{\pcacomb{i}}
 % {\mathbf{i}}%{\textbf{\texttt{i}}}
 \newcommand{\pca}[1]{\operatorname{\pcafont{#1}}}
-\newcommand{\numeral}[1]{\operatorname\underline{\pcafont{#1}}}
+\newcommand{\numeral}[1]{\operatorname{\overline{\pcafont{#1}}}}
 
 \renewcommand{\AA}{\mathcal A}
 
@@ -29,12 +24,27 @@
 \newcommand{\var}{}
 \newcommand{\lambdapca}[2]{\langle{\var{#1}}\rangle.\,{#2}}
 
+\newcommand{\kcomb}{\pcacomb{K}}
+\newcommand{\scomb}{\pcacomb{S}}
+\newcommand{\icomb}{\pcacomb{I}}
+
 \newcommand{\pcatrue}{\pcacomb{true}}
 \newcommand{\pcafalse}{\pcacomb{false}}
+\newcommand{\pcaif}{\pcacomb{if}}
 
 \newcommand{\pcapair}{\pcacomb{pair}}
 \newcommand{\pcafst}{\pcacomb{fst}}
 \newcommand{\pcasnd}{\pcacomb{snd}}
+
+\newcommand{\pcay}{\pcacomb{Y}}
+\newcommand{\pcaw}{\pcacomb{W}}
+\newcommand{\pcaz}{\pcacomb{Z}}
+\newcommand{\pcau}{\pcacomb{U}}
+
+\newcommand{\pcaiszero}{\pcacomb{iszero}}
+\newcommand{\pcasucc}{\pcacomb{succ}}
+\newcommand{\pcapred}{\pcacomb{pred}}
+\newcommand{\pcarec}{\pcacomb{primrec}}
 
 \newcommand{\catfont}{\mathsf}
 \newcommand{\Set}{\catfont{Set}}
