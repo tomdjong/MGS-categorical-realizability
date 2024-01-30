@@ -51,7 +51,9 @@ parameterised application: it takes two codes for programs \(\pca{f}\) and
   %
   We will always use the \texttt{teletype font} for arbitrary elements of a pca
   to reinforce the idea that these should be thought of as (codes of) programs.
-  \textcolor{Mulberry}{TODO: combinator font}
+  %
+  For fixed programming constructors, we will use this \(\pcacomb{bold\; font}\)
+  instead.
 \end{notation}
 
 The point of the k- and s-combinators is that they provide us with a (very
@@ -61,7 +63,17 @@ We prefer to give two examples first to strengthen our intuition for pcas.
 
 \section{Basic examples}
 
-\textcolor{Mulberry}{TODO: Trivial pca}
+To help build some intuition for pcas, we now consider three basic examples. The
+first example is a triviality, but we include it here because the category of
+assemblies (see~\cref{TODO}) over it is equivalent to the familiar category of
+sets.
+
+\begin{example}[The trivial pca]
+  The \textbf{trivial pca} is the singleton set \(\set{\singleton}\) with
+  application map \((\singleton,\singleton) \mapsto \singleton\).
+  %
+  Of course, \(\kcomb \coloneq \singleton\) and \(\scomb \coloneq \singleton\).
+\end{example}
 
 \begin{example}[Untyped \(\lambda\)-calculus as a pca, \(\Lambda\)]
   Write \(\Lambda\) for the closed terms of the untyped \(\lambda\)-calculus
@@ -209,12 +221,12 @@ of~\cref{exer:properties-of-lambda-pca}\ref{lambda-pca-def} and the fact that
 % \begin{proof}
 % \end{proof}
 
-\textcolor{Mulberry}{TODO: remark about (lack of) \(\beta\)-law}
-% \begin{remark}
-%   While similar to \(\lambda\)-abstraction, we deliberately do not use the
-%   \(\lambda\)-symbol, because it might suggest that the ``\(\beta\)-law''
-%   \(\lambdapca{x}{t_1}[t_2/x] \simeq t_1[t/2]
-% \end{remark}
+\begin{remark}
+  While similar to \(\lambda\)-abstraction, we deliberately do not use the
+  \(\lambda\)-symbol, because it might suggest that \(\lambdapca{x}{t}\) obeys the
+  \emph{\(\beta\)-law} when substituting terms, but due to the partial nature of
+  the application map, this need not be the case~\cite[p.~4]{vanOosten2008}.
+\end{remark}
 
 It is now time to make use of combinatory completeness to construct some more
 combinators. We will do this in very much the same way as one encodes these
@@ -327,27 +339,60 @@ assemblies later (\cref{TODO}).
   \(\pcaz\), respectively.
 \end{exercise}
 
-\textcolor{Mulberry}{TODO: CHECK AND FINISH}
+As a final remark, we note that any nontrivial pca is necessarily infinite, as
+the following exercise shows:
 \begin{exercise}
-  Show that the following are equivalent for any pca \(\AA\):
+  Prove that the following are equivalent for any pca \(\AA\):
   \begin{enumerate}[(i)]
-  \item The combinators \(\kcomb\) and \(\scomb\) are distinct.
+  \item The booleans \(\pcatrue\) and \(\pcafalse\) are distinct elements of
+    \(\AA\).
+  \item The Curry numerals \(\numeral{n}\) in \(\AA\) are all distinct.
+    % , i.e., the map
+    % \(n \in \Nat \mapsto \numeral{n} \in \AA\) is an injection.
   \item The pca \(\AA\) is not the trivial pca.
-  \item The Curry numerals in \(\AA\) are all distinct, i.e., the map
-    \(n \in \Nat \mapsto \numeral{n} \in \AA\) is an injection.
   \end{enumerate}
 \end{exercise}
 
-\section{Topological examples}
+\section{More examples}
+
 \cite{Scott1976}
+\begin{example}[Scott's graph model, \(\Scott\)]
+  The idea behind application on \(\PN\) is that when we apply a subset \(U\) to
+  a subset \(V\), then \(U\) can only ``use'' a finite amount of \(V\) to
+  determine whether to include a number or not. We now make this idea formal.
+
+  We first fix bijections
+  \[
+    \pairing{{-},{-}} \colon \Nat \times \Nat \to \Nat
+    \quad\quad\text{and}\quad\quad
+    \enum \colon \Nat \cong \powerset_{\operatorname{fin}}(\Nat)
+  \]
+  where the latter enumerates all finite subsets of natural numbers.
+  %
+  We then define the application map \(\PN \times \PN \to \PN\) as
+  \[
+    (U,V) \mapsto \set{\outputnum \in \Nat \mid
+            \exists(\inputnum \in \Nat) .
+            \pairing{\inputnum,\outputnum} \in U \text{ and } \enum(\inputnum) \subseteq V}.
+  \]
+  Thus, the ``program'' \(U\) encodes a list of input-output pairs where the
+  input number encodes a finite subset of the argument \(V\).
+  \textcolor{Mulberry}{TODO: Mention link to continuity; k- and s-combinators; references}
+\end{example}
+
 \cite{KleeneVesley1965}
+\cite{AmadioCurien1998}
+
+For even more examples, see~\cite[Section~1.4]{vanOosten2008}.
 
 \section{List of exercises}
 \begin{enumerate}
-\item \cref{exer:properties-of-lambda-pca} On the fundamental properties of
+\item \cref{exer:properties-of-lambda-pca}: On the fundamental properties of
   \(\lambdapca{x}{t}\).
-\item \cref{exer:properties-of-lambda-pca} On the properties of the pairing and
+\item \cref{exer:properties-of-lambda-pca}: On the properties of the pairing and
   projection combinators.
+\item \cref{exer:arithmetic}: On fundamental arithmetic in a pca.
+\item \cref{exer:primitive-recursion}: On primitive recursion in a pca.
 \end{enumerate}
 
 
