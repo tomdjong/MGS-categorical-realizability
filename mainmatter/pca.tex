@@ -355,8 +355,12 @@ the following exercise shows:
 
 \section{More examples}
 
+\textcolor{Mulberry}{TODO: INTRO AND INFORMAL EXPLANATION}
 \cite{Scott1976}
 \begin{example}[Scott's graph model, \(\Scott\)]
+  We make the powerset \(\PN\) of the natural numbers into a pca that we denote
+  by \(\Scott\).
+
   The idea behind application on \(\PN\) is that when we apply a subset \(U\) to
   a subset \(V\), then \(U\) can only ``use'' a finite amount of \(V\) to
   determine whether to include a number or not. We now make this idea formal.
@@ -377,11 +381,69 @@ the following exercise shows:
   \]
   Thus, the ``program'' \(U\) encodes a list of input-output pairs where the
   input number encodes a finite subset of the argument \(V\).
-  \textcolor{Mulberry}{TODO: Mention link to continuity; k- and s-combinators; references}
+
+  If we equip \(\PN\) with the \emph{Scott topology} whose basic opens are
+  finite subsets of \(\Nat\), then one can show that the application map is
+  continuous.
+  %
+  In fact, any continuous function \(F : \PN^k \to \PN\) can be represented in
+  \(\PN\) by encoding the graph of \(F\).
+  %
+  (The details are spelled out in~\cite[Example~2.3.4]{deJong2018}.)
+  %
+  Under this correspondence it becomes easy to construct the elements \(\kcomb\)
+  and \(\scomb\) making \(\PN\) into a pca.
 \end{example}
 
+
+
 \cite{KleeneVesley1965}
-\cite{AmadioCurien1998}
+\begin{example}[Kleene's second model, \(\Ktwo\)]
+  Somewhat similar to the above example, we can define an application on the set
+  \(\Nat^\Nat\) of functions on \(\Nat\) that makes it into a pca~\(\Ktwo\),
+  known as Kleene's second model.
+  %
+  The encodings required for the application map are a bit involved, see
+  e.g.~\cite[p.~30 and Section~2.1.2]{Bauer2023} or
+  \cite[Section~1.4.3]{vanOosten2008}, but we point out that this pca is closely
+  related to continuous functions \(\Nat^\Nat \to \Nat^\Nat\) where we equip
+  \(\Nat^\Nat\) with the \emph{Baire topology}.
+\end{example}
+
+Another example comes from \emph{domain theory}~\cite{AmadioCurien1998} and is
+also due to Scott~\cite{Scott1972}:
+\begin{example}[Scott's domain model of the untyped \(\lambda\)-calculus]
+  The carrier of this pca is Scott's domain \(D_\infty\) which is a model of the
+  untyped \(\lambda\)-calculus via the isomorphism
+  \(\Phi \colon D_\infty \simeq {D_\infty}^{D_\infty}\) of domains.
+  %
+  The map~\(\Phi\) sends an element \(\sigma \in D_\infty\) to a Scott
+  continuous function \(\Phi(\sigma) \colon D_\infty \to D_\infty\).
+  %
+  We define application on \(D_\infty\) as:
+  \[
+    (\sigma,\tau) \mapsto \Phi(\sigma)(\tau).
+  \]
+\end{example}
+
+Finally, we mention that Scott's graph model and Kleene's second model have
+effective variations that are examples of \emph{elementary sub-pcas}.
+
+\begin{definition}[Elementary sub-pca]
+  An \textbf{elementary sub-pca} of a pca \(\AA\) is a subset
+  \(\AA^\# \subseteq \AA\) that is closed under the application of \(\AA\) and
+  moreover contains its the k- and s-combinators.
+\end{definition}
+
+\begin{example}[Scott's graph model, effectively, \(\Scottre\)]
+  We get an elementary sub-pca \(\Scottre\) of \(\Scott\) by restricting
+  ourselves to the \emph{recursively enumerable} subsets of \(\Nat\).
+\end{example}
+
+\begin{example}[Kleene's second model, effectively, \(\Ktworec\)]
+  We get an elementary sub-pca \(\Ktworec\) of \(\Ktwo\) by restricting
+  ourselves to the \emph{total recursive} functions \(\Nat \to \Nat\).
+\end{example}
 
 For even more examples, see~\cite[Section~1.4]{vanOosten2008}.
 
