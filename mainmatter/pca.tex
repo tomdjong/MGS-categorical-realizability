@@ -52,7 +52,7 @@ parameterised application: it takes two codes for programs \(\pca{f}\) and
   We will always use the \texttt{teletype font} for arbitrary elements of a pca
   to reinforce the idea that these should be thought of as (codes of) programs.
   %
-  For fixed programming constructors, we will use this \(\pcacomb{bold\; font}\)
+  For fixed programming constructs, we will use this \(\pcacomb{bold\; font}\)
   instead.
 \end{notation}
 
@@ -432,17 +432,18 @@ effective variations that are examples of \emph{elementary sub-pcas}.
 \begin{definition}[Elementary sub-pca]
   An \textbf{elementary sub-pca} of a pca \(\AA\) is a subset
   \(\AA^\# \subseteq \AA\) that is closed under the application of \(\AA\) and
-  moreover contains its the k- and s-combinators.
+  moreover contains the elements \(\kcomb\) and \(\scomb\) from \(\AA\).
 \end{definition}
 
-\begin{example}[Scott's graph model, effectively, \(\Scottre\)]
-  We get an elementary sub-pca \(\Scottre\) of \(\Scott\) by restricting
-  ourselves to the \emph{recursively enumerable} subsets of \(\Nat\).
+\begin{example}[Scott's r.e. graph model, \(\Scottre\)]
+  We get an elementary sub-pca \(\Scottre\) of~\(\Scott\) by restricting
+  ourselves to the recursively enumerable subsets of \(\Nat\).
 \end{example}
 
-\begin{example}[Kleene's second model, effectively, \(\Ktworec\)]
+\begin{example}[Kleene's recursive second model, \(\Ktworec\)]
   We get an elementary sub-pca \(\Ktworec\) of \(\Ktwo\) by restricting
-  ourselves to the \emph{total recursive} functions \(\Nat \to \Nat\).
+  ourselves to the total recursive (= Turing computable) functions
+  \(\Nat \to \Nat\).
 \end{example}
 
 For even more examples, see~\cite[Section~1.4]{vanOosten2008}.
