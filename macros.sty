@@ -59,9 +59,14 @@
 \newcommand{\inputnum}{n_{\operatorname{in}}}
 \newcommand{\outputnum}{n_{\operatorname{out}}}
 
+\newcommand{\realizes}{\Vdash}
+
 \newcommand{\catfont}{\mathsf}
 \newcommand{\Set}{\catfont{Set}}
-\newcommand{\Asm}[1]{\catfont{Asm}({#1})}
+\newcommand{\Asm}[1]{\catfont{Asm}_{#1}}
+\DeclarePairedDelimiter{\carrier}{|}{|}
+\DeclareMathOperator{\id}{id}
 
 \newcommand{\One}{\mathbf 1}
 \newcommand{\Two}{\mathbf 2}
+\newcommand{\NatAsm}{\mathbf N}

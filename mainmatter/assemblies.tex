@@ -1,9 +1,206 @@
 \chapter{Categories of assemblies}\label{chap:assemblies}
 
+
+\begin{definition}[Assembly]
+  An \textbf{assembly} over a pca \(\AA\) is a set \(X\) together with a
+  relation \({\realizes}\) between \(\AA\) and \(X\) such that for all
+  \(x \in X\), there exists at least one element \(\pca{a} \in \AA\) with
+  \(\pca{a} \realizes x\).
+\end{definition}
+
+The relation \(\pca{a} \realizes x\) is pronounced as ``\(\pca{a}\)
+\textbf{realizes} \(x\)'' and we also say that \(\pca{a}\) is a
+\textbf{realizer} of \(x\). We think of \(\pca{a}\) as an \emph{implementation}
+of \(x \in X\) in the pca.
+%
+The requirement on assemblies is that each element of the set must have at least
+one implementation.
+
+\begin{notation}[\(\carrier{X}\), \({\realizes_X}\)]
+  Given an assembly \(X\), we will write \(\carrier{X}\) for its underlying set
+  and \(\realizes_X\) for its relation between \(\AA\) and \(\carrier{X}\).
+\end{notation}
+
+\begin{example}[The assembly of booleans, \(\Two\)]
+  The \textbf{assembly of booleans}, denoted by \(\Two\), is defined as
+  \[
+    \carrier{\Two} \coloneqq \set{0,1},
+    \quad\quad
+    \pcafalse \realizes_\Two 0
+    \quad\quad
+    \text{and}\quad\quad
+    \pcatrue \realizes_\Two 1,
+  \]
+  where we recall the booleans \(\pcafalse\) and \(\pcatrue\) from \cref{sec:booleans}.
+\end{example}
+
+\begin{example}[The assembly of natural numbers, \(\NatAsm\)]
+  The \textbf{assembly of natural numbers}, denoted by \(\NatAsm\), is defined as
+  \[
+    \carrier{\NatAsm} \coloneqq \Nat
+    \quad\quad\text{and}\quad\quad
+    \numeral{n} \realizes_\NatAsm n \text{ for each \(n \in \Nat\)},
+  \]
+  where we recall that \(\numeral{n}\) is the \(n\)\textsuperscript{th} Curry
+  numeral from \cref{sec:numerals}.
+\end{example}
+
+\begin{example}
+  Taking \(\AA = \Kone\), we can consider the assembly \(X\) of Turing computable functions:
+  \[
+    \carrier{X} \coloneqq \set{f \colon \Nat \to \Nat \mid f \text{ is Turing computable}}
+    \quad\quad\text{and}\quad\quad
+    m \realizes_X f \iff \prenum{m} = f
+  \]
+  where we recall \(\Kone\) and \(\prenum{-}\) from~\cref{ex:Kleene-1}.
+  %
+  We remark that each \(f \in \carrier{X}\) has infinitely many realizers.
+
+  Notice that, with this realizability relation, we cannot let \(\carrier{X}\)
+  be the set of \emph{all} functions from \(\Nat\) to \(\Nat\), because then the
+  set of realizers of a noncomputable function would be empty, which is not
+  allowed by the definition of an assembly.
+\end{example}
+
+\section{Morphisms of assemblies}
+
+\begin{definition}[Track]
+  For assemblies \(X\) and \(Y\), we say that an element \(\pca{t} \in \AA\)
+  \textbf{tracks} a function \(f \colon \carrier{X} \to \carrier{Y}\) if for all
+  \(x \in \carrier{X}\) and \(\pca{a} \in \AA\), if \(\pca{a} \realizes_X x\), then
+  \(\pca{t}\pca{a}\) is defined and \(\pca{t}\pca{a} \realizes_Y f(x)\).
+\end{definition}
+
+\begin{notation}
+  We will shorten the above to: ``\(\pca{t}\pca{a} \realizes_Y f(x)\)
+  for all \(x \in \carrier{X}\) and \(\pca{a} \realizes_X x\)''.
+  %
+  That is, we implicitly quantify over \(\pca{a}\) and we implicitly assume that
+  \(\pca{t}\pca{a}\) is defined when we write
+  \(\pca{t}\pca{a} \realizes_Y f(x)\).
+\end{notation}
+
+\begin{definition}[Assembly map]
+  An \textbf{assembly map} from an assembly \(X\) to \(Y\) is a function
+  \(f \colon \carrier{X} \to \carrier{Y}\) that is tracked by some element.
+  %
+  The existence of a tracker is a required \emph{property} of the morphism and
+  \emph{not} part of the data.
+\end{definition}
+
+\begin{proposition}
+  Assemblies and assembly maps form a category with composition given
+  by composition of functions on underlying sets.
+\end{proposition}
+\begin{proof}
+  We need to verify that composition is well defined, i.e., that if
+  \(f \colon X \to Y\) and \(g \colon Y \to Z\) are assembly maps, then
+  \(g \circ f \colon \carrier{X} \to \carrier{Z}\) is tracked.
+  %
+  Let \(\pca{t_f}\) and \(\pca{t_g}\) track \(f\)~and~\(g\), respectively.  We
+  claim that \(\lambdapca{x}{\pca{t_g}(\pca{t_f}(x))}\) tracks \(g \circ
+  f\). Indeed, the closed term \(\lambdapca{x}{\pca{t_g}(\pca{t_f}(x))}\) is
+  defined by construction, and if \(\pca{a} \realizes_X x\), then
+  \[
+    {(\lambdapca{x}{\pca{t_g}(\pca{t_f}(x)}))\pca{a} =
+    \pca{t_g}(\pca{t_f}\pca{a})} \realizes_Z g(f(x))
+  \]
+  by choice of \(\pca{t_f}\) and \(\pca{t_g}\).
+  %
+  Moreover, for each assembly \(X\), we have an identity morphism on \(X\) given
+  by the identity on \(\carrier{X}\) and tracked by \(\icomb\).
+  %
+  Finally, associativity of composition holds because composing functions of
+  sets is associative.
+\end{proof}
+
+\begin{notation}[\(\Asm{\AA}\)]
+  We write \(\Asm{\AA}\) for the category of assemblies over a pca \(\AA\).
+\end{notation}
+
+\begin{exercise}
+
+\end{exercise}
+
+\section{Categorical constructions}
+
+\begin{exercise}\label{exer:characterise-regular-monos}
+
+\end{exercise}
+
+\section{Relation to the category of sets}
+
+\begin{definition}[Forgetful functor, \(\Gamma\)]
+  The \textbf{forgetful functor}
+  \[
+    \Gamma \colon \Asm{\AA} \to \Set
+  \]
+  is defined by taking an assembly \(X\) to its underlying set \(\carrier{X}\)
+  and a morphism \(f \colon X \to Y\) of assemblies to the map of sets
+  \(f \colon \carrier{X} \to \carrier{Y}\).
+\end{definition}
+
+\begin{exercise}\label{exer:Gamma-global-sections}
+  Show that \(\Gamma\) is naturally isomorphic to the \textbf{global sections}
+  functor:
+  \begin{align*}
+    \Asm{\AA} &\to \Set \\
+    X &\mapsto \Asm{\AA}(\One,X) \\
+    f \colon X \to Y &\mapsto \text{post-composition with \(f\)}
+  \end{align*}
+\end{exercise}
+
+\textcolor{Mulberry}{TODO: Explain intuition for \(\nabla\). Taking an empty set
+  of realizers (which is prohibited anyway) would yield a map
+  \(\nabla\set{0,1} \to \Two\) which is undesirable.}
+\begin{definition}[\(\nabla\)]
+  We define a functor
+  \[
+    \nabla \colon \Set \to \Asm{\AA}
+  \]
+  by mapping a set \(X\) to the assembly with carrier \(X\) and
+  \(\pca{a} \realizes_X x\) for \emph{any} element \(\pca{a} \in \AA\).
+  %
+  A map of sets \(f \colon X \to Y\) gets send to \(f\) and is tracked by
+  \(\icomb\).
+\end{definition}
+
+
+\begin{exercise}\label{exer:Gamma-left-adjoint-to-nabla}
+  Prove that \(\Gamma\) is left adjoint to \(\nabla\).
+\end{exercise}
+
+\begin{exercise}\label{exer:nabla-no-right-adjoint}
+  Show that \(\nabla\) does not have a right adjoint when \(\AA\) is nontrivial.
+
+  \emph{Hint}: Consider the assemblies \(\Two\) (recall~\cref{TODO}) and \(\nabla\set{0,1}\).
+\end{exercise}
+
+\begin{exercise}[cf.~{\cite[Lemma~5.1.7]{Zoethout2018}}]\label{exer:Gamma-no-left-adjoint}
+  We assume that the pca \(\AA\) is nontrivial. The aim of these exercises is to
+  conclude that \(\Gamma\) does not have a left adjoint.
+  \begin{enumerate}[(i)]
+  \item Show that, for any object \(X \in \Asm{\AA}\), there are at most
+    \(\carrier{\AA}\)-many arrows from \(X\) to \(\Two\).
+  \item Use the above to prove that the \(\AA\)-indexed coproduct of copies of
+    \(\One\) does not exist in \(\Asm{\AA}\).
+  \item Conclude that \(\Gamma\) does not have a left adjoint.
+  \end{enumerate}
+\end{exercise}
+
 \section{List of exercises}
-% \begin{enumerate}
-% \item \cref{exer:least-upper-bounds-are-unique}: On the uniqueness of least upper bounds.
-% \end{enumerate}
+\begin{enumerate}
+\item \cref{exer:characterise-regular-monos}: On characterising the regular
+  monomorphisms.
+\item \cref{exer:Gamma-global-sections}: On the forgetful functor \(\Gamma\) and
+  the global sections functor.
+\item \cref{exer:Gamma-global-sections}: On \(\Gamma\) being a left adjoint to
+  \(\nabla\).
+\item \cref{exer:nabla-no-right-adjoint}: On the non-existence of a right
+  adjoint to \(\nabla\).
+\item \cref{exer:Gamma-no-left-adjoint}: On the non-existence of a left
+  adjoint to \(\Gamma\).
+\end{enumerate}
 
 %%% Local Variables:
 %%% mode: latexmk

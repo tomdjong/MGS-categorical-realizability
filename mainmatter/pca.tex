@@ -90,7 +90,7 @@ The application function of \(\Lambda\) is actually total, i.e.\ it is defined
 on any two inputs. An example of a pca with a genuine partial application---which
 is also the prime example of a pca---is \emph{Kleene's first model}~\cite{Kleene1945}:
 
-\begin{example}[Kleene's first model, \(\Kone\)]
+\begin{example}[Kleene's first model, \(\Kone\)]\label{ex:Kleene-1}
   We define a partial application function on the set of natural numbers
   \(\Nat\): for natural numbers \(n\) and \(m\) we take \(n\,m\) to be
   \(\prenum{n}(m)\), where \(\prenum{-}\) denotes a Turing computable
@@ -232,7 +232,7 @@ It is now time to make use of combinatory completeness to construct some more
 combinators. We will do this in very much the same way as one encodes these
 constructs in the untyped \(\lambda\)-calculus.
 
-\subsubsection*{Booleans and conditional}
+\subsubsection*{Booleans and conditional}\label{sec:booleans}
 
 We define the booleans as the closed terms
 \[
@@ -293,7 +293,7 @@ These combinators satisfy:
 \]
 for all elements \(\pca{f},\pca{a} \in \AA\).
 
-\subsubsection*{Curry numerals and fundamental arithmetic}
+\subsubsection*{Curry numerals and fundamental arithmetic}\label{sec:numerals}
 
 For each natural number \(n \in \Nat\), we define the corresponding
 \textbf{Curry numeral} \(\numeral{n}\) inductively by:
