@@ -34,7 +34,7 @@ one implementation.
   where we recall the booleans \(\pcafalse\) and \(\pcatrue\) from \cref{sec:booleans}.
 \end{example}
 
-\begin{example}[The assembly of natural numbers, \(\NatAsm\)]
+\begin{example}[The assembly of natural numbers, \(\NatAsm\)]\label{ex:NatAsm}
   The \textbf{assembly of natural numbers}, denoted by \(\NatAsm\), is defined as
   \[
     \carrier{\NatAsm} \coloneqq \Nat
@@ -118,14 +118,116 @@ one implementation.
   We write \(\Asm{\AA}\) for the category of assemblies over a pca \(\AA\).
 \end{notation}
 
-\begin{exercise}
-
-\end{exercise}
+\begin{remark}
+  \textcolor{Mulberry}{TODO: Relative category of assemblies + slogans (Bauer)}
+\end{remark}
 
 \section{Categorical constructions}
 
-\begin{exercise}\label{exer:characterise-regular-monos}
+\begin{proposition}[Products of assemblies]
+  The product \(X \times Y\) of two assemblies \(X\)~and~\(Y\) is given by
+  \[
+    \carrier{X \times Y} \coloneq \carrier{X} \times \carrier{Y}
+    \quad\text{and}\quad
+    \pcapair\pca{a}\pca{b} \realizes_{X \times Y} (x,y)
+    \text{ for }
+    \pca{a} \realizes_X x
+    \text{ and }
+    \pca{b} \realizes_Y y.
+  \]
+\end{proposition}
+\begin{proof}
+  The projection maps \(\pi_1 \colon X \times Y \to X\) and
+  \(\pi_2 \colon X \times Y \to Y\) are given by \((x,y) \mapsto x\) and
+  \((x,y) \mapsto y\), and tracked by \(\pcafst\) and \(\pcasnd\), respectively.
+  %
+  Moreover, every pair of assembly maps \(f \colon Z \to X\) and
+  \(g \colon Z \to Y\) induces an assembly map
+  \(\langle f,g\rangle \colon Z \to X \times Y\) given by
+  \(z \mapsto (f(z),g(z))\) and tracked by
+  \(\lambdapca{u}{\pcapair(\pca{t_f}u)(\pca{t_g}u)}\) when \(\pca{t_f}\) and
+  \(\pca{t_g}\) track \(f\) and \(g\), respectively.
+\end{proof}
 
+\textcolor{Mulberry}{TODO: Explain}
+\begin{proposition}[Exponentials of assemblies]
+  The exponential \(Y^X\) of two assemblies \(X\)~and~\(Y\) is given by
+  \[
+    \carrier*{Y^X} \coloneq
+    \text{the set of assembly maps from \(X\) to \(Y\)}
+    \quad\text{and}\quad
+    \pca{t} \realizes_{Y^X} f
+    \text{ if \(\pca{t}\) tracks \(f\)}.
+  \]
+\end{proposition}
+\begin{proof}
+  The evaluation morphism \(\operatorname{ev} \colon Y^X \times X \to Y\) given
+  by \((f,x) \mapsto f(x)\) is tracked by
+  \(\lambdapca{u}{\pcafst u(\pcasnd u)}\).
+  %
+  Moreover, every \(g \colon Z \times X \to Y\) induces a unique assembly map
+  \(\tilde g \colon Z \to Y^X\) making the diagram
+  \[
+    \begin{tikzcd}
+      Y^X \times X \ar[rr,"\operatorname{ev}"]
+      & & Y \\
+      & Z \times X \ar[ur,"g"']
+      \ar[ul,"{\tilde g} \,\times\, {\id_X}"]
+    \end{tikzcd}
+  \]
+  commute.
+  %
+  Indeed, there is a unique assignment
+  \(\tilde g(z) \coloneq (x \mapsto g(z,x))\) and this assignment is tracked by
+  \(\lambdapca{u}{(\lambdapca{v}{\pca{t_g}(\pcapair u\,v)})}\) when
+  \(\pca{t_g}\) tracks \(g\).
+\end{proof}
+
+The notion of natural numbers can be captured via a universal
+property which is due to Lawvere~\cite{Lawvere1963}. In a category
+\(\mathcal C\), a \textbf{natural numbers object (nno)} is an object \(N\) equipped
+with morphisms \(z \colon 1 \to N\) (``zero'') and \(s \colon N \to N\)
+(``successor'') such that for all triples
+\((X,x \colon 1 \to X,f\colon X \to X)\) there is a unique morphism
+\(r \colon N \to X\) (defined by ``recursion'') making the diagram
+\[
+  \begin{tikzcd}[row sep=12mm,column sep=12mm]
+    & N \ar[r,"s"] \ar[d,dashed,"r"] & N \ar[d,dashed,"r"] \\
+    1 \ar[ur,"z"] \ar[r,"x"] & X \ar[r,"f"] & X
+  \end{tikzcd}
+\]
+commute.
+
+\begin{exercise}\label{exer:nno} \leavevmode
+  \begin{enumerate}[(i)]
+  \item Exhibit \(\Nat\) as a nno in \(\Set\).
+  \item Exhibit \(\NatAsm\) (from~\cref{ex:NatAsm}) as a nno in \(\Asm{\AA}\).
+
+    \emph{Hint}: Recall~\cref{exer:primitive-recursion}.
+  \end{enumerate}
+\end{exercise}
+
+\section{Epimorphisms and monomorphisms}
+
+Recall that a morphism \(f \colon X \to Y\) is a \textbf{regular monomorphism}
+if it fits in an equalizer diagram
+\[
+  \begin{tikzcd}
+    X \ar[r,"f"]
+    & Y \ar[r,shift left, "g"]\ar[r, shift right, "h"']
+    & Z
+  \end{tikzcd}
+\]
+for some morphisms \(g\) and \(h\).
+
+
+\begin{exercise}[Characterization of regular monomorphisms]%
+  \label{exer:characterize-regular-monos}
+  Prove that an assembly map \(f \colon X \to Y\) is a regular monomorphism if
+  and only if \(f \colon \carrier{X} \to \carrier{Y}\) is injective and there
+  exists an element \(\pca{i} \in \AA\) such that
+  \(\pca{i}\pca{b} \realizes_X x\) for all \(x \in \carrier{X}\) and
+  \(\pca{b} \realizes_Y f(x)\).
 \end{exercise}
 
 \section{Relation to the category of sets}
@@ -188,9 +290,14 @@ one implementation.
   \end{enumerate}
 \end{exercise}
 
+\begin{exercise}\label{exer:mono-but-not-regular-mono}
+  Use \(\nabla\) to give an example of a monomorphism in \(\Asm{\AA}\) which is
+  not regular (for a nontrivial pca \(\AA\)).
+\end{exercise}
+
 \section{List of exercises}
 \begin{enumerate}
-\item \cref{exer:characterise-regular-monos}: On characterising the regular
+\item \cref{exer:characterize-regular-monos}: On characterizing the regular
   monomorphisms.
 \item \cref{exer:Gamma-global-sections}: On the forgetful functor \(\Gamma\) and
   the global sections functor.
@@ -200,6 +307,9 @@ one implementation.
   adjoint to \(\nabla\).
 \item \cref{exer:Gamma-no-left-adjoint}: On the non-existence of a left
   adjoint to \(\Gamma\).
+\item \cref{exer:mono-but-not-regular-mono}: On an example of a monomorphism
+  which is not a regular.
+\item \cref{exer:nno}: On natural numbers objects.
 \end{enumerate}
 
 %%% Local Variables:
