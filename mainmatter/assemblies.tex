@@ -378,6 +378,7 @@ commute.
 \end{exercise}
 
 \section{Epimorphisms and monomorphisms}
+\textcolor{Mulberry}{TODO: Intro on epis and monos}
 
 \begin{proposition}[Characterization of epis and monos]
   For an assembly map \(f\), we have the following equivalences:
@@ -415,6 +416,7 @@ commute.
   \(\Gamma(f)\) must be a mono in \(\Set\), i.e. an injection.
 \end{proof}
 
+\subsection{Regular epimorphisms}
 Recall that a morphism \(f \colon X \to Y\) is a \textbf{regular epimorphism}
 if it fits in a coequalizer diagram
 \[
@@ -441,6 +443,55 @@ for some morphisms \(g\) and \(h\).
   nontrivial pca \(\AA\)).
 \end{exercise}
 
+\begin{proposition}
+  The regular epimorphisms are stable under pullback.
+\end{proposition}
+\begin{proof}
+  Consider a pullback diagram
+  \[
+    \begin{tikzcd}
+      X \times_Z Y \pbcorner
+      \ar[r,"\pi_2"]
+      \ar[d,"\pi_1"']
+      & Y \ar[d,"g"] \\
+      X\ar[r,"f"] & Z
+    \end{tikzcd}
+  \]
+  with \(g\) a regular epimorphism. We must show that \(\pi_1\) is also a
+  regular epi.
+  %
+  From the description of equalizers and products we can compute that
+  \begin{align*}
+    &\carrier{X \times_Z Y} \coloneq \set{(x,y) \mid f(x) = g(y)}
+    \text{ with realizers}\\
+    &\pcapair\pca{a}\pca{b} \realizes_{X \times_Z Y} (x,y)
+    \text{ for }
+    \pca{a} \realizes_X x
+    \text{ and }
+    \pca{b} \realizes_Y y.
+  \end{align*}
+  By assumption and~\cref{exer:characterize-regular-epis} there exists an
+  element \(s \in \AA\) such that for every \(z \in \carrier{Z}\) and
+  \(\pca{c} \realizes_Z z\) we have \(\pca{s}\pca{c} \realizes_Y y\) for some
+  \(y \in \carrier{Y}\) with \(g(y) = z\).
+  %
+  Now if \(\pca{t}\) tracks \(f\) and we put
+  \[
+    \pca{s'} \coloneq \lambdapca{u}{\pcapair u\,(\pca{s}(\pca{t}u))},
+  \]
+  then for every \(x \in \carrier{X}\) and \(\pca{a} \realizes_X x\) we have
+  \(\pca{s'}\pca{a} \realizes_{X \times_Z Y} (x,y)\) for some
+  \(y \in \carrier{Y}\) with \(g(y) = f(x)\).
+  %
+  Hence, \(\pi_1\) is a regular epi by~\cref{exer:characterize-regular-epis}, as
+  desired.
+\end{proof}
+
+\textcolor{Mulberry}{TODO: Importance of regular category}
+
+\subsection{Regular monomorphisms}
+\textcolor{Mulberry}{TODO: Regular monos in logic + ref}
+
 Recall that a morphism \(f \colon X \to Y\) is a \textbf{regular monomorphism}
 if it fits in an equalizer diagram
 \[
@@ -451,7 +502,6 @@ if it fits in an equalizer diagram
   \end{tikzcd}
 \]
 for some morphisms \(g\) and \(h\).
-
 
 \begin{exercise}[Characterization of regular monomorphisms]%
   \label{exer:characterize-regular-monos}
