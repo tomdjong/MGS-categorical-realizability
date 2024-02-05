@@ -359,6 +359,13 @@ commute.
   Prove that \(\Gamma\) is left adjoint to \(\nabla\).
 \end{exercise}
 
+\begin{exercise}\label{exer:no-nabla-to-Two}
+  Show that there are no assembly maps \(f \colon \nabla\set{0,1} \to \Two\) unless
+  \(\AA\) is trivial.
+
+  \emph{Hint}: Use~\cref{exer:nontrivial-pca}.
+\end{exercise}
+
 \begin{exercise}\label{exer:nabla-no-right-adjoint}
   Show that \(\nabla\) does not have a right adjoint when \(\AA\) is nontrivial.
 
@@ -517,6 +524,97 @@ for some morphisms \(g\) and \(h\).
   nontrivial pca \(\AA\)).
 \end{exercise}
 
+In the category of sets, every function \(f \colon A \to B\) factors as a
+regular epimorphism (= surjection) followed by a monomorphism (= injection):
+\[
+  \begin{tikzcd}[row sep=3mm,column sep=3mm]
+    A \ar[dr,"\tilde f"'] \ar[rr,"f"] & & B \\
+    & \im(f) \ar[ur,hookrightarrow]
+  \end{tikzcd}
+\]
+with \(\im(f) \coloneq \set{b \in B \mid \exists (a \in A).f(a) = b}\).
+%
+The same is true in the category of assemblies, as we ask you to verify in the
+following exercise.
+
+\begin{exercise}\label{exer:reg-epi-mono-factorization}
+  Given an assembly map \(f \colon X \to Y\), show how to factor it in
+  \(\Asm{\AA}\) as a regular epimorphism followed by a monomorphism.
+\end{exercise}
+
+\section{Base change adjoints}
+
+\begin{proposition}
+  For every morphism \(f \colon X \to Y\) of assemblies, the pullback functor
+  \(f^\ast \colon \Asm{\AA}/Y \to \Asm{\AA}/X\) has both a left adjoint
+  \(\sum_f\) and a right adjoint \(\prod_f\).
+\end{proposition}
+\begin{proof}[Proof sketch]
+  We only describe the constructions and leave the verification of the details
+  to the interested reader.
+  %
+  The left adjoint \(\sum_f\) takes an object \(g \colon Z \to X\) of
+  \(\Asm{\AA}/X\) to the object \(f \circ g\) of \(\Asm{\AA}/Y\).
+  %
+  On morphisms it is the identity.
+
+  The right adjoint \(\prod_f\) is more involved.
+  %
+  Given an object \(g \colon Z \to X\) of \(\Asm{\AA}/X\), we consider the
+  assembly \(P\) of ``fiberwise maps''. It is given by
+  \[
+    \carrier{P} \coloneq
+    \set{(y,s) \mid s \colon f^{-1}(y) \to Z \text{ such that }
+      \forall(x \in \carrier{f^{-1}(y)})\,.\,s(x) \in \carrier{g^{-1}(x)}},
+  \]
+  where
+  \[
+    \carrier{f^{-1}(y)} \coloneq \set{x \in \carrier{X} \mid f(x) = y}
+    \quad\text{with realizers}\quad
+    \pca{a} \realizes_{f^{-1}(y)} x \text{ if } \pca{a} \realizes_X x,
+  \]
+  (and similarly for \(g^{-1}(x)\)), and for realizers, we put
+  \[
+    \pcapair\pca{b}\pca{t} \realizes_P (y,s)
+    \text{ if }
+    \pca{b} \realizes_Y y
+    \text{ and}
+    \pca{t} \text{tracks } s.
+  \]
+  Now, \(P\) defines an object of \(\Asm{\AA}/Y\) by considering the first
+  projection \(\pi_1 \colon P \to Y\) which is tracked by \(\pcafst\).
+  %
+  This projection map is the value of \(\prod_f(g)\).
+  %
+  Given a morphism
+  \[
+    \begin{tikzcd}[row sep=4mm,column sep=4mm]
+      Z \ar[rr,"k"] \ar[dr,"g"'] & & W \ar[dl,"h"] \\
+      & X
+    \end{tikzcd}
+  \]
+  in \(\Asm{\AA}/X\), we define \(\prod_f(k) \colon \prod_f(g) \to \prod_f(h)\)
+  as a function on sets by \((y,s) \mapsto (y, h \circ s)\). This assignment can
+  be shown to be tracked because \(h\) and \(s\) are.
+\end{proof}
+
+\textcolor{Mulberry}{Mention and reference for Beck--Chevalley. Intuition:
+  \(\prod\) and \(\sum\) ``respect'' substitution (which is
+  pullback~\cite{Bauer2012}).}
+% \begin{lemma}[Beck--Chevalley condition]
+%   For every pullback square
+%   \[
+%     \begin{tikzcd}
+%       X \times_Z Y \pbcorner \ar[r,"\pi_2"] \ar[d,"\pi_1"'] & Y \ar[d,"g"] \\
+%       X \ar[r,"f"] & Y
+%     \end{tikzcd}
+%   \]
+%   the natural transformations
+%   \[
+%     \sigma \colon \sum_{\pi_1}
+%   \]
+% \end{lemma}
+
 \section{List of exercises}
 \begin{enumerate}
 \item \cref{exer:coproducts}: On the universal property of coproducts.
@@ -527,9 +625,11 @@ for some morphisms \(g\) and \(h\).
   the global sections functor.
 \item \cref{exer:Gamma-global-sections}: On \(\Gamma\) being a left adjoint to
   \(\nabla\).
-\item \cref{exer:nabla-no-right-adjoint}: On the non-existence of a right
+\item \cref{exer:no-nabla-to-Two}: On the nonexistence of assembly maps
+  \(\nabla\set{0,1} \to \Two\).
+\item \cref{exer:nabla-no-right-adjoint}: On the nonexistence of a right
   adjoint to \(\nabla\).
-\item \cref{exer:Gamma-no-left-adjoint}: On the non-existence of a left
+\item \cref{exer:Gamma-no-left-adjoint}: On the nonexistence of a left
   adjoint to \(\Gamma\).
 \item \cref{exer:characterize-regular-epis}: On characterizing the regular
   epimorphisms.
@@ -539,6 +639,8 @@ for some morphisms \(g\) and \(h\).
   monomorphisms.
 \item \cref{exer:mono-but-not-regular-mono}: On an example of a monomorphism
   which is not a regular.
+\item \cref{exer:reg-epi-mono-factorization}: On factoring an assembly map as a
+  regular epi followed by a mono.
 \end{enumerate}
 
 %%% Local Variables:
