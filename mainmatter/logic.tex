@@ -1,5 +1,38 @@
 \chapter{The realizability interpretation of logic}\label{chap:logic}
 
+\begin{exercise}
+  Prove the following logical characterizations for any assembly map \(f \colon X \to Y\):
+  \begin{enumerate}[(i)]
+  \item \(f\) is a regular epimorphism if and only if
+    \[
+      \forall(x : X).\exists(y : Y).f(x) = y
+    \]
+    is realized;
+  \item \(f\) is an epimorphism if and only if
+    \[
+      \forall(x : X).\lnot\lnot({\exists(y : Y).f(x) = y})
+    \]
+    is realized;
+  \item \(f\) is a monomorphism if and only if
+    \[
+      \forall(x, x' : X).(f(x) = f(x') \Rightarrow x = x')
+    \]
+    is realized;
+  \item \(f\) is a regular monomorphism if and only if
+    \[
+      \forall(y : Y).\pa*{\lnot\lnot\pa*{\exists(x : X).f(x) = y} \Rightarrow \exists!(x : X).f(x) = y}
+    \]
+    is realized.
+
+    The quantifier \(\exists!\) means ``there exists a unique \dots with \dots''.
+
+    Phrased in English, \(f\) is a regular monomorphism if and only if the statement
+    \begin{quote}{``For all \(y\), if the primage of \(f\) at \(y\) is nonempty, then we can
+      (effectively) find a unique \(x\) with \(f(x) = y\).''}\end{quote}
+    is realized.
+  \end{enumerate}
+\end{exercise}
+
 \section{List of exercises}
 % \begin{enumerate}
 % \item \cref{exer:interpretation-of-numerals}: On the interpretation of the numerals.
