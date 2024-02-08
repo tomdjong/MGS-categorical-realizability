@@ -354,10 +354,19 @@ commute.
   \(\icomb\).
 \end{definition}
 
-
 \begin{exercise}\label{exer:Gamma-left-adjoint-to-nabla}
   Prove that \(\Gamma\) is left adjoint to \(\nabla\).
 \end{exercise}
+
+\begin{notation}[\(\eta\)]
+  We write \(\eta\) for the unit of the adjunction \(\Gamma \vdash \nabla\),
+  i.e.\ for each assembly \(X\), we have an assembly map
+  \[
+    \eta_X \colon X \to \nabla \carrier{X}
+  \]
+  given by the identity on \(\carrier{X}\) and tracked by (for example)
+  \(\icomb\).
+\end{notation}
 
 \begin{exercise}\label{exer:no-nabla-to-Two}
   Show that there are no assembly maps \(f \colon \nabla\set{0,1} \to \Two\) unless

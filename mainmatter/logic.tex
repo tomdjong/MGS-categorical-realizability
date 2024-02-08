@@ -27,16 +27,59 @@
     The quantifier \(\exists!\) means ``there exists a unique \dots with \dots''.
 
     Phrased in English, \(f\) is a regular monomorphism if and only if the statement
-    \begin{quote}{``For all \(y\), if the primage of \(f\) at \(y\) is nonempty, then we can
-      (effectively) find a unique \(x\) with \(f(x) = y\).''}\end{quote}
+    \begin{quote}{``For all \(y\), if the primage of \(f\) at \(y\) is nonempty,
+        then we can (effectively) find a unique \(x\) with \(f(x) = y\).''}
+    \end{quote}
     is realized.
   \end{enumerate}
 \end{exercise}
 
+The \(\lnot\lnot\)-stable predicates have no computational content as made
+precise by the following exercise:
+
+\begin{exercise}\label{exer:not-not-stable-nabla-pullback}
+  Show that every \(\lnot\lnot\)-stable predicate \(\phi\) on an assembly \(X\)
+  is uniquely determined by a subset \(A \subseteq \carrier{X}\) such that we
+  have a pullback diagram
+  \[
+    \begin{tikzcd}
+      {[\phi]} \ar[r] \ar[d,hookrightarrow] \pbcorner
+      & \nabla A \ar[d,hookrightarrow] \\
+      X \ar[r,"\eta_X"] & \nabla\carrier{X}
+    \end{tikzcd}
+  \]
+  in \(\Asm{\AA}\), where we recall that \([\phi] \hookrightarrow X\) denotes
+  the mono corresponding to \(\phi\).
+\end{exercise}
+
+In fact, because subsets are uniquely determined (again, via pullback) by their
+characteristic function, we have:
+
+\begin{exercise}\label{exer:not-not-stable-nabla-two-pullback}
+  Show that every \(\lnot\lnot\)-stable predicate \(\phi\) on an assembly \(X\)
+  is uniquely determined by a map \(\chi \colon X \to \nabla\set{0,1}\) such
+  that we have a pullback diagram
+  \[
+    \begin{tikzcd}
+      {[\phi]} \ar[r] \ar[d,hookrightarrow] \pbcorner
+      & 1 \ar[d,hookrightarrow,"{\singleton \,\mapsto\, 1}"] \\
+      X \ar[r,"\chi"] & \nabla\set{0,1}
+    \end{tikzcd}
+  \]
+  in \(\Asm{\AA}\).
+\end{exercise}
+
+The map \(1 \to \nabla\set{0,1}\) is said to be a \textbf{classifier} for the
+\(\lnot\lnot\)-stable predicates (subobjects).
+
 \section{List of exercises}
 \begin{enumerate}
 \item \cref{exer:epis-monos-logically}: On logical characterizations of
-(regular) epimorphisms and monomorphisms.
+  (regular) epimorphisms and monomorphisms.
+\item \cref{exer:not-not-stable-nabla-two-pullback}: On the correspondence
+  between \(\lnot\lnot\)-stable predicates and subsets.
+\item \cref{exer:not-not-stable-nabla-two-pullback}: On the classifier for
+  \(\lnot\lnot\)-stable predicates.
 \end{enumerate}
 
 %%% Local Variables:
