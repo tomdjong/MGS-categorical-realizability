@@ -61,7 +61,7 @@ minimal) programming interface which we will explore in~\cref{TODO}.
 %
 We prefer to give two examples first to strengthen our intuition for pcas.
 
-\section{Basic examples}
+\section{Basic examples of pcas}
 
 To help build some intuition for pcas, we now consider three basic examples. The
 first example is a triviality, but we include it here because the category of
@@ -104,7 +104,7 @@ is also the prime example of a pca---is \emph{Kleene's first model}~\cite{Kleene
   it in~\cref{chap:logic,chap:synthetic}.
 \end{example}
 
-\section{Basic programming}
+\section{Basic programming in pcas}
 
 As previously mentioned, the k- and s-combinators of a pca \(\AA\) give us an
 interface for writing basic programs. For example, if we define\footnote{Note
@@ -353,13 +353,42 @@ the following exercise shows:
   \end{enumerate}
 \end{exercise}
 
-\section{More examples}
+\section{More examples of pcas}
 
-\textcolor{Mulberry}{TODO: INTRO AND INFORMAL EXPLANATION}
+In this section we will present a few more examples of partial combinatory
+algebras. To motivate and introduce them, we offer the following informal
+explanation. Suppose we have a device which transforms the pitch of incoming
+audio. We might represent the incoming and outgoing audio as streams of bits, so
+that mathematically speaking, our in- and output are elements of
+\(\set{0,1}^\Nat\), i.e., functions from the set of natural numbers \(\Nat\) to
+the two-element set \(\set{0,1}\).
+%
+Our bit-stream transforming device is then a function
+\(\set{0,1}^\Nat \to \set{0,1}^\Nat\).
+%
+Since we don't want to wait forever on the output of our device, it seems
+reasonable that we assume it to start outputting after having only received
+finitely many bits.
+%
+Thus, \emph{the output depends on a finite amount of the input only}.
+%
+Our device should therefore not be any old function
+\(\set{0,1}^\Nat \to \set{0,1}^\Nat\), but rather one whose output depends on a
+finite amount of input only.
+%
+This can be made mathematically precise by equipping the set \(\set{0,1}^\Nat\)
+with a \emph{topology} and by restricting our attention to \emph{continuous}
+functions on such topologized sets.
+
+% TODO: FIX INPROCEEDINGS IN BIB
+
+\cite{Vickers1996,Smyth1992,Escardo2004}
+
+\cite{Weihrauch2000}
+
 
 \cite{Bauer2006}
 \cite{Bauer2000}
-\cite{Weihrauch2000}
 \cite{Lietz2004}
 
 \cite{Scott1976}
@@ -452,7 +481,8 @@ effective variations that are examples of \emph{elementary sub-pcas}.
   \(\Nat \to \Nat\).
 \end{example}
 
-For even more examples, see~\cite[Section~1.4]{vanOosten2008}.
+For even more examples of pcas,
+see~\cite[Section~1.4]{vanOosten2008}.
 
 \section{List of exercises}
 \begin{enumerate}
