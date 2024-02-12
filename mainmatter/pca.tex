@@ -360,7 +360,7 @@ algebras. To motivate and introduce them, we offer the following informal
 explanation. Suppose we have a device which transforms the pitch of incoming
 audio. We might represent the incoming and outgoing audio as streams of bits, so
 that mathematically speaking, our in- and output are elements of
-\(\set{0,1}^\Nat\), i.e., functions from the set of natural numbers \(\Nat\) to
+\(\set{0,1}^\Nat\), i.e.\ functions from the set of natural numbers \(\Nat\) to
 the two-element set \(\set{0,1}\).
 %
 Our bit-stream transforming device is then a function
@@ -380,18 +380,31 @@ This can be made mathematically precise by equipping the set \(\set{0,1}^\Nat\)
 with a \emph{topology} and by restricting our attention to \emph{continuous}
 functions on such topologized sets.
 
-% TODO: FIX INPROCEEDINGS IN BIB
+For an introduction to and motivation of topology from a computer science
+perspective, Smyth's~\cite{Smyth1992} and Escard\'o's~\cite{Escardo2004}
+monographs, and Vickers's book~\cite{Vickers1996} are warmly recommended.
 
-\cite{Vickers1996,Smyth1992,Escardo2004}
+While Turing computable functions, or equivalently, Kleene's partial recursive
+functions, provide the foundation for computability theory with (encodings of)
+finite objects, an established theory of computability over infinite objects is
+Weihrauch's \emph{Type Two Effectivity (TTE)}~\cite{Weihrauch2000}.
+%
+This is a theory of computable analysis and becomes especially relevant when we
+are interested in exact real number computation.
+%
+Its connections to realizability were explored in the PhD theses of
+Lietz~\cite{Lietz2004} and Bauer~\cite{Bauer2000} via Kleene's second model and
+its recursive variant (\cref{Kleene-2,Kleene-rec-2} below).
 
-\cite{Weihrauch2000}
+We will be brief in our explanations of these partial combinatory algebras and hope
+that the interested reader will take the above paragraphs and the examples as an
+invitation to explore the fascinating connections between topology and
+computability, for instance by consulting Bauer's aforementioned notes on
+realizability~\cite{Bauer2023} and/or the references above.
 
+Our first example is due to Scott~\cite{Scott1976} and gives the powerset of the
+natural number the structure of a pca.
 
-\cite{Bauer2006}
-\cite{Bauer2000}
-\cite{Lietz2004}
-
-\cite{Scott1976}
 \begin{example}[Scott's graph model, \(\Scott\)]
   We make the powerset \(\PN\) of the natural numbers into a pca that we denote
   by \(\Scott\).
@@ -430,10 +443,10 @@ functions on such topologized sets.
   and \(\scomb\) making \(\PN\) into a pca.
 \end{example}
 
-
-\textcolor{Mulberry}{TODO: Transition paragraph}
-\cite{KleeneVesley1965}
-\begin{example}[Kleene's second model, \(\Ktwo\)]
+The application in the above example is actually a \emph{total} operation. An
+analogous pca whose application is genuinely partial is due to
+Kleene~\cite{KleeneVesley1965}:
+\begin{example}[Kleene's second model, \(\Ktwo\)]\label{Kleene-2}
   Somewhat similar to the above example, we can define an application on the set
   \(\Nat^\Nat\) of functions on \(\Nat\) that makes it into a pca~\(\Ktwo\),
   known as Kleene's second model.
@@ -475,7 +488,7 @@ effective variations that are examples of \emph{elementary sub-pcas}.
   ourselves to the recursively enumerable subsets of \(\Nat\).
 \end{example}
 
-\begin{example}[Kleene's recursive second model, \(\Ktworec\)]
+\begin{example}[Kleene's recursive second model, \(\Ktworec\)]\label{Kleene-rec-2}
   We get an elementary sub-pca \(\Ktworec\) of \(\Ktwo\) by restricting
   ourselves to the total recursive (= Turing computable) functions
   \(\Nat \to \Nat\).
