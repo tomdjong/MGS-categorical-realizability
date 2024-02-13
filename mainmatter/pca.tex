@@ -1,7 +1,34 @@
 \chapter[Models of computation: partial combinatory algebras]{Models of computation: \\ partial combinatory algebras}\label{chap:PCA}
 
-\textcolor{Mulberry}{TODO: Introduction, general model of computation, mention
-  typed vs untyped}
+The starting ingredient in categorical realizability is a general model of
+computation known as a \emph{partial combinatory algebra}, or \emph{pca} for
+short.
+%
+The desire for a general model of computation is motivated by the many possible
+interesting examples
+(see~\cref{sec:basic-examples-of-pcas,sec:more-examples-of-pcas}).
+%
+Moreover, in the next chapter, we construct the \emph{category of assemblies}
+over a fixed but arbitrary pca. The construction itself works generally and is
+insensitive to any particular choice of pca. However, the choice of pca is
+reflected in the logical principles that the resulting category of assemblies
+validates.
+%
+Thinking of categories of assemblies as ``worlds of computable mathematics'', we
+can thus build different worlds by varying our notion of pca.
+
+Having said all this, in these notes we have chosen to work with the
+\emph{untyped} notion of a pca. The \emph{typed} notion, as developed by
+Longley\footnote{Fun fact: John Longley is also the author of the recent
+  \emph{Castles in the Air}---an introduction to the world of mathematical logic
+  cast in the form of a fantasy novel---as well as a semi-professional
+  pianist.} in his PhD thesis~\cite{Longley1995}, is more general and moreover
+has the advantage that it can capture (idealized) typed functional programming
+languages (such as PCF~\cite{Plotkin1977,deJong2023}).
+%
+We only treat untyped pcas for simplicity and refer the interested reader to
+Bauer's more comprehensive notes~\cite{Bauer2023}.
+
 
 \begin{definition}[Partial combinatory algebra (pca), \(\kcomb\), \(\scomb\)]\label{def:pca}
   A \textbf{partial combinatory algebra} (\textbf{pca}) is a set \(\AA\) together with a \emph{partial}
@@ -57,15 +84,16 @@ parameterized application: it takes two codes for programs \(\pca{f}\) and
 \end{notation}
 
 The point of the k- and s-combinators is that they provide us with a (very
-minimal) programming interface which we will explore in~\cref{TODO}.
+minimal) programming interface which we will explore
+in~\cref{sec:basic-programming-in-pcas}.
 %
 We prefer to give two examples first to strengthen our intuition for pcas.
 
-\section{Basic examples of pcas}
+\section{Basic examples of pcas}\label{sec:basic-examples-of-pcas}
 
 To help build some intuition for pcas, we now consider three basic examples. The
 first example is a triviality, but we include it here because the category of
-assemblies (see~\cref{TODO}) over it is equivalent to the familiar category of
+assemblies (see~\cref{chap:assemblies}) over it is equivalent to the familiar category of
 sets.
 
 \begin{example}[The trivial pca]
@@ -100,35 +128,37 @@ is also the prime example of a pca---is \emph{Kleene's first model}~\cite{Kleene
   \(S^m_n\)-theorem in computability theory, see e.g.~\cite[Section~2.5.1 and
   Theorem~2.1.5]{Bauer2023} for details.
 
-  We write \(\Kone\) for this partial combinatory algebra and we will return to
+  We write \(\Kone\) for this partial combinatory algebra and return to
   it in~\cref{chap:logic,chap:synthetic}.
 \end{example}
 
-\section{Basic programming in pcas}
+\section{Basic programming in pcas}\label{sec:basic-programming-in-pcas}
 
-As previously mentioned, the k- and s-combinators of a pca \(\AA\) give us an
-interface for writing basic programs. For example, if we define\footnote{Note
+%As previously mentioned,
+The k- and s-combinators of a pca provide an
+interface for writing basic programs. For example, if we put\footnote{Note
   that this indeed defines an element of \(\AA\)
   by~\cref{def:pca}\ref{s-defined}.}
 \(\icomb \coloneq \scomb\kcomb\kcomb\) then \(\icomb\) acts as the
 identity combinator:
-\[
+\(
   \icomb\pca{a} = \scomb\kcomb\kcomb\pca{a} = \kcomb\pca{a}(\kcomb\pca{a}) =
-  {\pca{a}}.
-\]
+  {\pca{a}}
+  \)
+  for any element \(\pca{a}\) of our pca.
 
 While theoretically possible, it is very inconvenient to program everything
-directly in terms of \(\kcomb\) and \(\scomb\). It is possible, however, to
+directly in terms of \(\kcomb\) and \(\scomb\). Therefore, we will
 define something resembling \(\lambda\)-abstraction for our pca, allowing us to
 write the clearer \(\icomb \coloneq \lambdapca{x}{\var{x}}\) instead.
 
-\begin{definition}[Terms over a pca]
+\begin{definition}[Terms]% over a pca]
   We fix a countably infinite set of variables, typically denoted by
-  \(x,y,z,u,v,w,x_0,x_1,\dots\), and inductively define a \textbf{term} over a
-  pca~\(\AA\) to be:
+  \(x,y,z,u,v,w,x_0,x_1,\dots\), and inductively define the set of
+  \textbf{terms} over a pca~\(\AA\):
   \begin{enumerate}[(i)]
-  \item a variable,
-  \item an element of \(\AA\),
+  \item a variable is a term,
+  \item an element of \(\AA\) is a term,
   \item given two terms \(s\) and \(t\), we may form a new term denoted by \(s\,t\).
   \end{enumerate}
   A term without variables is called \textbf{closed}.
@@ -353,7 +383,7 @@ the following exercise shows:
   \end{enumerate}
 \end{exercise}
 
-\section{More examples of pcas}
+\section{More examples of pcas}\label{sec:more-examples-of-pcas}
 
 In this section we will present a few more examples of partial combinatory
 algebras. To motivate and introduce them, we offer the following informal
@@ -400,7 +430,7 @@ We will be brief in our explanations of these partial combinatory algebras and h
 that the interested reader will take the above paragraphs and the examples as an
 invitation to explore the fascinating connections between topology and
 computability, for instance by consulting Bauer's aforementioned notes on
-realizability~\cite{Bauer2023} and/or the references above.
+realizability~\cite{Bauer2023} and the references above.
 
 Our first example is due to Scott~\cite{Scott1976} and gives the powerset of the
 natural number the structure of a pca.
@@ -490,7 +520,8 @@ effective variations that are examples of \emph{elementary sub-pcas}.
 
 \begin{example}[Kleene's recursive second model, \(\Ktworec\)]\label{Kleene-rec-2}
   We get an elementary sub-pca \(\Ktworec\) of \(\Ktwo\) by restricting
-  ourselves to the total recursive (= Turing computable) functions
+  ourselves to the total recursive %(= Turing computable)
+  functions
   \(\Nat \to \Nat\).
 \end{example}
 

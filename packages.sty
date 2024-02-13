@@ -1,4 +1,4 @@
-\usepackage[a4paper,bottom=1in]{geometry}
+\usepackage[a4paper,bottom=2cm]{geometry}
 % Fix fancyhdr warnings
 \setlength{\headheight}{14.5pt}
 
@@ -54,6 +54,12 @@
   \fancyfoot[C]{\tiny{If you find an inaccuracy of any kind, please go to
       \url{https://github.com/tomdjong/MGS-categorical-realizability\#fixing-inaccuracies}.}}
 }
+
+% \renewcommand{\footruleskip}{5mm}
+\setlength{\skip\footins}{5mm}
+
+% Force footnotes at the bottom of the page
+\usepackage[bottom]{footmisc}
 
 % See the excellent biblatex documentation for more information
 \usepackage[
