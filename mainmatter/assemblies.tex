@@ -9,14 +9,13 @@ example it is (locally) cartesian closed and has finite colimits.
 In fact, the category has sufficient structure to support an interpretation of
 first order logic as we explore in~\cref{chap:logic}.
 
-Roughly speaking, the category of assemblies has as objects sets with
-computability data and ``computable'' functions between such sets, where the
-computability is with respect to the chosen pca.
+Roughly speaking, the category of assemblies has sets with ``computability
+data'' as objects and ``computable'' functions between such sets as morphisms.
+%, where the
+%computability is with respect to the chosen pca.
 %
 The category of assemblies as a whole may be thought of as a ``world of
 computable mathematics''.
-
-% UGLY LINE BREAK
 
 \begin{definition}[Assembly]
   An \textbf{assembly} over a pca \(\AA\) is a set \(X\) together with a
@@ -41,11 +40,11 @@ one implementation.
 \begin{example}[The assembly of booleans, \(\Two\)]\label{ex:assembly-of-booleans}
   The \textbf{assembly of booleans}, denoted by \(\Two\), is defined as
   \[
-    \carrier{\Two} \coloneqq \set{0,1},
-    \quad\quad
+    \carrier{\Two} \coloneqq \set{0,1}
+    \quad\text{with realizers}\quad
     \pcafalse \realizes_\Two 0
-    \quad\quad
-    \text{and}\quad\quad
+    %\quad
+    \text{ and }%\quad
     \pcatrue \realizes_\Two 1,
   \]
   where we recall the booleans \(\pcafalse\) and \(\pcatrue\) from \cref{sec:booleans}.
@@ -58,8 +57,8 @@ one implementation.
     \quad\quad\text{and}\quad\quad
     \numeral{n} \realizes_\NatAsm n \text{ for each \(n \in \Nat\)},
   \]
-  where we recall that \(\numeral{n}\) is the \(n\)\textsuperscript{th} Curry
-  numeral from \cref{sec:numerals}.
+  where we recall from~\cref{sec:numerals} that \(\numeral{n}\) is the
+  \(n\)\textsuperscript{th} Curry numeral.
 \end{example}
 
 \begin{example}
@@ -81,6 +80,13 @@ one implementation.
 
 \section{Morphisms of assemblies}
 
+As mentioned in the opening paragraphs of this chapter, we wish to organize the
+assemblies into a category whose morphisms are ``computable'' functions between
+the underlying sets of assemblies.
+%
+The computability requirement is made precise by requiring the existence of a
+\emph{tracker} which we define now.
+
 \begin{definition}[Track]
   For assemblies \(X\) and \(Y\), we say that an element \(\pca{t} \in \AA\)
   \textbf{tracks} a function \(f \colon \carrier{X} \to \carrier{Y}\) if for all
@@ -98,12 +104,15 @@ one implementation.
 \end{notation}
 
 \begin{definition}[Assembly map]
-  An \textbf{assembly map} from an assembly \(X\) to \(Y\) is a function
-  \(f \colon \carrier{X} \to \carrier{Y}\) that is tracked by some element.
-  %
-  The existence of a tracker is a required \emph{property} of the morphism and
-  \emph{not} part of the data.
+  An \textbf{assembly map} from an assembly \(X\) to an assembly \(Y\) is a
+  function \(f \colon \carrier{X} \to \carrier{Y}\) that is tracked by some
+  element.
 \end{definition}
+
+The existence of a tracker is a required \emph{property} of an assembly map and
+\emph{not} part of the data, so an assembly map is (unlike an assembly)
+\emph{not} a pair of a function and a tracker; it is just a function for which
+there exists some tracker.
 
 \begin{proposition}
   Assemblies and assembly maps form a category with composition given
@@ -135,8 +144,34 @@ one implementation.
   We write \(\Asm{\AA}\) for the category of assemblies over a pca \(\AA\).
 \end{notation}
 
-\begin{remark}
-  \textcolor{Mulberry}{TODO: Relative category of assemblies + slogans (Bauer)}
+\begin{example}
+  For the trivial pca \(\AA = \set{\singleton}\) we recover the familiar
+  category \(\Set\) of sets and functions as \(\Asm{\AA}\).
+\end{example}
+
+\begin{remark}[Relative categories of assemblies]
+  An interesting variation on the category of assemblies is obtained if we start
+  with a pca \(\AA\) and an elementary sub-pca \(\AA^\#\)
+  (recall~\cref{def:elementary-sub-pca} and \cref{Scott-re,Kleene-rec-2}).
+  %
+  While we still ask that the realizers of elements of sets come from the
+  larger pca \(\AA\), we now require the trackers of assembly maps to come from
+  the smaller sub-pca \(\AA^\#\) instead.
+  %
+  The requirements on an elementary sub-pca guarantee that this is again a
+  category which we call the \textbf{relative category of assemblies}.
+  %and denote
+  %by \(\Asm{\AA,\AA^\#}\).
+
+  Especially in the typical examples (\ref{Scott-re} and \ref{Kleene-rec-2})
+  where \(\AA = \Ktwo\) and \(\AA^\# = \Ktworec\), or \(\AA = \Scott\) and
+  \(\AA^\# = \Scottre\), the idea of the relative categories of assemblies is
+  nicely captured by Bauer's~\cite[p.~36 and 45]{Bauer2006,Bauer2023}
+  slogan
+  \begin{center}
+    \emph{Topological data --- computable functions!}
+  \end{center}
+  %nicely captures the intent of the relative categories of assemblies.
 \end{remark}
 
 \section{Categorical constructions}
