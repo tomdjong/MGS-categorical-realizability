@@ -7,7 +7,7 @@ realizability** at the [Midlands Graduate School (MGS)
 *The notes are currently under construction. An abstract and a link to the notes
 will appear soon.*
 
-#### What can I expect from the course?
+**What can I expect from the course?**
 
 If you like logic, computability theory and/or category theory, then this course
 should be of interest to you!\
