@@ -310,10 +310,9 @@ with the construction of products.
   which is tracked by any tracker of \(h\).
 \end{proof}
 
-\subsection{Colimits}
+\subsection{Coproducts and coequalizers}
 %
 We now move on to colimits in the category of assemblies.
-\textcolor{Mulberry}{TODO: Explain and refs}
 
 \begin{proposition}[Initial object]
   The initial object \(\Zero\) in \(\Asm{\AA}\) is given by
@@ -337,6 +336,10 @@ We now move on to colimits in the category of assemblies.
     \pca{b} \realizes_Y y.
   \end{align*}
 \end{proposition}
+
+Notice that the disjointness of the coproduct is witnessed by tagging the
+realizers with booleans.
+
 \begin{exercise}\label{exer:coproducts}
   Prove~\cref{coproducts}.
 
@@ -344,11 +347,17 @@ We now move on to colimits in the category of assemblies.
   trackers are defined and thus give elements of the pca as required.
 \end{exercise}
 
+While there are several interesting assemblies whose carrier is the set
+\(\set{0,1}\) (as we will see in \cref{chap:logic}), the following exercise
+justifies the notation \(\Two\) for the assembly of booleans as defined in
+\cref{ex:assembly-of-booleans}.
+
 \begin{exercise}\label{exer:coproduct-booleans}
-  Show that \({1 + 1} \cong \Two\), where \(\Two\) is the assembly of booleans
-  defined in~\cref{ex:assembly-of-booleans}.
+  Show that \({1 + 1} \cong \Two\).
 \end{exercise}
 
+Finally, we construct coequalizers in \(\Asm{\AA}\). Their description will be
+useful in our study of regular epimorphisms (\cref{sec:regular-epis}).
 
 \begin{proposition}[Coequalizers]
   The coequalizer \(C\) of assembly maps \(f,g \colon X \to Y\) is given by
@@ -379,10 +388,10 @@ We now move on to colimits in the category of assemblies.
 \end{proof}
 
 \subsection{Natural numbers object}
-The notion of natural numbers can be captured via a universal
+The notion of natural numbers can be captured categorically via a universal
 property which is due to Lawvere~\cite{Lawvere1963}. In a category
-\(\mathcal C\), a \textbf{natural numbers object (nno)} is an object \(N\) equipped
-with morphisms \(z \colon 1 \to N\) (``zero'') and \(s \colon N \to N\)
+\(\mathcal C\), a \textbf{natural numbers object (nno)} is an object \(N\)
+equipped with morphisms \(z \colon 1 \to N\) (``zero'') and \(s \colon N \to N\)
 (``successor'') such that for all triples
 \((X,x \colon 1 \to X,f\colon X \to X)\) there is a unique morphism
 \(r \colon N \to X\) (defined by ``recursion'') making the diagram
@@ -399,9 +408,13 @@ commute.
   \item Exhibit \(\Nat\) as a nno in \(\Set\).
   \item Exhibit \(\NatAsm\) (from~\cref{ex:NatAsm}) as a nno in \(\Asm{\AA}\).
 
-    \emph{Hint}: Recall~\cref{exer:primitive-recursion}.
+    \emph{Hint}: Use~\cref{exer:primitive-recursion}.
   \end{enumerate}
 \end{exercise}
+
+Looking ahead to \cref{chap:logic} we note that if we wish to interpret
+arithmetic in the category of assemblies, then its natural numbers object serves
+as the interpretation of the sort of natural numbers.
 
 \subsection{Base change adjoints}
 
@@ -591,7 +604,7 @@ commute.
   \(\Gamma(f)\) must be a mono in \(\Set\), i.e. an injection.
 \end{proof}
 
-\subsection{Regular epimorphisms}
+\subsection{Regular epimorphisms}\label{sec:regular-epis}
 Recall that a morphism \(f \colon X \to Y\) is a \textbf{regular epimorphism}
 if it fits in a coequalizer diagram
 \[
