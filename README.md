@@ -1,8 +1,20 @@
 # Categorical realizability
 
-Lecture notes with exercises for the advanced course on *categorical realizability* at the
-[Midlands Graduate School (MGS)
+Lecture notes with exercises for the advanced course on **categorical
+realizability** at the [Midlands Graduate School (MGS)
 2024](https://www.cs.le.ac.uk/events/mgs2024).
+
+*The notes are currently under construction. An abstract and a link to the notes
+will appear soon.*
+
+#### What can I expect from the course?
+
+If you like logic, computability theory and/or category theory, then this course
+should be of interest to you!\
+While familiarity with basic category theory is definitely helpful, I'm hopeful
+that you can get plenty out of the course without knowing any category theory.
+
+<!--
 
 ## Abstract
 
@@ -27,7 +39,7 @@ If you find an inaccuracy of any kind in the notes, then please help me fix it:
 
 Your feedback is **anonymous** and will be used to improve future lectures.
 
-
+-->
 ---
 
 [My homepage](https://tdejong.com)
