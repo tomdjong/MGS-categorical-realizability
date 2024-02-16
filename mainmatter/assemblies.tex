@@ -420,7 +420,7 @@ as the interpretation of the sort of natural numbers.
 
 
 
-\begin{proposition}
+\begin{proposition}\label{base-change-adjoints}
   For every morphism \(f \colon X \to Y\) of assemblies, the pullback functor
   \(f^\ast \colon \Asm{\AA}/Y \to \Asm{\AA}/X\) has both a left adjoint
   \(\sum_f\) and a right adjoint \(\prod_f\).
@@ -474,22 +474,32 @@ as the interpretation of the sort of natural numbers.
   be shown to be tracked because \(h\) and \(s\) are.
 \end{proof}
 
-\textcolor{Mulberry}{Mention and reference for Beck--Chevalley. Intuition:
-  \(\prod\) and \(\sum\) ``respect'' substitution (which is
-  pullback~\cite{Bauer2012}).}
-% \begin{lemma}[Beck--Chevalley condition]
-%   For every pullback square
-%   \[
-%     \begin{tikzcd}
-%       X \times_Z Y \pbcorner \ar[r,"\pi_2"] \ar[d,"\pi_1"'] & Y \ar[d,"g"] \\
-%       X \ar[r,"f"] & Y
-%     \end{tikzcd}
-%   \]
-%   the natural transformations
-%   \[
-%     \sigma \colon \sum_{\pi_1}
-%   \]
-% \end{lemma}
+The above proposition is actually equivalent to asking that the category
+\(\Asm{\AA}\) is \emph{locally cartesian closed}, i.e.\ that each slice
+\(\Asm{\AA}/X\) is cartesian closed.
+%
+One may check that the exponential \(g^f\) of two objects
+\(f,g \in \Asm{\AA}/X\) is given by \(\prod_f(f^\ast(g))\).
+
+The functors \(\sum_f\) and \(\prod_f\) also satisfy the so-called
+Beck--Chevalley condition~\cite[Theorem~4.4]{Streicher2018}, which we don't
+spell out here. Intuitively, this condition expresses that
+\(\prod\)~and~\(\sum\) preserve substitution which is given by pullback (see
+e.g.~\cite{Bauer2012} for an informal explanation of the latter).
+
+The adjoints allow us to interpret Martin-L\"of dependent type theory, where, as
+the notation suggests, dependent sums and products are interpreted using
+\(\sum\) and \(\prod\), respectively. The interested reader may
+consult~\cite{Seely1984,Jacobs1999,Streicher1991} to learn more.
+%
+We implicitly rely on (a slight variation of) \cref{base-change-adjoints} for
+the interpretation of first order logic in the category of assemblies in
+\cref{chap:logic}, where we only need the adjoints for \(f\) a projection
+map.
+%
+But our presentation in \cref{chap:logic} will spell things out in more concrete
+terms, so understanding \cref{base-change-adjoints} in detail is not strictly
+required.
 
 \section{Relation to the category of sets}
 
