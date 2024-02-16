@@ -559,9 +559,10 @@ In light of this, one might be tempted to say that there are no realizers of
 The solution is to say that \emph{all} elements of \(\AA\) are actually realizers
 of \(x \in \carrier{\nabla(X)}\).
 %
-The idea is that \(\nabla(X)\) carries no meaningful computational data,
-because all elements have the same set of realizers, so from this perspective
-all elements of the assembly ``look alike''.
+The idea is that \(\nabla(X)\) carries no meaningful computational data, because
+all elements have the same set of realizers, so from this perspective all
+elements of the assembly look alike and computationally speaking we can't tell
+them apart.
 
 
 \begin{definition}[\(\nabla\)]
@@ -630,7 +631,10 @@ monomorphisms and recovering classical logic within realizability logic as
 explained in \cref{chap:logic}.
 
 \section{Epimorphisms and monomorphisms}
-\textcolor{Mulberry}{TODO: Intro on epis and monos}
+Epimorphisms and monomorphisms and their regular counterparts will be very
+important to the logical side of the category of assemblies (see
+\cref{chap:logic}), but studying them also provides excellent opportunities
+for improving our understanding and intuition of assemblies in general.
 
 \begin{proposition}[Characterization of epis and monos]
   For an assembly map \(f\), we have the following equivalences:
@@ -661,12 +665,21 @@ explained in \cref{chap:logic}.
   sufficient.
   %
   Conversely, it follows from our construction of products and equalizers that
-  \(\Gamma\) preserves monomorphisms\footnote{Use the dual
-    of~\footref{epi-mono-preservation}.}.
+  \(\Gamma\) preserves monomorphisms (use the dual
+  of~\footref{epi-mono-preservation}).
+  % \footnote{Use the dual
+  %  of~\footref{epi-mono-preservation}.}.
   %
   Thus, if \(f \colon \carrier{X} \to \carrier{Y}\) is a mono, then
   \(\Gamma(f)\) must be a mono in \(\Set\), i.e. an injection.
 \end{proof}
+
+At first sight, it is perhaps surprising that being an epimorphism or
+monomorphism depends solely on the underlying function of an assembly map with
+the realizers playing no role.
+%
+The situation is very different for \emph{regular} epimorphisms and
+monomorphisms.
 
 \subsection{Regular epimorphisms}\label{sec:regular-epis}
 Recall that a morphism \(f \colon X \to Y\) is a \textbf{regular epimorphism}
@@ -690,13 +703,17 @@ for some morphisms \(g\) and \(h\).
   \(x \in \carrier{X}\) with \(f(x) = y\).
 \end{exercise}
 
+The element \(\pca{s}\) in \cref{exer:characterize-regular-epis} effectively
+witnesses the surjectivity of \(f\).
+
 \begin{exercise}\label{exer:epi-but-not-regular-epi}
   Give an example of an epimorphism in \(\Asm{\AA}\) which is not regular (for a
   nontrivial pca \(\AA\)).
 \end{exercise}
 
-\begin{proposition}
-  The regular epimorphisms are stable under pullback.
+\begin{proposition}\label{regular-epi-pullback-stable}
+  The regular epimorphisms in \(\Asm{\AA}\) are stable under pullback along
+  arbitrary assembly maps.
 \end{proposition}
 \begin{proof}
   Consider a pullback diagram
@@ -739,10 +756,37 @@ for some morphisms \(g\) and \(h\).
   desired.
 \end{proof}
 
-\textcolor{Mulberry}{TODO: Importance of regular category}
+The importance of \cref{regular-epi-pullback-stable} is that, together with
+\cref{base-change-adjoints}, it gives the category of assemblies enough
+structure to interpret first order logic as we explore in the next chapter.
+
+We recall that in the category of sets, every function \(f \colon A \to B\)
+factors as a regular epimorphism (= surjection) followed by a monomorphism (=
+injection):
+\[
+  \begin{tikzcd}[row sep=3mm,column sep=3mm]
+    A \ar[dr,"\tilde f"'] \ar[rr,"f"] & & B \\
+    & \im(f) \ar[ur,hookrightarrow]
+  \end{tikzcd}
+\]
+where \(\im(f) \coloneq \set{b \in B \mid \exists (a \in A).f(a) = b}\).
+%
+
+The same is true in any category with finite limits and pullback stable regular
+epimorphisms.
+%
+For the category of assemblies it is also straightforward to calculate the
+factorization directly, as we ask you to verify:
+
+\begin{exercise}\label{exer:reg-epi-mono-factorization}
+  Given an assembly map \(f \colon X \to Y\), show how to factor it in
+  \(\Asm{\AA}\) as a regular epimorphism followed by a monomorphism.
+\end{exercise}
 
 \subsection{Regular monomorphisms}\label{sec:regular-monos}
-\textcolor{Mulberry}{TODO: Regular monos in logic + ref}
+Of course, there is also a nice characterization of regular monomorphisms which,
+as we explain in the next chapter, represent ``classical'' (or more precisely,
+\(\lnot\lnot\)-stable) subsets of assemblies.
 
 Recall that a morphism \(f \colon X \to Y\) is a \textbf{regular monomorphism}
 if it fits in an equalizer diagram
@@ -764,28 +808,16 @@ for some morphisms \(g\) and \(h\).
   \(\pca{b} \realizes_Y f(x)\).
 \end{exercise}
 
+Notice that the element \(\pca{i}\) in \cref{exer:characterize-regular-monos}
+acts like an effective witness of left-cancellability of \(f\): from a realizer
+of \(f(x)\) we can effectively find a realizer of \(x\).
+
 \begin{exercise}\label{exer:mono-but-not-regular-mono}
   Give an example of a monomorphism in \(\Asm{\AA}\) which is not regular (for a
   nontrivial pca \(\AA\)).
 \end{exercise}
 
-In the category of sets, every function \(f \colon A \to B\) factors as a
-regular epimorphism (= surjection) followed by a monomorphism (= injection):
-\[
-  \begin{tikzcd}[row sep=3mm,column sep=3mm]
-    A \ar[dr,"\tilde f"'] \ar[rr,"f"] & & B \\
-    & \im(f) \ar[ur,hookrightarrow]
-  \end{tikzcd}
-\]
-with \(\im(f) \coloneq \set{b \in B \mid \exists (a \in A).f(a) = b}\).
-%
-The same is true in the category of assemblies, as we ask you to verify in the
-following exercise.
 
-\begin{exercise}\label{exer:reg-epi-mono-factorization}
-  Given an assembly map \(f \colon X \to Y\), show how to factor it in
-  \(\Asm{\AA}\) as a regular epimorphism followed by a monomorphism.
-\end{exercise}
 
 \section{List of exercises}
 \begin{enumerate}
@@ -807,12 +839,12 @@ following exercise.
   epimorphisms.
 \item \cref{exer:epi-but-not-regular-epi}: On an example of a epimorphism
   which is not a regular.
+\item \cref{exer:reg-epi-mono-factorization}: On factoring an assembly map as a
+  regular epi followed by a mono.
 \item \cref{exer:characterize-regular-monos}: On characterizing the regular
   monomorphisms.
 \item \cref{exer:mono-but-not-regular-mono}: On an example of a monomorphism
   which is not a regular.
-\item \cref{exer:reg-epi-mono-factorization}: On factoring an assembly map as a
-  regular epi followed by a mono.
 \end{enumerate}
 
 %%% Local Variables:
