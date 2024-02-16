@@ -504,6 +504,18 @@ required.
 
 \section{Relation to the category of sets}
 
+We introduce an adjunction
+\[
+\begin{tikzcd}
+\mathbb{\Asm{\AA}}
+\arrow[r, "\Gamma"{name=F}, shift left=2mm] &
+\mathbb{\Set}
+\arrow[l, "\nabla"{name=G}, shift left=2mm]
+\arrow[phantom, from=F, to=G, "\dashv" rotate=-90]
+\end{tikzcd}
+\]
+relating the categories of sets and assemblies.
+
 \begin{definition}[Forgetful functor, \(\Gamma\)]
   The \textbf{forgetful functor}
   \[
@@ -524,16 +536,41 @@ required.
   \end{align*}
 \end{exercise}
 
-\textcolor{Mulberry}{TODO: Explain intuition for \(\nabla\). Taking an empty set
-  of realizers (which is prohibited anyway) would yield a map
-  \(\nabla\set{0,1} \to \Two\) which is undesirable.}
+To get a functor \(\nabla \colon \Set \to \Asm{\AA}\) we need a procedure for
+turning a set \(X\) into an assembly \(\nabla X\).
+%
+Of course, it makes sense to let \(\carrier{\nabla(X)}\) be the set \(X\), but
+what should the realizers be?
+%
+In general, there is no reason why an element \(x\) of an arbitary set \(X\)
+should have an ``implemention'' in the pca \(\AA\).
+%
+In light of this, one might be tempted to say that there are no realizers of
+\(x\). This is not a good idea for two reasons:
+\begin{enumerate}[(1)]
+\item It does not define an assembly, because, by definition, every element should
+  have at least one realizer.
+\item Even if the definition of assembly did allow for an empty set of
+  realizers, then the tracking requirement on assembly maps would mean that
+  there are no assembly maps \(\Two \to \nabla\set{0,1}\) which does not make
+  sense if \(\nabla\set{0,1}\) is an assembly with no computational data.
+\end{enumerate}
+
+The solution is to say that \emph{all} elements of \(\AA\) are actually realizers
+of \(x \in \carrier{\nabla(X)}\).
+%
+The idea is that \(\nabla(X)\) carries no meaningful computational data,
+because all elements have the same set of realizers, so from this perspective
+all elements of the assembly ``look alike''.
+
+
 \begin{definition}[\(\nabla\)]
   We define a functor
   \[
     \nabla \colon \Set \to \Asm{\AA}
   \]
   by mapping a set \(X\) to the assembly with carrier \(X\) and
-  \(\pca{a} \realizes_X x\) for \emph{any} element \(\pca{a} \in \AA\).
+  \(\pca{a} \realizes_X x\) for \emph{all} elements \(\pca{a} \in \AA\).
   %
   A map of sets \(f \colon X \to Y\) gets send to \(f\) and is tracked by
   \(\icomb\).
@@ -553,12 +590,22 @@ required.
   \(\icomb\).
 \end{notation}
 
+In particular, we have an assembly map
+\(\nabla_\Two \colon \Two \to \nabla\set{0,1}\).
+%
+We do not expect a map in the reverse direction as it would mean that we can
+compute the relevant boolean (\(\pcatrue\) or \(\pcafalse\)) without receiving
+any relevant computational input. Indeed, we have:
+
 \begin{exercise}\label{exer:no-nabla-to-Two}
-  Show that there are no assembly maps \(f \colon \nabla\set{0,1} \to \Two\) unless
-  \(\AA\) is trivial.
+  Show that there are no assembly maps \(f \colon \nabla\set{0,1} \to \Two\) in
+  \(\Asm{\AA}\) unless the pca \(\AA\) is trivial.
 
   \emph{Hint}: Use~\cref{exer:nontrivial-pca}.
 \end{exercise}
+
+To complete the section, the following exercises ask you to check that the
+functors \(\Gamma\) and \(\nabla\) do not have other adjoints.
 
 \begin{exercise}\label{exer:nabla-no-right-adjoint}
   Show that \(\nabla\) does not have a right adjoint when \(\AA\) is nontrivial.
@@ -577,6 +624,10 @@ required.
   \item Conclude that \(\Gamma\) does not have a left adjoint.
   \end{enumerate}
 \end{exercise}
+
+The functor \(\nabla\) plays an important role in classifying regular
+monomorphisms and recovering classical logic within realizability logic as
+explained in \cref{chap:logic}.
 
 \section{Epimorphisms and monomorphisms}
 \textcolor{Mulberry}{TODO: Intro on epis and monos}

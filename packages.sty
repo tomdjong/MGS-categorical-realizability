@@ -113,9 +113,44 @@ backrefstyle=two]%
 % Used in hyperref's setup, and must be loaded before tikz-cd.
 \usepackage[dvipsnames]{xcolor}
 \usepackage[most]{tcolorbox}
+
 \usepackage{tikz-cd}
-\tikzcdset{
-arrow style=math font}
+
+%% TikZ arrows
+\usetikzlibrary{decorations.markings,decorations.pathreplacing,
+  shapes.geometric,matrix,arrows,chains,positioning,scopes}
+
+\pgfdeclarearrow{
+  name = pxto,
+  setup code = {
+    % The different end values:
+    \pgfarrowssettipend{1.5\pgflinewidth}
+    \pgfarrowssetbackend{-2.5508\pgflinewidth}
+    \pgfarrowssetlineend{-.25\pgflinewidth}
+    \pgfarrowssetvisualbackend{-0.021\pgflinewidth}
+    % The hull
+    \pgfarrowsupperhullpoint{1.5\pgflinewidth}{0\pgflinewidth}
+    \pgfarrowsupperhullpoint{-2.0085\pgflinewidth}{3.6525\pgflinewidth}
+    \pgfarrowsupperhullpoint{-2.5508\pgflinewidth}{3.0763\pgflinewidth}
+    % No saves
+  },
+  drawing code = {
+    \pgfsetdash{}{0pt}%
+    \pgfpathmoveto{\pgfpoint{1.5\pgflinewidth}{0.0254\pgflinewidth}}%
+    \pgfpathlineto{\pgfpoint{-2.0085\pgflinewidth}{3.6525\pgflinewidth}}%
+    \pgfpathlineto{\pgfpoint{-2.5508\pgflinewidth}{3.0763\pgflinewidth}}%
+    \pgfpathlineto{\pgfpoint{-0.4322\pgflinewidth}{0.5\pgflinewidth}}%
+    \pgfpathlineto{\pgfpoint{-0.4322\pgflinewidth}{-0.5\pgflinewidth}}%
+    \pgfpathlineto{\pgfpoint{-2.5508\pgflinewidth}{-3.0763\pgflinewidth}}%
+    \pgfpathlineto{\pgfpoint{-2.0085\pgflinewidth}{-3.6525\pgflinewidth}}%
+    \pgfpathclose%
+    \pgfusepathqfill
+  }
+}
+\tikzset{>=pxto}
+\tikzcdset{arrow style=tikz}
+% \tikzcdset{
+% arrow style=math font}
 
 \usepackage[
   colorlinks=true  % Remove the boxes
