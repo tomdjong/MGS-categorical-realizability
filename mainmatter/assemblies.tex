@@ -822,6 +822,59 @@ of \(f(x)\) we can effectively find a realizer of \(x\).
 \end{exercise}
 
 
+\section{From pcas to assemblies: functoriality}
+In this chapter we constructed a category of assemblies \(\Asm{\AA}\) over an
+arbitrary pca \(\AA\). The construction \(\AA \mapsto \Asm{\AA}\) is actually
+functorial in a suitable sense.
+%
+To make this precise, we need a \emph{category} of pcas.
+%
+On first thought, one might think that a suitable notion of a morphism between
+pcas \(\AA\) and \(\BB\) is a map on the underlying sets of the pcas that
+preserves application.
+%
+This turns out to not be a very appropriate notion of morphism however. It would
+be if a pca should be thought of as an algebraic gadget, but it isn't: for
+example, the application map is associative only if the pca is
+trivial~\cite[Proposition~1.3.1]{vanOosten2008}.
+%
+
+Instead, an appropriate notion of morphism, due to Longley~\cite{Longley1995},
+is that of an \emph{applicative morphism} (re-branded to \emph{simulation}
+in~\cite{Bauer2023}).
+%
+For lack of space, we will not go into the details here and instead give some
+relevant pointers to the literature.
+
+The intuition is that a morphism between pcas from \(\AA\) to \(\BB\) should
+assign to each program \(\pca{a} \in \AA\) one or more programs in \(\BB\) that
+\emph{simulate} \(\pca{a}\) in \(\BB\).
+%
+Moreover, similar to the requirement that assembly maps are tracked, the
+simulation should have an effective witness in the pca \(\BB\).
+%
+With applicative morphisms between them we get a category of pcas. In fact, this
+category is preorder-enriched, so we even get a 2-category.
+
+Now, one can show that every applicative morphism \(\gamma \colon \AA \to \BB\)
+gives rise to a functor \(F_\gamma \colon \Asm{\AA} \to \Asm{\BB}\).
+%
+The induced functor \(F_\gamma\) is regular (i.e.\ it preserves finite limits
+and regular epimorphisms) and is a so-called ``\emph{\(S\)-functor}'': it is the
+identity on underlying sets and functions.
+%
+In fact, every such functor arises from an applicative morphism.
+%
+In the end, we actually get an equivalence of
+2-categories~\cite[Theorem~1.6.2]{vanOosten2008} between:
+\begin{itemize}
+\item the 2-category of pcas with applicative morphisms and their preorders, and
+\item the 2-category of categories of assemblies with regular \(S\)-functors between
+  them and (necessarily unique) natural transformations between the functors.
+\end{itemize}
+
+
+
 
 \section{List of exercises}
 \begin{enumerate}
