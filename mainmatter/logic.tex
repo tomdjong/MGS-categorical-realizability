@@ -1,6 +1,81 @@
 \chapter{The realizability interpretation of logic}\label{chap:logic}
 
+\section{Categorical logic in a nutshell}
+
 \cite{Lawvere1969}
+
+\section{Categorical logic in categories of assemblies}
+
+\textcolor{Mulberry}{TODO: Intro}
+
+\begin{definition}[\(\PA\)-valued predicate]
+  For a pca \(\AA\), a \textbf{\(\PA\)-valued predicate} on a set \(X\) is a
+  function \(X \to \PA\).
+\end{definition}
+
+\begin{notation}
+  We will typically use lowercase Greek letters \(\phi,\psi,\sigma,\rho,\tau\),
+  etc.\ for \(\PA\)-valued predicates.
+\end{notation}
+
+Given \(\phi \colon X \to \PA\), we think of \(\phi\) as a logical predicate on
+\(X\), and of \(\phi(x)\) as the set of witnesses that \(\phi\) holds for the
+element \(x\).
+
+\begin{definition}[Preorder on \(\PA\)-valued predicates, \(\phi \predleq \psi\)]
+  For two \(\PA\)-valued predicates \(\phi\) and \(\psi\) on the same set \(X\),
+  we put
+  \[
+    \phi \predleq \psi \iff
+    \exists(\pca{r} \in \pca{\AA}).
+    \forall (x \in X).\forall(\pca{a} \in \phi(x)).\pca{r}\pca{a} \in \psi(x),
+  \]
+  where we implicitly include the requirement that \(\pca{r}\pca{a}\) is defined.
+\end{definition}
+
+Intuitively, we have \(\phi \predleq \psi\) exactly if we can effectively
+calculate a witness that \(\psi\) holds at \(x\) form a witness that \(\phi\)
+holds at \(x\).
+%
+It is straightforward (and very similar to checking that assemblies and assembly
+maps form a category) to check that \(\predleq\) is indeed a preorder, i.e.\
+that it is a reflexive and transitive relation.
+
+Every monomorphism \(m \colon Y \hookrightarrow X\) on an assembly \(X\)
+determines a \(\PA\)-valued predicate \(\phi_m\) on \(\carrier{X}\) by:
+\[
+  \phi_m(x) \coloneqq \set{\pca{a} \in \AA \mid
+    \exists(y \in \carrier{Y}).\pca{a} \realizes_Y y \text{ and } m(y) = x}.
+\]
+%
+Notice that the \(y \in \carrier{Y}\) is necessarily unique (if it exists),
+because \(m\) is injective.
+
+Conversely, every \(\PA\)-valued predicate on \(\carrier{X}\) determines a
+monomorphism \([\phi] \hookrightarrow X\) via:
+\begin{align*}
+  \carrier{[\phi]} \coloneqq \set{x \in \carrier{X} \mid \phi(x) \text{ is inhabited}} \\
+  \pcapair\pca{a}\pca{b} \realizes_{[\phi]} x
+  \iff \pca{a} \realizes_X x
+  \text{ and }
+  \pca{b} \in \phi(x),
+\end{align*}
+where the inclusion \([\phi] \hookrightarrow X\) is tracked by \(\pcafst\).
+
+\begin{proposition}
+  For any assembly \(X\), the above constructions constitute an isomorphism
+  between the preorder of monomorphisms into \(X\) and the preorder of
+  \(\PA\)-valued predicates on \(\carrier{X}\).
+\end{proposition}
+\begin{exercise}\label{exer:preorders-monos-predicates-iso}
+  Prove the proposition.
+\end{exercise}
+
+
+\subsection{Logical connectives}
+
+
+\section{Revisiting (regular) monos and epis}
 
 \begin{exercise}\label{exer:epis-monos-logically}
   Prove the following logical characterizations for any assembly map \(f \colon X \to Y\):
@@ -76,6 +151,8 @@ The map \(1 \to \nabla\set{0,1}\) is said to be a \textbf{classifier} for the
 
 \section{List of exercises}
 \begin{enumerate}
+\item \cref{exer:preorders-monos-predicates-iso}: On monomorphisms as
+  \(\PA\)-valued predicates.
 \item \cref{exer:epis-monos-logically}: On logical characterizations of
   (regular) epimorphisms and monomorphisms.
 \item \cref{exer:not-not-stable-nabla-two-pullback}: On the correspondence
