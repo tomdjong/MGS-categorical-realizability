@@ -8,51 +8,70 @@
 
 \textcolor{Mulberry}{TODO: Intro}
 
-\begin{definition}[\(\PA\)-valued predicate]
-  For a pca \(\AA\), a \textbf{\(\PA\)-valued predicate} on a set \(X\) is a
-  function \(X \to \PA\).
+\begin{definition}[Realizability predicate]
+  A \textbf{realizability predicate} on an assembly~\(X\) is a function
+  \(\carrier{X} \to \PA\).
 \end{definition}
 
+Note that the definition of a realizability predicate makes sense even when
+\(X\) is just a set and not an assembly. However, we will shortly define a
+perorder on realizability predicates on an assembly \(X\) which \emph{does} make
+essential use of the realizers of \(X\).
+
 \begin{notation}
-  We will typically use lowercase Greek letters \(\phi,\psi,\sigma,\rho,\tau\),
-  etc.\ for \(\PA\)-valued predicates.
+  We will typically write \(\phi\) and \(\psi\) for realizability predicates.
 \end{notation}
 
-Given \(\phi \colon X \to \PA\), we think of \(\phi\) as a logical predicate on
-\(X\), and of \(\phi(x)\) as the set of witnesses that \(\phi\) holds for the
+We think of a realizability predicate \(\phi\) on \(X\) as a logical predicate
+on \(X\), and of \(\phi(x)\) as the set of witnesses that \(\phi\) holds for the
 element \(x\).
 
-\begin{definition}[Preorder on \(\PA\)-valued predicates, \(\phi \predleq \psi\)]
-  For two \(\PA\)-valued predicates \(\phi\) and \(\psi\) on the same set \(X\),
+\begin{definition}[Preorder on realizability predicates, \(\phi \predleq \psi\)]
+  For two realizability predicates \(\phi\) and \(\psi\) on an assembly \(X\),
   we put
-  \[
-    \phi \predleq \psi \iff
-    \exists(\pca{r} \in \pca{\AA}).
-    \forall (x \in X).\forall(\pca{a} \in \phi(x)).\pca{r}\pca{a} \in \psi(x),
-  \]
-  where we implicitly include the requirement that \(\pca{r}\pca{a}\) is defined.
+  \(
+    \phi \predleq \psi
+  \)
+  exactly if there exists \(\pca{r} \in \AA\) such that,
+  for every \(x \in \carrier{X}\), realizer \(\pca{a} \realizes_X x\) and witness \(\pca{b} \in \phi(x)\), we have
+  \(\pca{r}\pca{a}\pca{b} \in \psi(x)\),
+  %   \phi \predleq \psi \iff
+  %   \exists(\pca{r} \in \pca{\AA}).
+  %   \forall (x \in X).
+  %   \forall(\pca{a} \realizes_X x).
+  %   \forall(\pca{b} \in \phi(x)).
+  %   \pca{r}\pca{a}\pca{b} \in \psi(x),
+  % \]
+  where we implicitly include the requirement that \(\pca{r}\pca{a}\pca{b}\) is defined.
 \end{definition}
 
 Intuitively, we have \(\phi \predleq \psi\) exactly if we can effectively
 calculate a witness that \(\psi\) holds at \(x\) form a witness that \(\phi\)
-holds at \(x\).
+holds at \(x\) \emph{and} a realizer of \(x\).
+%
+It is at this last point that we make essential use of the fact that \(X\) is an
+assembly and not just a set.
+
 %
 It is straightforward (and very similar to checking that assemblies and assembly
 maps form a category) to check that \(\predleq\) is indeed a preorder, i.e.\
 that it is a reflexive and transitive relation.
 
 Every monomorphism \(m \colon Y \hookrightarrow X\) on an assembly \(X\)
-determines a \(\PA\)-valued predicate \(\phi_m\) on \(\carrier{X}\) by:
-\[
-  \phi_m(x) \coloneqq \set{\pca{a} \in \AA \mid
+determines a realizability predicate \(\phi_m\) on \(X\) by:
+\begin{align*}
+  \phi_m(x) &\coloneqq
+  \set{\pca{a} \in \AA \mid y \in m^{-1}(x) \text{ and} \pca{a} \realizes_Y y} \\
+  &\hspace{3.5pt}=
+  \set{\pca{a} \in \AA \mid
     \exists(y \in \carrier{Y}).\pca{a} \realizes_Y y \text{ and } m(y) = x}.
-\]
+\end{align*}
 %
 Notice that the \(y \in \carrier{Y}\) is necessarily unique (if it exists),
 because \(m\) is injective.
 
-Conversely, every \(\PA\)-valued predicate on \(\carrier{X}\) determines a
-monomorphism \([\phi] \hookrightarrow X\) via:
+Conversely, every realizability predicate on \(X\) determines a monomorphism of
+assemblies \([\phi] \hookrightarrow X\) via:
 \begin{align*}
   \carrier{[\phi]} \coloneqq \set{x \in \carrier{X} \mid \phi(x) \text{ is inhabited}} \\
   \pcapair\pca{a}\pca{b} \realizes_{[\phi]} x
@@ -62,18 +81,140 @@ monomorphism \([\phi] \hookrightarrow X\) via:
 \end{align*}
 where the inclusion \([\phi] \hookrightarrow X\) is tracked by \(\pcafst\).
 
-\begin{proposition}
+\begin{proposition}\label{preorders-mono-predicates-iso}
   For any assembly \(X\), the above constructions constitute an isomorphism
   between the preorder of monomorphisms into \(X\) and the preorder of
-  \(\PA\)-valued predicates on \(\carrier{X}\).
+  realizability predicates on \(X\).
 \end{proposition}
 \begin{exercise}\label{exer:preorders-monos-predicates-iso}
   Prove the proposition.
 \end{exercise}
 
 
-\subsection{Logical connectives}
+\subsection{The Heyting prealgebra of realizability predicates}
 
+\begin{definition}
+  There are two extreme examples of realizability predicates on an assembly \(X\):
+  \begin{align*}
+    \bot(x) &\coloneqq \emptyset, \\
+    \top(x) &\coloneqq \AA.
+  \end{align*}
+  For realizability predicates \(\phi\) and \(\psi\) on a set \(X\), we define
+  three new realizability predicates on \(X\) by:
+  \begin{align*}
+  %\item
+    (\phi \land \psi)(x) &\coloneqq \set{\pcapair\pca{a}\pca{b} \mid
+      \pca{a} \in \phi(x) \text{ and } \pca{b} \in \psi(x)}, \\
+  %\item
+    (\phi \lor \psi)(x) &\coloneqq
+    \set{\pcapair\pcafalse\pca{a} \mid \pca{a} \in \phi(x)} \cup
+    \set{\pcapair\pcatrue\pca{b} \mid \pca{b} \in \psi(x)}, \\
+  %\item
+    (\phi \Rightarrow \psi)(x) &\coloneqq
+    \set{\pca{r} \in \AA \mid \text{for every}
+    \pca{a} \in \phi(x) \text{ we have} \pca{r}\pca{a} \in \psi(x)}.
+  \end{align*}
+\end{definition}
+
+\begin{exercise}\label{exer:predicates-heyting-prealgebra}
+  Check that \(\bot\), \(\top\), \(\land\), \(\lor\) and \(\Rightarrow\) as
+  defined above make the preorder of realizability predicates on an assembly
+  \(X\) into a Heyting prealgebra.
+
+  (For a short definition of the latter: it is a preorder that, when viewed as a
+  category, has finite (co)limits and exponentials.)
+\end{exercise}
+
+In light of \cref{preorders-mono-predicates-iso} and the fact that the Heyting
+(pre)algebra operations are characterized by universal properties we know that
+the operations defined above correspond to the relevant operations on monos. For
+example, \([\bot]\) is the monomorphism \(0 \hookrightarrow X\) and
+\([\phi\land\psi]\) is the meet (= greatest lower bound) of the monos \([\phi]\)
+and \([\psi]\).
+
+\textcolor{Mulberry}{TODO: Quantifiers intro}
+
+\begin{proposition}
+  For an assembly map \(f \colon X \to Y\) and a realizability predicate
+  \(\phi\) on \(X\), the realizability predicate \(\forall_f(\phi)\) on \(Y\)
+  defined by
+  \[
+    {\forall_f(\phi)}\,(y) \coloneqq
+    \set{\pca{t} \in \AA \mid
+      \text{for every } x \in f^{-1}(y) \text{ and } \pca{a} \realizes_X x, \text{we have}
+      \pca{t}\pca{a} \in \phi(x)}
+  \]
+  satisfies
+  \[
+    f^\ast(\psi) \predleq \phi \iff \psi \predleq \forall_f(\phi)
+  \]
+  for all realizability predicates \(\psi\) on \(Y\).
+
+  In other words, \(\forall_f \colon \realpred(X) \to \realpred(Y)\) is a right
+  adjoint to \(f^\ast \colon \realpred(Y) \to \realpred(X)\).
+\end{proposition}
+\begin{proof}
+  We spell out what each of \(f^\ast(\psi) \predleq \phi\) and
+  \(\psi \predleq \forall_f(\phi)\) amounts to.
+
+  The former requires the existence of an element \(\pca{r_1} \in \AA\) such that
+  for every \(x \in \carrier{X}\), \(\pca{a} \realizes_X x\) and
+  \(\pca{c} \in \psi(f(x))\), we have \(\pca{r_1}\pca{a}\pca{c} \in \phi(x)\).
+
+  The latter requires the existence of an element \(\pca{r_2} \in \AA\) such
+  that for every \(y \in \carrier{Y}\), \(\pca{b} \realizes_Y y\) and
+  \(\pca{c} \in \psi(y)\) we have
+  \(\pca{r_2}\pca{b}\pca{c} \in \forall_f(\phi)\,(y)\).
+  %
+  That is, \(\pca{r_2}\pca{b}\pca{c}\) should satisfy
+  \(\pca{r_2}\pca{b}\pca{c}\pca{a} \in \phi(x)\) for all
+  \(\pca{a} \realizes_X x\) with \(f(x) = y\).
+
+  Now notice that given such an \(\pca{r_1}\), the program
+  \(\lambdapca{vwu}{\pca{r_1}u\,w}\) does the job of \(\pca{r_2}\).
+
+  Conversely, given such an \(\pca{r_2}\), the program
+  \(\lambdapca{uw}{\pca{r_2}(\pca{t_f}u)\,w\,u}\), where \(\pca{t_f}\) is a
+  tracker of \(f\), does the job of \(\pca{r_1}\).
+\end{proof}
+
+For an alternative proof, one may verify that \(\forall_f(\phi)\) is the
+realizability predicate determined by the monomorphism \(\forall_f([\phi])\).
+
+\begin{proposition}
+  For an assembly map \(f \colon X \to Y\) and a realizability predicate
+  \(\phi\) on \(X\), the realizability predicate \(\exists_f(\phi)\) on \(Y\)
+  defined by
+  \[
+    {\exists_f(\phi)}\,(y) \coloneqq
+    \bigcup_{x \in f^{-1}(y)}\set{\pcapair\pca{a}\pca{b}
+      \mid \pca{a} \realizes_X x \text{ and } \pca{b} \in \phi(x)}
+  \]
+  satisfies
+  \[
+    \exists_f(\phi) \predleq \psi \iff \phi \predleq f^\ast(\psi)
+  \]
+  for all realizability predicates \(\psi\) on \(Y\).
+
+  In other words, \(\exists_f \colon \realpred(X) \to \realpred(Y)\) is a left
+  adjoint to \(f^\ast \colon \realpred(Y) \to \realpred(X)\).
+\end{proposition}
+\begin{exercise}\label{exer:exists-predicate}
+  Prove the proposition either directly or by checking that \(\exists_f(\phi)\)
+  is the realizability predicate \(\phi_m\) determined by \(m\) in the
+  factorization of the top composite
+  \[
+    \begin{tikzcd}[row sep=2mm,column sep=8mm]
+      {[\phi]} \ar[dr] \ar[r,hookrightarrow] & X \ar[r,"f"] & Y \\
+      & M \ar[ur,hookrightarrow,"m"']
+    \end{tikzcd}
+  \]
+  as a regular epimorphism followed by a monomorphism
+  (recall~\cref{exer:reg-epi-mono-factorization}).
+  %
+  In other words, that \(\exists_f(\phi)\) is the realizability predicate
+  corresponding to the mono \(\exists_f([\phi])\).
+\end{exercise}
 
 \section{Revisiting (regular) monos and epis}
 
@@ -152,7 +293,11 @@ The map \(1 \to \nabla\set{0,1}\) is said to be a \textbf{classifier} for the
 \section{List of exercises}
 \begin{enumerate}
 \item \cref{exer:preorders-monos-predicates-iso}: On monomorphisms as
-  \(\PA\)-valued predicates.
+  realizability predicates and vice versa.
+\item \cref{exer:predicates-heyting-prealgebra}: On the Heyting prealgebra of
+  realizability predicates.
+\item \cref{exer:exists-predicate}: On \(\exists_f\) being left adjoint to
+  \(f^\ast\) as maps between preorders of realizability predicates.
 \item \cref{exer:epis-monos-logically}: On logical characterizations of
   (regular) epimorphisms and monomorphisms.
 \item \cref{exer:not-not-stable-nabla-two-pullback}: On the correspondence
