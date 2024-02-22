@@ -107,9 +107,10 @@ where the inclusion \([\phi] \hookrightarrow X\) is tracked by \(\pcafst\).
       \pca{a} \in \phi(x) \text{ and } \pca{b} \in \psi(x)}, \\
   %\item
     (\phi \lor \psi)(x) &\coloneqq
-    \set{\pcapair\pcafalse\pca{a} \mid \pca{a} \in \phi(x)} \cup
-    \set{\pcapair\pcatrue\pca{b} \mid \pca{b} \in \psi(x)}, \\
-  %\item
+    \set{\pcaleft\pca{a} \mid \pca{a} \in \phi(x)} \cup
+    \set{\pcaright\pca{b} \mid \pca{b} \in \psi(x)},
+                          \quad(\text{recall~\cref{coproducts}}) \\
+    % \item
     (\phi \Rightarrow \psi)(x) &\coloneqq
     \set{\pca{r} \in \AA \mid \text{for every}
     \pca{a} \in \phi(x) \text{ we have} \pca{r}\pca{a} \in \psi(x)}.

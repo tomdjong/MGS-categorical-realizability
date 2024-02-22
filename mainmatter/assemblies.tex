@@ -332,13 +332,19 @@ We now move on to colimits in the category of assemblies.
   \begin{align*}
     \carrier{X + Y} \coloneq \carrier{X} + \carrier{Y}
     \quad\text{and}\quad
-    &\pcapair\pcafalse\pca{a} \realizes_{X + Y} \inl(x)
-      \text{ for } \pca{a} \realizes_X x;
+    \pcaleft\pca{a} &\realizes_{X + Y} \inl(x)
+      \text{ for } \pca{a} \realizes_X x,
     \\
-    &\pcapair\pcatrue\pca{b} \realizes_{X + Y} \inr(y)
+    \pcaright\pca{b} &\realizes_{X + Y} \inr(y)
     \text{ for }
-    \pca{b} \realizes_Y y.
+    \pca{b} \realizes_Y y,
   \end{align*}
+  where
+  \[
+    \pcaleft \coloneqq \pcapair\pcafalse
+    \text{ and }
+    \pcaright \coloneqq \pcapair\pcatrue.
+  \]
 \end{proposition}
 
 Notice that the disjointness of the coproduct is witnessed by tagging the
