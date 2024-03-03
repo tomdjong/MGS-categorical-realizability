@@ -28,12 +28,9 @@ element \(x\).
 
 \begin{definition}[Preorder on realizability predicates, \(\phi \predleq \psi\)]
   For two realizability predicates \(\phi\) and \(\psi\) on an assembly \(X\),
-  we put
-  \(
-    \phi \predleq \psi
-  \)
-  exactly if there exists \(\pca{r} \in \AA\) such that,
-  for every \(x \in \carrier{X}\), realizer \(\pca{a} \realizes_X x\) and witness \(\pca{b} \in \phi(x)\), we have
+  we put \( \phi \predleq \psi \) exactly if there exists \(\pca{r} \in \AA\)
+  such that, for every \(x \in \carrier{X}\), realizer \(\pca{a} \realizes_X x\)
+  and witness \(\pca{b} \in \phi(x)\), we have
   \(\pca{r}\pca{a}\pca{b} \in \psi(x)\),
   %   \phi \predleq \psi \iff
   %   \exists(\pca{r} \in \pca{\AA}).
@@ -91,7 +88,8 @@ where the inclusion \([\phi] \hookrightarrow X\) is tracked by \(\pcafst\).
 \end{exercise}
 
 
-\subsection{The Heyting prealgebra of realizability predicates}
+\subsection{The Heyting prealgebra of realizability predicates}%
+\label{sec:Heyting-prealgebra-realizability-predicates}
 
 \begin{definition}
   There are two extreme examples of realizability predicates on an assembly \(X\):
@@ -137,7 +135,7 @@ and \([\psi]\).
 
 \begin{proposition}
   For an assembly map \(f \colon X \to Y\) and a realizability predicate
-  \(\phi\) on \(X\), the realizability predicate \(\forall_f(\phi)\) on \(Y\)
+  \(\phi\) on~\(X\), the realizability predicate \(\forall_f(\phi)\) on \(Y\)
   defined by
   \[
     {\forall_f(\phi)}\,(y) \coloneqq
@@ -216,6 +214,92 @@ realizability predicate determined by the monomorphism \(\forall_f([\phi])\).
   In other words, that \(\exists_f(\phi)\) is the realizability predicate
   corresponding to the mono \(\exists_f([\phi])\).
 \end{exercise}
+
+In the situations that will be of us interest to us, \(f\) will also be
+surjective when we consider \(\forall_f\) and \(\exists_f\).
+%
+If this is the case, then \(\forall_f(\phi)\) admits a definition that is more
+symmetric to that of \(\exists_f(\phi)\), because in this case we have
+%\begin{exercise}\label{exer:forall-predicate-surjective}
+\[
+  \forall_f(\phi)\,(y) = \bigcap_{x \in f^{-1}(y)}
+  \set{\pca{t} \in \AA \mid
+    \pca{t}\pca{a} \in \phi(x) \text{ for all} \pca{a} \realizes_X x}
+\]
+for any realizability predicate \(\phi\) on \(X\).
+% \end{exercise}
+
+\subsection{The realizability interpretation of logic}
+
+Suppose we are given a formula \(\phi\) in a language whose sorts and relation
+and function symbols have been assigned an interpretation in \(\Asm{\AA}\).
+%
+If \(\phi\) has free variables \(x_1,\dots,x_n\) of sorts \(X_1,\dots,X_n\),
+then, following the preceding development, we may interpret \(\phi\) as a
+realizability predicate on the assembly \(\sem{X_1} \times \cdots\times \sem{X_n}\).
+%
+We write \(\sem{\phi}\) for this predicate. Thus, for each
+\(\vec x \in \sem{X_1}\times\cdots\times\sem{X_n}\), we have a subset
+\(\sem{\phi}(\vec x) \subseteq \AA\) of realizers.
+
+Using the constructions of
+\cref{sec:Heyting-prealgebra-realizability-predicates} we prove the following
+recursive characterization of membership of such subsets, where we use
+\(\vec x_{|_\phi}\) for the restriction of a tuple to those elements that
+pertain to the domain of \(\sem{\phi}\) (and similarly for terms).
+
+\begin{proposition}\label{realizability-logic}
+  The realizability predicates arising from first order logic obey
+  \begin{alignat*}{2}
+    &\pca{r} \in \sem{s = t}(\vec x)
+    &&\quad\iff\quad \sem{t}\pa*{\vec x_{|_t}} = \sem{s}\pa*{\vec x_{|_s}} \\[5pt]
+    &\pca{r} \in \sem{\bot}(\vec x)
+    &&\quad\iff\quad \text{never}, \\[5pt]
+    &\pca{r} \in \sem{\top}(\vec x)
+    &&\quad\iff\quad \text{always}, \\[5pt]
+    &\pca{r} \in \sem{\phi \land \psi}(\vec x)
+    &&\quad\iff\quad \pcafst\pca{r}\in\sem{\phi}\pa[\big]{\vec x_{|_\phi}} \text{ and }
+       \pcasnd\pca{r}\in\sem{\psi}\pa[\big]{\vec x_{|_\psi}} \\[5pt]
+    &\pca{r} \in \sem{\phi \lor \psi}(\vec x)
+    &&\quad\iff\quad
+       \pa[\Big]{\pca{r} = \pcaleft\pca{r'}
+       \text{ and } \pca{r'}\in \sem{\phi}\pa[\big]{\vec x_{|_\phi}}}
+       \text{ or } \\%[5pt]
+    & &&\hspace{60pt} \pa[\Big]{\pca{r} = \pcaright\pca{r'}
+         \text{ and } \pca{r'}\in \sem{\psi}\pa[\big]{\vec x_{|_\psi}}}, \\[5pt]
+    &\pca{r} \in \sem{\phi \Rightarrow \psi}(\vec x)
+    &&\quad\iff\quad \text{if } \pca{a} \in \sem{\phi}\pa[\big]{\vec x_{|_\phi}}, \text{then }
+       \pca{r}\pca{a} \in \sem{\psi}\pa[\big]{\vec x_{|_\psi}}, \\[5pt]
+    &\pca{r} \in \sem{\forall(x : X).\phi}(\vec x)
+    &&\quad\iff\quad \text{if } x \in \carrier{\sem{X}}
+       \text{ and } \pca{a} \realizes_{\sem{X}} x, \text{then }
+       \pca{r}\pca{a} \in \sem{\phi}(\vec x,x), \\[5pt]
+    &\pca{r} \in \sem{\exists(x : X).\phi}(\vec x)
+    &&\quad\iff\quad \text{there is an } x \in \carrier{\sem{X}}
+       \text{ such that} \\%[5pt]
+    & &&\phantom{\hspace{60pt}} \pcafst\pca{r} \realizes_{\sem{X}} x \text{ and }
+         \pcasnd\pca{r} \in \sem{\phi}(\vec x,x).
+  \end{alignat*}
+\end{proposition}
+
+A \emph{closed} formula \(\phi\) corresponds to a realizability predicate on
+\(\One\) and may thus be identified with a single subset of \(\AA\).
+%
+We say that such a \(\phi\) is \textbf{realized}, or \textbf{valid in
+  \(\Asm{\AA}\)} if we have an element of this subset.
+
+If we take \(\AA \coloneqq \Kone\) and consider the language of arithmetic, then
+we recover Kleene's original \emph{number realizability}~\cite{Kleene1945}.
+%
+The choice of \(\AA \coloneqq \Ktwo\) and the language of analysis recovers
+Kleene's \emph{function realizability}~\cite{KleeneVesley1965}.
+%
+
+\cref{realizability-logic} may appear to be a formalization of the so-called
+\emph{Brouwer--Heyting--Kolmogorov (BHK) interpretation} and is often presented
+as such. However, this is not historically accurate,
+see~\cite[p.~241]{vanOosten2002}. It is also worth pointing out that Kleene's
+realizability predates the Curry--Howard correspondence.
 
 \section{Revisiting (regular) monos and epis}
 
