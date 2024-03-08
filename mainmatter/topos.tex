@@ -1,0 +1,83 @@
+\chapter{Epilogue: towards realizability toposes}\label{chap:topos}
+
+In this epilogue we briefly discuss what is perhaps the elephant in the room (pun
+intended\footnote{For the uninitiated: Johnstone's two volume compendium on
+  topos theory is titled \citetitle{Elephant} and commonly referred to as ``the
+  Elephant''. A third volume, covering realizability toposes was planned but has
+  yet to be published.}): the \textbf{realizability topos} associated to a pca.
+%
+Indeed, the notion of a realizability topos is noticeably absent from these
+notes, essentially because its construction is relatively complicated compared
+to the category of assemblies.
+
+Working with an (elementary) topos has some benefits of course. The primary
+feature of a topos is the existence of a classifier
+\(\top \colon 1 \to \Omega\) for \emph{all} monomorphisms---the category of
+assemblies only has classifiers for special subclasses (e.g.\
+\(\lnot\lnot\)-stable or decidable monos) as we have seen.
+%
+A consequence is that every monomorphism is regular (because any mono into \(X\)
+is the equalizer of its characteristic map \(\chi \colon X \to \Omega\) and the
+composite \(X \to \One \xrightarrow{\top} \Omega\)).
+%
+Thus, while regular monos and monos are distinct in the category of assemblies,
+the passage to the realizability topos unifies these two concepts.
+
+Here we briefly sketch the construction of the realizability topos over a pca.
+The objects of the realizability topos are \textbf{partial equivalence
+  relations}: sets \(X\) equipped with a \(\powerset(\AA)\)-valued predicate
+\({\sim} : X \times X \to \powerset(\AA)\) such that transitivity and symmetry
+of \(\sim\) are ``realized''.
+%
+For the latter we set up a Heyting prealgebra of \(\powerset(\AA)\)-valued
+predicates similar to that of the realizability predicates
+in~\cref{sec:cat-logic-in-asm} with the notable exception that we now work with
+bare sets, so the elements of our sets are not equipped with realizers.
+%
+In fact, while the relation \(\sim\) is not assumed to be reflexive in
+general, elements of \(x \sim x\) are taken as realizers of \(x\) and
+evidence that \(x\) ``exists''.
+%
+In general, we think of \({\sim}\) as an equality predicate on \(X\).
+
+A morphism between such pairs \((X,\sim_X)\) and \((Y,\sim_Y)\) is defined
+to be a \(\powerset(\AA)\)\nobreakdash-valued predicate \(F\) on \(X \times Y\)
+such that the statement that \(F\) is a \emph{strict} functional relation are
+realized.  Strictness means
+\(\forall(x\in X).\forall(y\in Y).\pa*{F(x,y) \Rightarrow x \sim_X x \land y
+  \sim_Y y}\), that is, \(F\) relates only elements that ``exist''.
+%
+Moreover, \(F\) should respect the equality predicates, i.e.\
+\(\forall(x,x'\in X).\forall(y,y' \in Y).\pa*{F(x,y)\land(x\sim_X
+  x')\land(y\sim_Y y') \Rightarrow F(x',y')}\) must be realized.
+%
+Finally, \(F\) should be a \emph{functional} relation, so we also require
+single-valuedness and totality, in the sense that
+\(\forall(x\in X).\forall(y,y' \in Y).\pa*{F(x,y) \land F(x,y') \to y \sim_Y
+  y'}\) and \(\forall(x \in X).(x \sim_X x \to \exists(y \in Y).F(x,y))\) are
+realized.
+
+One can show that the resulting category is indeed a topos and that it houses
+the category of assemblies as a full subcategory. In fact, the category of
+assemblies is precisely the subcategory of \(\lnot\lnot\)-separated objects of
+the realizability topos, i.e.\ those objects \(X\) for which
+\(\forall(x,y:X).(\lnot\lnot(x=y) \to (x=y))\) holds in the internal logic.
+%
+This is perhaps foreseen by the ``classical'' interpretation of equality in the
+realizability logic of assemblies (\cref{realizability-logic}).
+
+The realizability topos over Kleene's first model is known as \textbf{the
+  effective topos} as was detailed in Hyland's landmark paper~\cite{Hyland1982}.
+%
+The more general theory, known as \textbf{tripos theory}, was the subject of
+Pitts's PhD thesis~\cite{Pitts1981} and his joint paper with Hyland and
+Johnstone~\cite{HJP1980}.
+%
+The interested reader can consult van Oosten's comprehensive
+textbook~\cite{vanOosten2008} and Zoethout's master's
+thesis~\cite{Zoethout2018}.
+
+%%% Local Variables:
+%%% mode: latexmk
+%%% TeX-master: "../main"
+%%% End:

@@ -4,7 +4,7 @@
 
 \cite{Lawvere1969}
 
-\section{Categorical logic in categories of assemblies}
+\section{Categorical logic in categories of assemblies}\label{sec:cat-logic-in-asm}
 
 \textcolor{Mulberry}{TODO: Intro}
 
@@ -70,7 +70,7 @@ because \(m\) is injective.
 Conversely, every realizability predicate on \(X\) determines a monomorphism of
 assemblies \([\phi] \hookrightarrow X\) via:
 \begin{align*}
-  \carrier{[\phi]} \coloneqq \set{x \in \carrier{X} \mid \phi(x) \text{ is inhabited}} \\
+  \carrier{[\phi]} \coloneqq \set{x \in \carrier{X} \mid \phi(x) \neq \emptyset} \\
   \pcapair\pca{a}\pca{b} \realizes_{[\phi]} x
   \iff \pca{a} \realizes_X x
   \text{ and }
@@ -301,8 +301,16 @@ as such. However, this is not historically accurate,
 see~\cite[p.~241]{vanOosten2002}. It is also worth pointing out that Kleene's
 realizability predates the Curry--Howard correspondence.
 
-\section{Revisiting (regular) monos and epis}
+% \section{Revisiting (regular) monos and epis}
 
+\textcolor{Mulberry}{TODO: Explain (double) negations}
+
+\textcolor{Mulberry}{TODO: Repeat soundness}
+
+\textcolor{Mulberry}{TODO: No classical logic (exercise)}
+
+\subsection{Revisiting (regular) epis and monos}
+\textcolor{Mulberry}{TODO: Internal logic example intro}
 \begin{exercise}\label{exer:epis-monos-logically}
   Prove the following logical characterizations for any assembly map \(f \colon X \to Y\):
   \begin{enumerate}[(i)]
@@ -337,13 +345,76 @@ realizability predates the Curry--Howard correspondence.
   \end{enumerate}
 \end{exercise}
 
-The \(\lnot\lnot\)-stable predicates have no computational content as made
-precise by the following exercise:
 
-\begin{exercise}\label{exer:not-not-stable-nabla-pullback}
-  Show that every \(\lnot\lnot\)-stable predicate \(\phi\) on an assembly \(X\)
-  is uniquely determined by a subset \(A \subseteq \carrier{X}\) such that we
-  have a pullback diagram
+\section{Two-element assemblies as classifiers}
+
+This section introduces three sets of realizability predicates, namely the
+\emph{\(\lnot\lnot\)-stable}, \emph{decidable} and \emph{semidecidable}
+predicates.
+%
+These are shown to be \emph{classified} by three different assemblies all of
+which have the set \(\set{0,1}\) as their carriers, but different realizers.
+%
+For example, the \(\lnot\lnot\)-stable realizability predicates are classified
+by \(\nabla\set{0,1}\), while the assembly \(\Two\) of booleans classifies the
+decidable realizability predicates.
+%
+We moreover give explicit connections to computability theory by specializing to
+the category of assemblies over Kleene's first model.
+
+\subsection{Double negation stable realizability predicates}
+
+We have already seen that the monomorphisms of assemblies are given exactly by
+realizability predicates. The \emph{regular} monos can be characterized as a
+subset of those realizability predicates, namely those that are
+\(\lnot\lnot\)-stable.
+
+\begin{definition}[\(\lnot\lnot\)-stability]
+  A realizability predicate \(\phi\) on an assembly \(X\) is said to be
+  \textbf{\(\lnot\lnot\)-stable} if
+  \[
+    \forall(x : X).(\lnot\lnot\phi(x) \Rightarrow \phi(x))
+  \]
+  is realized.
+\end{definition}
+
+In some of the literature (on topos theory), one also sees the name
+\emph{\(\lnot\lnot\)-closed}.
+%
+Bauer uses the word \emph{classical} in~\cite{Bauer2023}.
+%
+This is reasonable terminology, because in classical logic everything is
+\(\lnot\lnot\)-stable. Moreover, as we will see the \(\lnot\lnot\)-stable
+realizability predicates correspond to ordinary `classical' subsets.
+
+In realizability, not all predicates are \(\lnot\lnot\)-stable, as we ask you to
+verify by means of the following exercise:
+
+\begin{exercise}\label{exer:not-double-negation-stable-predicate}
+  Show that if all realizability predicates of \(\Asm{\AA}\) are
+  \(\lnot\lnot\)-stable, then the pca \(\AA\) is trivial.
+
+  \emph{Hint}: For \(\pca{a},\pca{b} \in \AA\), consider a suitable
+  realizability predicate on \(\nabla\set{0,1}\).
+\end{exercise}
+
+In fact, we have already seen the \(\lnot\lnot\)-stable realizability predicates
+because (seen as monomorphisms) they are precisely the regular monos, as we ask you
+to verify.
+
+\begin{exercise}\label{exer:double-negation-stable-iff-regular-mono}
+  Prove that a realizability predicate \(\phi\) on an assembly \(X\) is
+  \(\lnot\lnot\)-stable if and only if its corresponding monomorphism
+  \([\phi] \hookrightarrow X\) is regular.
+\end{exercise}
+
+The \(\lnot\lnot\)-stable predicates have no computational content as made
+precise by the following result:
+
+\begin{proposition}\label{not-not-stable-ordinary-subsets}
+  Every \(\lnot\lnot\)-stable realizability predicate \(\phi\) on an
+  assembly \(X\) is uniquely determined by a subset \(A \subseteq \carrier{X}\)
+  such that we have a pullback diagram
   \[
     \begin{tikzcd}
       {[\phi]} \ar[r] \ar[d,hookrightarrow] \pbcorner
@@ -351,29 +422,498 @@ precise by the following exercise:
       X \ar[r,"\eta_X"] & \nabla\carrier{X}
     \end{tikzcd}
   \]
-  in \(\Asm{\AA}\), where we recall that \([\phi] \hookrightarrow X\) denotes
-  the mono corresponding to \(\phi\).
-\end{exercise}
+  in \(\Asm{\AA}\).% , where we recall that \([\phi] \hookrightarrow X\) denotes
+  % the mono corresponding to \(\phi\).
+\end{proposition}
+\begin{proof}
+  Given a \(\lnot\lnot\)-stable realizability predicate \(\phi\) on \(X\), we
+  define
+  \[
+    A \coloneqq \set{x \in \carrier{X} \mid \phi(x) \neq \emptyset} = \carrier{[\phi]}.
+  \]
+  %
+  We may compute the pullback of \(\nabla A \hookrightarrow \nabla\carrier{X}\)
+  along \(\eta_X\) as the assembly \(P\) with
+  \[
+    \carrier{P} \coloneqq A \quad\text{and}\quad
+    \pca{a} \realizes_P x \iff a \realizes_X x.
+  \]
+  The identity on \(A\) gives functions between \(\carrier{[\phi]}\) and
+  \(\carrier{P}\). It remains to see that they are tracked.
+  %
+  Towards \(P\), the map is tracked by \(\pcafst\). In the other direction, we
+  get a tracker by the assumption that \(\phi\) is \(\lnot\lnot\)-stable.
 
-In fact, because subsets are uniquely determined (again, via pullback) by their
-characteristic function, we have:
+  For the converse, we note that the above computation indeed shows that such a
+  pullback corresponds to a \(\lnot\lnot\)-stable realizability predicate,
+  because the realizers of the pullback are just the realizers of \(X\).
+\end{proof}
 
-\begin{exercise}\label{exer:not-not-stable-nabla-two-pullback}
-  Show that every \(\lnot\lnot\)-stable predicate \(\phi\) on an assembly \(X\)
-  is uniquely determined by a map \(\chi \colon X \to \nabla\set{0,1}\) such
-  that we have a pullback diagram
+
+In fact, the \(\lnot\lnot\)-stable realizability predicates arise as pullbacks
+of a single map:
+
+\begin{proposition}\label{nabla-two-classifies-not-not-stable}
+  Every \(\lnot\lnot\)-stable realizability predicate \(\phi\) on an assembly
+  \(X\) is uniquely determined by a map \(\chi \colon X \to \nabla\set{0,1}\)
+  such that we have a pullback diagram
   \[
     \begin{tikzcd}
       {[\phi]} \ar[r] \ar[d,hookrightarrow] \pbcorner
-      & 1 \ar[d,hookrightarrow,"{\singleton \,\mapsto\, 1}"] \\
+      & \One \ar[d,hookrightarrow,"{\singleton \,\mapsto\, 1}"] \\
       X \ar[r,"\chi"] & \nabla\set{0,1}
     \end{tikzcd}
   \]
   in \(\Asm{\AA}\).
+\end{proposition}
+\begin{proof}
+  Given \(A \subseteq \carrier{X}\), the map
+  \(
+    \chi' \colon \nabla X \to \nabla\set{0,1}\) with \(\chi'(x)
+    = \begin{cases}
+      0 &\text{if } x \not\in A \\
+      1 &\text{if } x \in A
+    \end{cases}
+    \)
+
+  gives a pullback square
+  \[
+    \begin{tikzcd}
+      \nabla A \ar[r] \ar[d,hookrightarrow] \pbcorner
+      & \One \ar[d,hookrightarrow,"{\singleton \,\mapsto\, 1}"] \\
+      \nabla\carrier{X} \ar[r,"\chi'"] & \nabla\set{0,1}
+    \end{tikzcd}
+  \]
+  so the result follows from
+  \cref{not-not-stable-ordinary-subsets} and pullback pasting.
+\end{proof}
+
+The map \(\One \to \nabla\set{0,1}\) is said to be a \textbf{classifier} for the
+\(\lnot\lnot\)-stable realizability predicates (subobjects).
+
+Finally, we can also internalize \cref{not-not-stable-ordinary-subsets} as:
+\begin{exercise}\label{exer:nabla-two-nat-exp}
+  For an assembly \(X\), the exponential \(\pa*{\nabla\set{0,1}}^X\) is
+  isomorphic to \(\nabla(\powerset(\carrier{X}))\).
 \end{exercise}
 
-The map \(1 \to \nabla\set{0,1}\) is said to be a \textbf{classifier} for the
-\(\lnot\lnot\)-stable predicates (subobjects).
+\subsection{Decidable realizability predicates}\label{sec:decidable-realizability-predicates}
+
+After the \(\lnot\lnot\)-stable realizability predicates we now consider the
+subset of \emph{decidable} realizability predicates. We show these to be
+classified by the assembly of booleans and explore the connection to computable
+subsets in assemblies over Kleene's first model.
+
+\begin{definition}[Decidability]
+  A realizability predicate \(\phi\) on an assembly \(X\) is said to be
+  \textbf{decidable} if
+  \[
+    \forall(x : X).(\phi(x) \lor \lnot\phi(x))
+  \]
+  is realized.
+\end{definition}
+
+The decidable realizability predicates form a subset of the \(\lnot\lnot\)-stable ones.
+
+\begin{lemma}\label{decidable-implies-not-not-stable}
+  Every decidable realizability predicate is \(\lnot\lnot\)-stable.
+\end{lemma}
+\begin{proof}
+  This is a nice opportunity to make use of the soundness of constructive logic,
+  so that we don't need to concern ourselves with realizers.
+  %
+  That is, we give a constructive proof that decidability implies
+  \(\lnot\lnot\)-stability.
+  %
+  If \(\phi\) is decidable, then we only have to consider two cases: if
+  \(\phi(x)\) holds, then we trivially get
+  \(\lnot\lnot\phi(x) \Rightarrow \phi(x)\); while if \(\lnot\phi(x)\) hold,
+  then the assumption \(\lnot\lnot\phi(x)\) leads to a contradiction, allowing
+  us to conclude \(\phi(x)\).
+\end{proof}
+
+Notice that \cref{decidable-implies-not-not-stable} in combination with
+\cref{exer:not-double-negation-stable-predicate} implies that not all
+realizability predicates are decidable (unless the pca is trivial).
+
+\begin{proposition}
+  The decidable realizability predicates are classified by \(\Two\).
+\end{proposition}
+\begin{proof}
+  Suppose \(\phi\) is a decidable realizability predicate on an assembly \(X\).
+  %
+  Then the function \(\chi \colon \carrier{X} \to \carrier{\Two}\) defined as
+  \[
+    \chi(x) \coloneqq
+    \begin{cases}
+      0 &\text{if } \phi(x) = \emptyset, \\
+          1 &\text{if } \phi(x) \neq \emptyset
+    \end{cases}
+  \]
+  is tracked because \(\phi\) is decidable, so we get an assembly map
+  \(\chi \colon X \to \Two\).
+  %
+  Computing the pullback \(P\) in
+  \[
+    \begin{tikzcd}
+      P \ar[r] \ar[d,hookrightarrow] \pbcorner
+      & \One \ar[d,hookrightarrow,"{\singleton \,\mapsto\, 1}"] \\
+      X \ar[r,"\chi'"] & \Two
+    \end{tikzcd}
+  \]
+  we get
+  \[
+    \carrier{P} \coloneqq \set{x \in \carrier{X} \mid \phi(x) \neq \emptyset}
+    = \carrier{[\phi]}
+    \quad\text{and}\quad
+    \pca{a} \realizes_P x \iff \pca{a} \realizes_X x.
+  \]
+  But, recalling the proof of \cref{not-not-stable-ordinary-subsets}, we see
+  that \(P\) and \([\phi]\) are isomorphic as \(\phi\) is \(\lnot\lnot\)-stable
+  by~\cref{decidable-implies-not-not-stable}.
+
+  Conversely, given such a pullback \([\phi]\), the tracker of \(X \to \Two\)
+  witnesses the fact that \(\forall(x:X).\lnot\lnot\phi(x) \lor \lnot\phi(x)\)
+  is realized.
+  %
+  But the square
+  \[
+    \begin{tikzcd}
+      \One \pbcorner \ar[r] \ar[d] & \One \ar[d,"\star \mapsto 1"] \\
+      \Two \ar[r,hookrightarrow] & \nabla\set{0,1}
+    \end{tikzcd}
+  \]
+  is a pullback, so by pullback pasting we see that \([\phi]\) is classified by
+  \(\nabla\set{0,1}\). Therefore, by~\cref{nabla-two-classifies-not-not-stable},
+  the predicate \(\phi\) is \(\lnot\lnot\)-stable, so in fact
+  \(\forall(x:X).\phi(x) \lor \lnot\phi(x)\) is realized, as desired.
+\end{proof}
+
+For the remainder of this subsection we take \(\AA \coloneqq \Kone\), i.e., we
+work with assemblies over Kleene's first model (\cref{ex:Kleene-1}).
+
+\begin{exercise}\label{exer:nno-in-Asm-K1}
+  Show that the natural numbers object in \(\Asm{\Kone}\) is isomorphic to the
+  assembly \(\NatAsm\) with carrier \(\Nat\) and realizers
+  \(n \realizes_\NatAsm n\) for each \(n \in \Nat\).
+\end{exercise}
+
+Similarly, one may show that in \(\Asm{\Kone}\) we can take the numbers \(0\)
+and \(1\) as the respective realizers of the elements \(0,1 \in \carrier{\Two}\)
+of the assembly of booleans.
+
+Recall from computability theory that a subset \(A \subseteq \Nat\) is
+\textbf{computable} if we have a total (Turing) computable function
+\(\chi \colon \Nat \to \Nat\) such that
+%\(\chi(n) \in \set{0,1}\) for all
+%\(n \in \Nat\) %(we include this requirement for convenience only)
+%and
+\(\chi(n) = 1 \iff n \in A\).
+%
+We say that \(\chi\) \textbf{computes} \(A\).
+%
+Note: instead of ``computable'', some (older) textbooks will use the terminology
+``recursive'', or (potentially confusing for us) ``decidable''.
+
+The following exercises show that the decidable realizability predicates of
+\(\Asm{\Kone}\) correspond precisely to computable subsets.
+
+
+\begin{exercise}\label{exer:decidable-is-computable}\leavevmode
+  \begin{enumerate}[(i)]
+  \item Show that the exponential \(\Two^\NatAsm\) is isomorphic to the assembly
+    \(\CC\) with
+    \begin{align*}
+      \carrier{\CC} \,\coloneqq\, \set{&A \subseteq \Nat \mid A \text{ is computable}}, \text{and} \\
+      n \realizes_{\CC} A \iff &\prenum{n} \text{ computes } A.
+    \end{align*}
+  \item Show that there is a bijection between computable subsets and pullback
+    squares
+    \[
+      \begin{tikzcd}
+        \bullet \pbcorner \ar[r] \ar[d,hookrightarrow]
+        & \One \ar[d,"\star \mapsto 1"] \\
+        \NatAsm \ar[r] & \Two
+      \end{tikzcd}
+    \]
+  \item Conclude that there is a bijection between computable subsets and
+    decidable realizability predicates on \(\NatAsm\).
+  \end{enumerate}
+\end{exercise}
+
+% \begin{exercise}\label{exer:Two-computable-subsets}
+%   Show that for an assembly \(X\), we have a bijection between
+%   \begin{enumerate}[(i)]
+%   \item pullbacks
+%     \[
+%       \begin{tikzcd}
+%         \bullet \pbcorner \ar[r] \ar[d,hookrightarrow]
+%         & \One \ar[d,"\star \mapsto 1"] \\
+%         X \ar[r] & \Two
+%       \end{tikzcd}
+%     \]
+%   \item subsets \(X' \subseteq X\) and computable subsets
+%     \(A \subseteq \Nat\) such that for all \(x \in X\), we have
+%     \begin{align*}
+%       x \in X' &\Rightarrow \set{n \in \Nat \mid n \realizes_X x} \subseteq A, \text{and} \\
+%       x \not\in X' &\Rightarrow \set{n \in \Nat \mid n \realizes_X x} \cap A = \emptyset.
+%     \end{align*}
+%   \end{enumerate}
+%   In particular, for \(X \coloneqq \NatAsm\), we recover (cf.\
+%   \cref{exer:Two-to-N-is-C}) the fact that assembly maps
+%   \(\NatAsm \to \Two\) correspond to computable subsets.
+% \end{exercise}
+
+\subsection{Semidecidable realizability predicates}\label{sec:semidecidable-realizability-predicates}
+
+We introduce a third and final class of realizability predicates: the
+semidecidable ones.
+\begin{definition}[Semidecidability]
+  A realizability predicate \(\phi\) on an assembly \(X\) is said to be
+  \textbf{semidecidable} if
+  \[
+    \forall(x : X).\exists(\sigma:\Two^\NatAsm).
+    \pa*{\pa*{\exists(n : \NatAsm).\sigma(n) = 1}\iff\phi(x)}
+  \]
+  is realized.
+\end{definition}
+
+Notice the inherent essential asymmetry of semidecidability: the assertion that
+the predicate is true can be made by making finitely many observations (keep
+querying the sequence until we see a \(1\)); on the other hand, to conclude that
+the predicate is false we would need evidence that the sequence is \(0\)
+\emph{everywhere}.
+
+\begin{definition}[Assembly of semidecidable truth values, \(\Sigma\)]
+  The \textbf{assembly of semidecidable truth values}, denoted by \(\Sigma\),
+  has carrier \(\set{0,1}\) and realizers
+  \begin{align*}
+    \pca{r} \realizes_\Sigma b \text{ such that}
+    &\pca{r}\numeral{k} \in \set{\pcatrue,\pcafalse}
+    \text{ for all \(k \in \Nat\), and we have} \\
+    &\pa*{\exists(n \in \Nat).\pca{r}\numeral{n} = \pcatrue} \iff (b = 1).
+  \end{align*}
+\end{definition}
+
+Thus, the realizers of \(\Sigma\) are codes for binary sequences of booleans and
+such a code for a sequence realizes the element \(1\) precisely when the
+sequence is true somewhere.
+%
+It should therefore come as no surprise that we have:
+\begin{exercise}\label{exer:Sigma-classifies-semidecidable-realizability-predicates}
+  The assembly \(\Sigma\) (with distinguished element
+  \(1 \in \carrier{\Sigma}\)) classifies the semidecidable realizability
+  predicates.
+\end{exercise}
+
+For the remainder of this subsection we again work with Kleene's first model only.
+% and we explore the connections between
+% \(\Sigma\) and computable enumerable subsets.
+
+\begin{exercise}\label{exer:Sigma-in-Kleene-1}
+  Show that \(\Sigma\) is isomorphic to the assembly \(\Sigma'\) with carrier
+  \(\set{0,1}\) and realizers
+  \[
+    n \realizes_{\Sigma'} 0 \iff n \not\in K
+    \quad\text{and}\quad
+    n \realizes_{\Sigma'} 1 \iff n \in K,
+  \]
+  where \(K \coloneqq \set{n \in \Nat \mid \prenum{n}(n) \text{ is defined}}\)
+  is the \emph{(diagonal) Halting set}.
+
+  \emph{Note}: This requires a little bit of computability theory.
+\end{exercise}
+
+It follows from~\cref{exer:Sigma-in-Kleene-1} that while both inclusions
+\[
+  \Two \hookrightarrow \Sigma \hookrightarrow \nabla\set{0,1}
+\]
+are mono and epi, neither of them is regular mono or regular epi, as it would
+imply (check!) that membership of the Halting set \(K\) is computable which it
+(famously) isn't.
+
+Recall from computability theory that a subset \(A \subseteq \Nat\) is
+\textbf{computably enumerable} (or \textbf{c.e.} for short) if we have a partial
+computable function \(e \colon \Nat \to \Nat\) such that \(e(n)\) is defined if
+and only if \(n \in A\).
+%
+We say that \(e\) \textbf{enumerates} \(A\).
+%
+Note: instead of ``computably enumerable'', some (older) textbooks will use the terminology
+``recursively enumerable'', or (potentially confusing for us) ``semidecidable''.
+%
+A standard example of a computably enumerable subset that is not computable is
+the Halting set \(K\).
+
+The following exercises explore the connections between the semidecidable
+realizability predicates of \(\Asm{\Kone}\) and computably enumerable subsets.
+
+\begin{exercise}\label{exer:Sigma-to-N-is-CE}
+  Show that the exponential \(\Sigma^\NatAsm\) is isomorphic to the assembly
+  \(\CE\) with
+  \begin{align*}
+    \carrier{\CE} \,\coloneqq\, \set{&A \subseteq \Nat \mid A \text{ is computably enumerable}}, \text{and} \\
+    n \realizes_{\CE} A \iff &\prenum{n} \text{ enumerates } A.
+  \end{align*}
+\end{exercise}
+
+\begin{exercise}\label{exer:Sigma-ce-subsets}
+  Show that for an assembly \(X\), we have a bijection between
+  \begin{enumerate}[(i)]
+  \item pullbacks
+    \[
+      \begin{tikzcd}
+        \bullet \pbcorner \ar[r] \ar[d,hookrightarrow]
+        & \One \ar[d,"\star \mapsto 1"] \\
+        X \ar[r] & \Sigma
+      \end{tikzcd}
+    \]
+  \item subsets \(X' \subseteq X\) and c.e.\ subsets
+    \(A \subseteq \Nat\) such that for all \(x \in X\), we have
+    \begin{align*}
+      x \in X' &\Rightarrow \set{n \in \Nat \mid n \realizes_X x} \subseteq A, \text{and} \\
+      x \not\in X' &\Rightarrow \set{n \in \Nat \mid n \realizes_X x} \cap A = \emptyset.
+    \end{align*}
+  \end{enumerate}
+  In particular, taking \(X \coloneqq \NatAsm\), we see that semidecidable
+  realizability predicates on \(\NatAsm\) correspond to computably
+  enumerable subsets.
+\end{exercise}
+
+\section{Very first steps in synthetic computability theory}
+
+We end this chapter by giving an example of \emph{synthetic computability
+theory}~\cite{Bauer2006}.
+%
+At a high level, the idea is to use the internal logic of \(\Asm{\Kone}\) to
+develop computability theory\footnote{Really, the internal logic of the
+  realizability topos; see~\cref{chap:topos}.}.
+%
+The point of restricting to the internal logic is that everything is
+automatically computable: you never need to check computability or reason
+explicitly about Turing machines for example.
+%
+A downside (depending on your perspective) is that we have to give up on using
+classical logic, because it is not valid in the category as we have seen.
+
+In computability theory, a basic but fundamental result is the following:
+
+\begin{theorem*}[Post]
+  If \(A \subseteq \Nat\) and its complement \(\Nat \setminus A\) are computably
+  enumerable, then \(A\) is computable.
+\end{theorem*}
+
+It is not hard to prove this theorem, but we use it here as an illustration of
+what a synthetic development might look like.
+
+\begin{theorem}[Post's theorem, synthetically]\label{Post-synthetically}
+  For a realizability predicate \(\phi\) on an assembly \(X \in \Asm{\Kone}\),
+  if \(\phi\) and \(\lnot\phi\) are semidecidable, then \(\phi\) is decidable.
+\end{theorem}
+
+We prove \cref{Post-synthetically} via two general lemmas.
+%
+However, the final argument will need one additional logical axiom, namely Markov's
+Principle, that is not provable in plain constructive logic, but that it is
+valid in the internal logic of \(\Asm{\Kone}\).
+
+\begin{definition}[Markov's Principle]
+  The statement that every binary sequence that is not \(0\) everywhere must
+  contain a \(1\) is known as \textbf{Markov's Principle}.
+  %
+  More formally, it is the statement:
+  \[
+    \forall\pa[\big]{\sigma:\Two^\NatAsm}.  \lnot(\forall(n : \NatAsm).\sigma(n)
+    = 0) \to (\exists(n : \NatAsm).\sigma(n) = 1).
+  \]
+\end{definition}
+
+\begin{exercise}\label{exer:Markov's-Principle}\leavevmode
+  \begin{enumerate}[(i)]
+  \item Show that Markov's Principle is equivalent---over constructive logic---to
+    \[
+      \forall\pa[\big]{\sigma:\Two^\NatAsm}.  \lnot\lnot(\exists(n :
+      \NatAsm).\sigma(n) = 1) \to (\exists(n : \NatAsm).\sigma(n) = 1).
+    \]
+  \item Show that Markov's Principle is realized if and only if every
+    semidecidable realizability predicate is \(\lnot\lnot\)-stable.
+  \item Show that Markov's Principle is realized over \(\Kone\).
+  \end{enumerate}
+\end{exercise}
+
+As announced, we now prove two general lemmas. Note that the proofs make no
+mention of computability and simply restrict to constructively sound reasoning.
+
+\begin{lemma}\label{semidecidable-closed-under-or}
+  If \(\phi\) and \(\psi\) are semidecidable realizability predicates on an
+  assembly \(X\), then \(\phi \lor \psi\) is again semidecidable.
+\end{lemma}
+\begin{proof}
+  Let \(x \in \carrier{X}\) be arbitrary.
+  %
+  We reason purely in constructive logic.
+  %
+  Suppose there exist binary sequences \(\sigma\) and \(\tau\) such that
+  \[
+    (\exists(n:\Nat).\sigma(n) = 1) \iff \phi(x)
+    \quad\text{and}\quad
+    (\exists(n:\Nat).\tau(n) = 1) \iff \psi(x).
+  \]
+  Then
+  \[
+    (\exists(n:\Nat).(\sigma\oplus\tau)(n) = 1) \iff \phi(x) \lor \psi(x),
+  \]
+  where \(\sigma\oplus\tau\) is the binary sequence obtained by taking the
+  maximum of the outputs of \(\sigma\) and \(\tau\) at each index.
+\end{proof}
+
+\begin{lemma}\label{not-not-decidable}
+  For any realizability predicate \(\phi\), we have that
+  \(\lnot\lnot(\phi\lor\lnot\phi)\) and \(\top\) are equivalent in the preorder
+  of realizability predicates.
+\end{lemma}
+\begin{proof}
+  If \(\phi\) is a realizability predicate on an assembly \(X\), then it
+  suffices to show that \(\forall(x : X).\lnot\lnot(\phi(x)\lor\lnot\phi(x))\)
+  is realized.
+  %
+  We show that \(\lnot\lnot(p \lor \lnot p)\) holds generally in constructive
+  logic.
+  %
+  Assume \(\lnot(p \lor \lnot p)\) with the aim of deriving a contradiction.
+  %
+  Since \(p\) implies \(p \lor \lnot p\), we derive \(\lnot p\).
+  %
+  But then \(p \lor \lnot p\) holds again which contradicts our assumption.
+\end{proof}
+
+We are now ready to prove \cref{Post-synthetically}:
+\begin{proof}[Proof of \cref{Post-synthetically}]
+  Suppose that \(\phi\) and \(\lnot\phi\) are semidecidable.
+  %
+  By \cref{semidecidable-closed-under-or} we know that \(\phi\lor\lnot\phi\) is
+  again semidecidable.
+  %
+  Moreover, by Markov's Principle, the predicate \(\phi\lor\lnot\phi\) is
+  \(\lnot\lnot\)-stable.
+  %
+  But \(\forall(x:X).\lnot\lnot(\phi(x)\lor\lnot\phi(x))\) is true by
+  \cref{not-not-decidable}, so we get \(\forall(x:X).\phi(x)\lor\lnot\phi(x)\),
+  i.e.\ \(\phi\) is decidable, as desired.
+\end{proof}
+
+Once again, we stress the purely logical flavour of the above arguments---with
+the exception of checking that Markov's Principle is valid in \(\Asm{\Kone}\)
+which should be done once and can then be taken as an additional axiom to the
+synthetic development.
+
+Finally, we recover Post's result by specializing \cref{Post-synthetically} to
+the assembly of natural numbers and by exploiting the correspondence between the
+(semi)decidable realizability predicates and computable/c.e.\ subsets as
+explored in
+\cref{sec:decidable-realizability-predicates,sec:semidecidable-realizability-predicates}.
+
+
 
 \section{List of exercises}
 \begin{enumerate}
@@ -384,11 +924,27 @@ The map \(1 \to \nabla\set{0,1}\) is said to be a \textbf{classifier} for the
 \item \cref{exer:exists-predicate}: On \(\exists_f\) being left adjoint to
   \(f^\ast\) as maps between preorders of realizability predicates.
 \item \cref{exer:epis-monos-logically}: On logical characterizations of
-  (regular) epimorphisms and monomorphisms.
-\item \cref{exer:not-not-stable-nabla-two-pullback}: On the correspondence
-  between \(\lnot\lnot\)-stable predicates and subsets.
-\item \cref{exer:not-not-stable-nabla-two-pullback}: On the classifier for
-  \(\lnot\lnot\)-stable predicates.
+  (regular) epis and monos.
+\item \cref{exer:not-double-negation-stable-predicate}: On the fact that not all
+  realizability predicates are \(\lnot\lnot\)-stable.
+\item \cref{exer:double-negation-stable-iff-regular-mono}: On the
+  \(\lnot\lnot\)-stable realizability predicates as the regular monos.
+\item \cref{exer:nabla-two-nat-exp}: On exponentials of \(\nabla\set{0,1}\).
+\item \cref{exer:nno-in-Asm-K1}: On the natural numbers object in
+  \(\Asm{\Kone}\).
+\item \cref{exer:decidable-is-computable}: On the correspondence between
+  decidable realizability predicates in \(\Asm{\Kone}\) and computable subsets
+  of the natural numbers.
+\item \cref{exer:Sigma-classifies-semidecidable-realizability-predicates}: On
+  the classifier of semidecidable realizability predicates.
+\item \cref{exer:Sigma-in-Kleene-1}: On the assembly of semidecidable truth
+  values in \(\Asm{\Kone}\).
+\item \cref{exer:Sigma-to-N-is-CE}: On computably enumerable subsets and the
+  exponential of the assemblies of natural numbers and semidecidable truth
+  values in \(\Asm{\Kone}\).
+\item \cref{exer:Sigma-ce-subsets}: On computably enumerable subsets and
+  pullbacks of the assembly of semidecidable truth values in \(\Asm{\Kone}\).
+\item \cref{exer:Markov's-Principle}: On Markov's Principle.
 \end{enumerate}
 
 %%% Local Variables:
