@@ -301,13 +301,38 @@ as such. However, this is not historically accurate,
 see~\cite[p.~241]{vanOosten2002}. It is also worth pointing out that Kleene's
 realizability predates the Curry--Howard correspondence.
 
-% \section{Revisiting (regular) monos and epis}
 
-\textcolor{Mulberry}{TODO: Explain (double) negations}
+It is worth spelling out the realizability interpretation of (double) negation.
+%
+Recall that \(\lnot\phi\) is defined as \(\phi \Rightarrow \bot\), so that we
+have:
+\begin{lemma}%[Realizability interpretation of (double) negation]
+  The realizability predicates interpreting (double) negations satisfy
+  \begin{alignat*}{2}
+    &\pca{r} \in \sem{\lnot\phi}(\vec x) &&\quad\iff\quad
+    \set{\pca{r} \in \AA \mid \sem{\phi}(\vec x) = \emptyset}, \\
+    &\pca{r} \in \sem{\lnot\lnot\phi}(\vec x) &&\quad\iff\quad
+    \set{\pca{r} \in \AA \mid \sem{\phi}(\vec x) \neq \emptyset}.
+  \end{alignat*}
+\end{lemma}
 
-\textcolor{Mulberry}{TODO: Repeat soundness}
+In particular, we see that \(\sem{\lnot\lnot\phi}(\vec x)\) has no computational
+content as any element of \(\AA\) acts as a realizer whenever
+\(\sem{\phi}(\vec x)\) is nonempty.
+%
+This suggests a connection to the functor \(\nabla \colon \Set \to \Asm{\AA}\)
+(from \cref{sec:relation-to-Set}) which we indeed explore in
+\cref{sec:double-negation-stable}.
 
-\textcolor{Mulberry}{TODO: No classical logic (exercise)}
+We repeat that the realizability interpretation of first order logic---by virtue
+of the Heyting prealgebra structure---validates constructive (sometimes known as
+\emph{intuitionistic}) logic, i.e.\ first order logic without \emph{excluded
+  middle}.
+%
+In fact, as \cref{exer:not-double-negation-stable-predicate} shows, the logic
+governing realizability predicates is never classical unless the pca is
+trivial (in which case the category of assemblies is the familiar category of
+sets).
 
 \subsection{Revisiting (regular) epis and monos}
 \textcolor{Mulberry}{TODO: Internal logic example intro}
@@ -362,7 +387,7 @@ decidable realizability predicates.
 We moreover give explicit connections to computability theory by specializing to
 the category of assemblies over Kleene's first model.
 
-\subsection{Double negation stable realizability predicates}
+\subsection{Double negation stable realizability predicates}\label{sec:double-negation-stable}
 
 We have already seen that the monomorphisms of assemblies are given exactly by
 realizability predicates. The \emph{regular} monos can be characterized as a
