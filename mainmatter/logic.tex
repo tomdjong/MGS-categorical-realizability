@@ -780,6 +780,26 @@ realizability predicates of \(\Asm{\Kone}\) and computably enumerable subsets.
   enumerable subsets.
 \end{exercise}
 
+Recall \textbf{Rice's Theorem} from computability theory:
+
+%
+\begin{theorem*}[Rice]
+  Suppose that \(P\) is a subset of\/ \(\Nat\) such that
+  \begin{enumerate}[(i)]
+  \item \(P\) is an \emph{index set}: if \(n \in P\) and \(\prenum{n} = \prenum{m}\), then \(m \in P\);
+  \item \(P\) is \emph{nontrivial}, i.e.\ \(P \neq \emptyset\) and \(P \neq \Nat\).
+  \end{enumerate}
+  Then \(P\) is not computable.
+\end{theorem*}
+
+Rice's Theorem is often informally phrased as: ``every nontrivial semantic
+property of partial computable functions is undecidable''.
+
+In the category \(\Asm{\Kone}\) it has the following incarnation:
+\begin{exercise}\label{exer:Rice-consequence}
+  Show that the exponential \(\Two^\CE \cong \Two^{\pa*{\Sigma^\NatAsm}}\) is isomorphic to \(\Two\).
+\end{exercise}
+
 \section{Very first steps in synthetic computability theory}
 
 We end this chapter by giving an example of \emph{synthetic computability
@@ -944,6 +964,7 @@ explored in
   values in \(\Asm{\Kone}\).
 \item \cref{exer:Sigma-ce-subsets}: On computably enumerable subsets and
   pullbacks of the assembly of semidecidable truth values in \(\Asm{\Kone}\).
+\item \cref{exer:Rice-consequence}: On Rice's theorem in \(\Asm{\Kone}\).
 \item \cref{exer:Markov's-Principle}: On Markov's Principle.
 \end{enumerate}
 
