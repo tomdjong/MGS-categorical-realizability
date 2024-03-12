@@ -1,12 +1,25 @@
 \chapter{The realizability interpretation of logic}\label{chap:logic}
 
-\section{Categorical logic in a nutshell}
+\section{Categorical logic in a nutshell}\label{sec:categorical-logic}
 
 \cite{Lawvere1969}
 
 \section{Categorical logic in categories of assemblies}\label{sec:cat-logic-in-asm}
 
-\textcolor{Mulberry}{TODO: Intro}
+We wish to describe the logical side of the category of assemblies. By
+\cref{sec:categorical-logic} this means studying the monomorphisms of
+\(\Asm{\AA}\).
+%
+As often, it is advisable to first find a more convenient description of the
+monos in this category. For example, in the category of sets, it is often useful
+to work with subsets instead of injections, and in the category of presheaves on
+a category we similarly often choose to work with subpresheaves.
+%
+Following Bauer~\cite{Bauer2023}, we choose the preorder of \emph{realizability
+  predicates} on an assembly \(X\) as a convenient proxy for the preorder of
+monos into \(X\).
+%
+
 
 \begin{definition}[Realizability predicate]
   A \textbf{realizability predicate} on an assembly~\(X\) is a function
@@ -50,9 +63,14 @@ It is at this last point that we make essential use of the fact that \(X\) is an
 assembly and not just a set.
 
 %
-It is straightforward (and very similar to checking that assemblies and assembly
+It is straightforward (and similar to checking that assemblies with assembly
 maps form a category) to check that \(\predleq\) is indeed a preorder, i.e.\
-that it is a reflexive and transitive relation.
+that it is reflexive and transitive.
+
+\begin{notation}[Preorder of realizability predicates, \(\realpred(X)\)]
+  We write \(\realpred(X)\) for the preorder of realizability predicates on an
+  assembly \(X\).
+\end{notation}
 
 Every monomorphism \(m \colon Y \hookrightarrow X\) on an assembly \(X\)
 determines a realizability predicate \(\phi_m\) on \(X\) by:
@@ -70,17 +88,18 @@ because \(m\) is injective.
 Conversely, every realizability predicate on \(X\) determines a monomorphism of
 assemblies \([\phi] \hookrightarrow X\) via:
 \begin{align*}
-  \carrier{[\phi]} \coloneqq \set{x \in \carrier{X} \mid \phi(x) \neq \emptyset} \\
+  \carrier{[\phi]} &\hspace{8.5pt}\coloneqq\hspace{8.5pt}
+                     \set{x \in \carrier{X} \mid \phi(x) \neq \emptyset} \\
   \pcapair\pca{a}\pca{b} \realizes_{[\phi]} x
-  \iff \pca{a} \realizes_X x
+  &\iff \pca{a} \realizes_X x
   \text{ and }
   \pca{b} \in \phi(x),
 \end{align*}
 where the inclusion \([\phi] \hookrightarrow X\) is tracked by \(\pcafst\).
 
 \begin{proposition}\label{preorders-mono-predicates-iso}
-  For any assembly \(X\), the above constructions constitute an isomorphism
-  between the preorder of monomorphisms into \(X\) and the preorder of
+  For an assembly \(X\), the above constructions constitute an isomorphism
+  between the preorder of monos into \(X\) and the preorder of
   realizability predicates on \(X\).
 \end{proposition}
 \begin{exercise}\label{exer:preorders-monos-predicates-iso}
@@ -90,6 +109,12 @@ where the inclusion \([\phi] \hookrightarrow X\) is tracked by \(\pcafst\).
 
 \subsection{The Heyting prealgebra of realizability predicates}%
 \label{sec:Heyting-prealgebra-realizability-predicates}
+
+We describe the structure on the preorder of realizability
+predicates required for interpreting first order logic.
+%
+The interpretation itself is detailed in
+\cref{sec:realizability-interpretation}.
 
 \begin{definition}
   There are two extreme examples of realizability predicates on an assembly \(X\):
@@ -117,8 +142,8 @@ where the inclusion \([\phi] \hookrightarrow X\) is tracked by \(\pcafst\).
 
 \begin{exercise}\label{exer:predicates-heyting-prealgebra}
   Check that \(\bot\), \(\top\), \(\land\), \(\lor\) and \(\Rightarrow\) as
-  defined above make the preorder of realizability predicates on an assembly
-  \(X\) into a Heyting prealgebra.
+  defined above make the preorder \(\realpred(X)\) of realizability predicates
+  on an assembly \(X\) into a Heyting prealgebra.
 
   (For a short definition of the latter: it is a preorder that, when viewed as a
   category, has finite (co)limits and exponentials.)
@@ -131,7 +156,12 @@ example, \([\bot]\) is the monomorphism \(0 \hookrightarrow X\) and
 \([\phi\land\psi]\) is the meet (= greatest lower bound) of the monos \([\phi]\)
 and \([\psi]\).
 
-\textcolor{Mulberry}{TODO: Quantifiers intro}
+The interpretation of the quantifiers is given by adjoints, as briefly discussed
+in \cref{sec:categorical-logic}. We explicitly describe these adjoints in terms
+of the preorder of realizability predicates, where the
+natural-bijection-between-hom-sets definition of adjoints simplifies to the
+condition of a (monotone) \emph{Galois connection}: a map \(l\) between preorders is
+left adjoint to \(r\) exactly when \(l(x) \leq y \iff x \leq r(y)\) holds.
 
 \begin{proposition}
   For an assembly map \(f \colon X \to Y\) and a realizability predicate
@@ -178,11 +208,12 @@ and \([\psi]\).
 \end{proof}
 
 For an alternative proof, one may verify that \(\forall_f(\phi)\) is the
-realizability predicate determined by the monomorphism \(\forall_f([\phi])\).
+realizability predicate determined by the monomorphism \(\prod_f([\phi])\),
+where we recall \(\prod_f\) from \cref{base-change-adjoints}.
 
 \begin{proposition}
   For an assembly map \(f \colon X \to Y\) and a realizability predicate
-  \(\phi\) on \(X\), the realizability predicate \(\exists_f(\phi)\) on \(Y\)
+  \(\phi\) on~\(X\), the realizability predicate \(\exists_f(\phi)\) on \(Y\)
   defined by
   \[
     {\exists_f(\phi)}\,(y) \coloneqq
@@ -211,8 +242,8 @@ realizability predicate determined by the monomorphism \(\forall_f([\phi])\).
   as a regular epimorphism followed by a monomorphism
   (recall~\cref{exer:reg-epi-mono-factorization}).
   %
-  In other words, that \(\exists_f(\phi)\) is the realizability predicate
-  corresponding to the mono \(\exists_f([\phi])\).
+  % In other words, that \(\exists_f(\phi)\) is the realizability predicate
+  % corresponding to the mono \(\exists_f([\phi])\).
 \end{exercise}
 
 In the situations that will be of us interest to us, \(f\) will also be
@@ -229,7 +260,7 @@ symmetric to that of \(\exists_f(\phi)\), because in this case we have
 for any realizability predicate \(\phi\) on \(X\).
 % \end{exercise}
 
-\subsection{The realizability interpretation of logic}
+\subsection{The realizability interpretation of logic}\label{sec:realizability-interpretation}
 
 Suppose we are given a formula \(\phi\) in a language whose sorts and relation
 and function symbols have been assigned an interpretation in \(\Asm{\AA}\).
