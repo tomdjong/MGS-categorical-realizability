@@ -335,9 +335,29 @@ trivial (in which case the category of assemblies is the familiar category of
 sets).
 
 \subsection{Revisiting (regular) epis and monos}
-\textcolor{Mulberry}{TODO: Internal logic example intro}
+
+A nice way of getting some familiarity with realizability logic is by proving
+the following characterizations of (regular) epis and monos in the internal
+logic of \(\Asm{\AA}\).
+%
+We recall our convention to use the same letters for both the formal
+symbol in the internal logic and its interpretation in the category, e.g.\ if
+\(f\) is an assembly map, then we formally have a term \(\ulcorner f \urcorner\) in
+our language with interpretation \(\sem{\ulcorner f \urcorner} \coloneqq f\);
+but we'll simply reuse the letter \(f\) for this term.
+
+To appreciate \cref{exer:epis-monos-logically}, recall that an assembly map is
+an epi if and only if it's surjective, while it's regular epi if and only if
+it's surjective \emph{and} we have an element in~\(\AA\) that witnesses
+surjectivity (\cref{exer:characterize-regular-epis}).
+%
+This difference in computational content is reflected in the (non)use of the
+double negation in the first items of the exercise below.
+
 \begin{exercise}\label{exer:epis-monos-logically}
-  Prove the following logical characterizations for any assembly map \(f \colon X \to Y\):
+  Use \cref{exer:characterize-regular-monos,exer:characterize-regular-epis} to
+  show that for an assembly map \({f \colon X \to Y}\), we have the following
+  logical characterizations:
   \begin{enumerate}[(i)]
   \item \(f\) is a regular epimorphism if and only if
     \[
