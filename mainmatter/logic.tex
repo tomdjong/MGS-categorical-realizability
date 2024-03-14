@@ -1,11 +1,195 @@
 \chapter{The realizability interpretation of logic}\label{chap:logic}
 
+\textcolor{Mulberry}{TODO}
+For completeness we try to explain the main ideas of categorical logic here. This i
+
+\cite{FreydScedrov1990}\cite{LambekScott1986,MacLaneMoerdijk1994}
+
 \section{Categorical logic in a nutshell}\label{sec:categorical-logic}
+Suppose we have a formula \(\phi(x)\) with a free variable \(x\). If we
+interpret \(x\) to range over some set \(X\), then \(\phi(x)\) determines a
+subset of \(X\), namely \(\set{x \in X \mid \phi(x)}\), the subset of elements
+\(x\) of \(X\) for which \(\phi(x)\) holds.
+%
+A conjunction of formulas also determines a subset: the
+intersection of the subsets determined by \(\phi\) and \(\psi\):
+\[
+  \set{x \in X \mid \phi(x) \land \psi(x)}
+  = \set{x \in X \mid \phi(x)} \cap \set{x \in X \mid \psi(x)}.
+\]
+Similarly, with conjunction and union of course.
+%
+The formulas \(\top\) (truth) and \(\bot\) (falsity) determine the two extreme
+subsets \(X\) and \(\emptyset\), respectively.
+%
+The subsets of \(X\) are a partial order when equipped with the subset
+relation. Its greatest element is \(X\), its least element is \(\emptyset\), the
+intersection of two subsets is the greatest lower bound of the two subsets,
+while the union is given by the least upper bound.
+%
+Thus, we see that we can interpret a formula as a subset and that the logical
+connectives are interpreted using operations (characterized by universal
+properties) on subsets.
 
-\cite{Lawvere1969}
+\paragraph{From subsets to monos}
+In categorical logic, we generalize this from the category of sets to arbitrary,
+sufficiently rich categories.
+%
+Instead of subsets we consider monomorphisms, or really
+\emph{subobjects}\footnote{A subobject of \(X\) is a monomorphism into
+  \(X\) up to isomorphism in the slice category over \(X\).}.
+%
+The monos into a fixed object \(X\) in a category form a preorder by setting
+\((M \hookrightarrow X) \preceq (N \hookrightarrow X)\) if we have a map
+\(M \to N\) making the triangle
+\[
+  \begin{tikzcd}[row sep=4mm,column sep=4mm]
+    M \ar[dr] \ar[rr,hookrightarrow] & & X \\
+    & N \ar[ur,hookrightarrow]
+  \end{tikzcd}
+\]
+commute. (One can check that the map \(M \to N\) is necessarily a mono.)
 
-\cite{FreydScedrov1990}
-\cite{LambekScott1986,MacLaneMoerdijk1994}
+This preorder generalizes the subsets with their subset relation.
+%
+The relation \(\preceq\) is reflexive and transitive, but not necessarily
+antisymmetric. But we can consider the \emph{poset reflection} of this preorder,
+where we quotient such that monos \(M \hookrightarrow X\) and
+\(N \hookrightarrow X\) are identified when \(M \preceq N\) and \(N \preceq M\)
+both hold.
+%
+One may check that an element of the resulting poset is precisely a subobject.
+
+\paragraph{Logical connectives and monos}
+The formula \(\top\) is interpreted as the greatest element in the preorder of
+monos into \(X\), i.e.\ as \(\id_X \colon X \to X\).
+%
+The formula \(\bot\) is interpreted as the least element in the preorder of
+monos into \(X\), which in a cartesian closed category with an initial object
+\(0\) (like the category of assemblies) indeed exists and is given by the unique
+map\footnote{The proof that this map is indeed a mono is short, but surprisingly
+  tricky. The interested reader might like to prove it for themselves. In case
+  they get stuck, see \cite[Theorem~6.3]{McLarty1992} or \cite{NCF}.}
+\(0 \to X\).
+
+Following the universal properties of subsets, we deduce that conjunction should
+be interpreted using the greatest lower bound in the preorder of monos.
+%
+Assuming our category has pullbacks, one can check that taking the pullback
+\[
+  \begin{tikzcd}
+    M \land N \pbcorner \ar[d,hookrightarrow] \ar[r,hookrightarrow]
+    & N \ar[d,hookrightarrow] \\
+    M \ar[r,hookrightarrow] & X
+  \end{tikzcd}
+\]
+of two monos into \(X\) gives their greatest lower bound
+\(M \land N \hookrightarrow X\).
+%
+(In the diagram all maps are monos because those are stable under pullback.)
+
+Interpreting disjunction is slightly more involved: for two monos
+\({M,N \hookrightarrow X}\) the induced map \(M + N \to X\) from the coproduct is
+not in general a mono. Instead, we require that the category factors any map as
+a regular epi followed by a mono (like we have in the category of assemblies by
+\cref{exer:reg-epi-mono-factorization}) and we factor \(M + N \to X\) as
+\(M + N \twoheadrightarrow M \lor N \hookrightarrow X\).
+
+It is an insight of Lawvere~\cite{Lawvere1969} that the quantifiers \(\forall\)
+and \(\exists\) can also be suitably captured by universal properties using
+adjunctions.
+%
+Any morphism of the category \(f \colon X \to Y\) induces a monotone map
+\(f^\ast \colon \Mono(Y) \to \Mono(X)\) on the preorders of monos into \(Y\) and
+\(X\) respectively by pulling back along \(f\).
+%
+Viewing these preorders as categories, the map \(f^\ast\) has a right adjoint
+\(\exists_f\) by defining \(\exists_f(m)\) to be the monomorphism part of the
+factorization of \(f \circ m\) as a regular epi followed by a mono.
+%
+For the universal quantifier, we then require \(f^\ast\) to also have a left
+adjoint which we denote by \(\forall_f\).
+%
+For locally cartesian closed categories, like the category of assemblies
+(\cref{base-change-adjoints}), we already have a left adjoint \(\prod_f\) to the
+pullback functor which, being a left adjoint, preserves monos and hence
+restricts to a monotone map on the preorders of monos.
+
+\paragraph{Sorts, relations and terms}
+We assume to be given a many-sorted language. This means that variables,
+function symbols and relation symbols are typed by an assignment of
+\emph{sorts}.
+%
+The sort of a variable indicates what it is supposed to range over.
+%
+Function symbols have a source and target sort and relation symbols has as many
+sorts as its arity.
+%
+For example, if we are interested in arithmetic we might have a single sort
+\(N\) for the natural numbers and a function symbol \(s\) for the successor map
+with source and target sort \(N\).
+%
+We can build terms by applying a function symbol to a variable subject to the
+condition that the sorts match up of course.
+
+An interpretation of the language in the category is given by several assignments:
+\begin{itemize}
+\item each sort \(X\) is interpreted as an object \(\sem{X}\) of the category;
+\item each function symbol \(f\) with source sort \(S\) and target sort \(T\) is
+  interpreted as an arrow \(\sem{f} \colon \sem{S} \to \sem{T}\) in the
+  category;
+\item each relation symbol \(R\) with sorts \(X_1,\dots,X_n\) is interpreted as
+  a subobject \(\sem{R}\) of the product
+  \(\sem{X_1}\times\cdots\times\sem{X_n}\).
+\end{itemize}
+
+For the example of the language of arithmetic, it would make good sense to
+require the category to have a natural numbers object and to use this as the
+interpretation of the sort of the natural numbers.
+%
+If we added sorts \(N^N\), \(N^{\pa*{N^N}}\), etc.\ for functions then we would
+interpret these use exponentials in a cartesian closed category.
+
+The purpose of the above is that it tells us that a formula \(\phi(x)\) with a
+free variable \(x\) of sort \(X\) should be interpreted as a monomorphism into
+\(\sem{X}\), i.e.\ it tells us which object to consider.
+%
+The actual interpretation of \(\phi(x)\) as mono into \(\sem{X}\) can then be
+calculated by recursion on the structure of \(\phi\).
+%
+(If \(\phi\) has more than one free variable, say \(x_1,\dots,x_n\) of sorts
+\(X_1,\dots,X_n\), respectively, then we simply consider the object
+\(\sem{X_1} \times \cdots \times \sem{X_n}\).)
+
+\paragraph{Internal language}
+Given a category \(\mathcal C\), a particular language we might consider is the
+\emph{internal language} of \(\mathcal C\) where we add a sort for each object
+of \(\mathcal C\), a function symbol for each morphism of \(\mathcal C\),
+and finally a relation symbol for each subobject of \(\mathcal C\).
+%
+This language has a natural interpretation in \(\mathcal C\): if we added a sort
+for an object \(X\), then the interpretation of that sort is \(X\); and
+similarly for the function and relation symbols.
+%
+In this case we do not distinguish notationally between the object and the sort,
+the function symbol and the morphism, and the relation symbol and the subobject.
+
+\paragraph{Soundness}
+One can show that the poset of subobjects is always a \emph{Heyting algebra}
+whenever the category has sufficient structure (e.g.\ when it is regular and the
+adjoint \(\forall_f\) exists).
+%
+As a consequence we have:
+\begin{theorem*}[Soundness theorem]
+  If we can prove \(\psi\) from \(\phi\) in constructive logic, then
+  \(\sem{\phi} \preceq \sem{\psi}\) holds in the poset of subobjects.
+\end{theorem*}
+
+The subobjects do \emph{not} usually form a \emph{Boolean algebra}, however,
+which means we do not have soundness with respect to classical logic, i.e.\ the
+law of excluded middle may not be validated by the interpretation in the
+category.
+
 
 \section{Categorical logic in categories of assemblies}\label{sec:cat-logic-in-asm}
 
@@ -19,7 +203,7 @@ to work with subsets instead of injections, and in the category of presheaves on
 a category we similarly often choose to work with subpresheaves.
 %
 Following Bauer~\cite{Bauer2023}, we choose the preorder of \emph{realizability
-  predicates} on an assembly \(X\) as a convenient proxy for the preorder of
+  predicates} on an assembly \(X\) as a convenient substitute for the preorder of
 monos into \(X\).
 %
 
@@ -359,9 +543,8 @@ This suggests a connection to the functor \(\nabla \colon \Set \to \Asm{\AA}\)
 \cref{sec:double-negation-stable}.
 
 We repeat that the realizability interpretation of first order logic---by virtue
-of the Heyting prealgebra structure---validates constructive (sometimes known as
-\emph{intuitionistic}) logic, i.e.\ first order logic without \emph{excluded
-  middle}.
+of the Heyting prealgebra structure---validates constructive logic, i.e.\ first
+order logic without excluded middle.
 %
 In fact, as \cref{exer:not-double-negation-stable-predicate} shows, the logic
 governing realizability predicates is never classical unless the pca is
@@ -374,11 +557,12 @@ A nice way of getting some familiarity with realizability logic is by proving
 the following characterizations of (regular) epis and monos in the internal
 logic of \(\Asm{\AA}\).
 %
-We recall our convention to use the same letters for both the formal
-symbol in the internal logic and its interpretation in the category, e.g.\ if
-\(f\) is an assembly map, then we formally have a term \(\ulcorner f \urcorner\) in
-our language with interpretation \(\sem{\ulcorner f \urcorner} \coloneqq f\);
-but we'll simply reuse the letter \(f\) for this term.
+We recall our convention to use the same letters for both the formal symbol in
+the internal language and its interpretation in the category, e.g.\ if \(f\) is
+an assembly map, then we formally have a function symbol
+\(\ulcorner f \urcorner\) in our language with interpretation
+\(\sem{\ulcorner f \urcorner} \coloneqq f\); but we'll simply reuse the letter
+\(f\) for this function symbol.
 
 To appreciate \cref{exer:epis-monos-logically}, recall that an assembly map is
 an epi if and only if it's surjective, while it's regular epi if and only if
