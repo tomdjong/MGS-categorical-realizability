@@ -1,9 +1,67 @@
 \chapter{The realizability interpretation of logic}\label{chap:logic}
 
-\textcolor{Mulberry}{TODO}
-For completeness we try to explain the main ideas of categorical logic here. This i
+In this chapter we explore some of the logical aspects of the category of
+assemblies over a pca.
+%
+% Assemblies over Kleene's first model (\cref{ex:Kleene-1}) are of particular
+% interest to us as we explore concepts from computability theory, such as
+% computably enumerable sets, from a logical perspective.
+%
+The theory of categorical logic informs us that any sufficiently structured
+category supports an interpretation of logic.
+%
+% The amount of structure in the category determines the richness of the logic it
+% supports.
+For example, in a regular category we can interpret a fragment of
+first order logic known as regular logic, while we can interpret higher order
+logic in a topos.
+%
+We include a brief introduction to categorical logic in
+\cref{sec:categorical-logic}, but for a proper treatment we refer the reader to
+the textbooks \cite{FreydScedrov1990} (first order logic),
+\cite{LambekScott1986,MacLaneMoerdijk1994} (higher order logic), or the lecture
+notes~\cite{vanOosten2016} (regular logic) and \cite{Streicher2004} (higher
+order logic).
+%
+The key point is this:
+\begin{quote}
+  Categorical logic gives us a \emph{uniform} way of interpreting logic in any
+  sufficiently structured category.
+\end{quote}
+%
+Following Bauer's exposition in \cite{Bauer2023} we describe how to interpret
+logic in the category of assemblies via the notion of a \emph{realizability
+  predicate} on an assembly.
+%
+We emphasize that this is \emph{not} some ad-hoc interpretation. Rather, it is a
+convenient unfolding of the uniform interpretation given to us by categorical
+logic.
+%
+The structure established on the category of assemblies in
+\cref{chap:assemblies} allows us to interpret full first order logic.
 
-\cite{FreydScedrov1990}\cite{LambekScott1986,MacLaneMoerdijk1994}
+Having said all of this, the reader who finds themselves ill at ease with
+categorical logic can find solace in the fact that the
+particular---realizability---interpretation of logic is spelled out in more
+elementary terms in \cref{sec:cat-logic-in-asm} and
+\cref{sec:realizability-interpretation} in particular.
+
+After establishing that the logic in the category of assemblies is given by
+realizability predicates, \cref{sec:two-element-assemblies} isolates three
+particular classes of such predicates by logical means. These are the
+\(\lnot\lnot\)\nobreakdash-stable, decidable and semidecidable realizability
+predicates.
+%
+In assemblies over Kleene's first model these are shown to respectively
+correspond to ordinary (classical) subsets, computable subsets and computably
+enumerable subsets.
+
+Finally, \cref{sec:synthetic} illustrates the intimate connections between
+logic, computability and categories via \emph{synthetic computability
+  theory}~\cite{Bauer2006}. Specifically, we give a synthetic proof of a
+fundamental result in computability theory: a subset of the natural numbers is
+computable if and only if it and its complement are computably enumerable.
+
 
 \section{Categorical logic in a nutshell}\label{sec:categorical-logic}
 Suppose we have a formula \(\phi(x)\) with a free variable \(x\). If we
@@ -129,8 +187,8 @@ For example, if we are interested in arithmetic we might have a single sort
 \(N\) for the natural numbers and a function symbol \(s\) for the successor map
 with source and target sort \(N\).
 %
-We can build terms by applying a function symbol to a variable subject to the
-condition that the sorts match up of course.
+We can build terms by e.g.\ applying a function symbol to a variable, subject to
+the condition that the sorts match up of course.
 
 An interpretation of the language in the category is given by several assignments:
 \begin{itemize}
@@ -143,12 +201,15 @@ An interpretation of the language in the category is given by several assignment
   \(\sem{X_1}\times\cdots\times\sem{X_n}\).
 \end{itemize}
 
+We can also interpret equality of two terms \(s\) and \(t\) by taking the
+equalizer of their interpretations \(\sem{s}\) and \(\sem{t}\).
+
 For the example of the language of arithmetic, it would make good sense to
 require the category to have a natural numbers object and to use this as the
 interpretation of the sort of the natural numbers.
 %
 If we added sorts \(N^N\), \(N^{\pa*{N^N}}\), etc.\ for functions then we would
-interpret these use exponentials in a cartesian closed category.
+interpret these using exponentials in a cartesian closed category.
 
 The purpose of the above is that it tells us that a formula \(\phi(x)\) with a
 free variable \(x\) of sort \(X\) should be interpreted as a monomorphism into
@@ -609,7 +670,7 @@ double negation in the first items of the exercise below.
 \end{exercise}
 
 
-\section{Two-element assemblies as classifiers}
+\section{Two-element assemblies as classifiers}\label{sec:two-element-assemblies}
 
 This section introduces three sets of realizability predicates, namely the
 \emph{\(\lnot\lnot\)-stable}, \emph{decidable} and \emph{semidecidable}
@@ -806,11 +867,12 @@ realizability predicates are decidable (unless the pca is trivial).
   Suppose \(\phi\) is a decidable realizability predicate on an assembly \(X\).
   %
   Then the function \(\chi \colon \carrier{X} \to \carrier{\Two}\) defined as
+
   \[
     \chi(x) \coloneqq
     \begin{cases}
       0 &\text{if } \phi(x) = \emptyset, \\
-          1 &\text{if } \phi(x) \neq \emptyset
+          1 &\text{if } \phi(x) \neq \emptyset;
     \end{cases}
   \]
   is tracked because \(\phi\) is decidable, so we get an assembly map
@@ -1063,7 +1125,7 @@ In the category \(\Asm{\Kone}\) it has the following incarnation:
   Show that the exponential \(\Two^\CE \cong \Two^{\pa*{\Sigma^\NatAsm}}\) is isomorphic to \(\Two\).
 \end{exercise}
 
-\section{Very first steps in synthetic computability theory}
+\section{Very first steps in synthetic computability theory}\label{sec:synthetic}
 
 We end this chapter by giving an example of \emph{synthetic computability
 theory}~\cite{Bauer2006}.
