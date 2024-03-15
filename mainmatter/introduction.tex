@@ -1,9 +1,86 @@
 \chapter{Introduction}
 
-\cite{Kleene1945}
-\cite{Hyland1982}\cite{HJP1980}\cite{Pitts1981}
+\emph{Realizability} originates with Kleene~\cite{Kleene1945} in the context of
+proof theory and sought to make a precise connection between intuitionistic
+(constructive) mathematics and computability theory.
+%
+This led to an effective interpretation of intuitionistic number theory using
+computability theory, somewhat reminiscent to---but predating!---the
+Curry--Howard correspondence.
+
+In the 1980's, Hyland introduced the \emph{effective topos}: a category whose
+logic is governed by Kleene's realizability.
+%
+Intuitively, the effective topos presents us with an alternative world of
+mathematics where---unlike in the category of sets and functions---``everything is
+computable''.
+%
+Actually, the effective topos is an instance of a general class of categories
+known as \emph{realizability toposes} as originally developed by Hyland,
+Johnstone and Pitts~\cite{HJP1980,Pitts1981}.
+
+Every realizability toposes is parametrized by an abstract model of computation,
+known as a \emph{partial combinatory algebra (pca)}. Classical computability
+theory based on partial Turing computable functions on natural numbers gives a
+pca known as \emph{Kleene's first model} and the resulting realizability topos
+is Hyland's effective topos.
+%
+While Hyland's topos is perhaps the best understand example, many other choices
+of pcas are possible with interesting realizability toposes as a
+result~\cite{vanOosten2008}.
+
+A beautiful aspect of Hyland's discovery is that it enables us to study the
+interplay between category theory, logic and computability theory.
+%
+A typical application of realizability categories is to provide semantics to
+(polymorphic) type theories like System~F (which has no direct set-theoretic
+semantics~\cite{Reynolds1984}); see also \cref{sec:further-reading}.
+%
+Realizability has also found practical application in the form of extracting
+programs from mathematical proofs, see e.g.~\cite{Minlog}.
 
 \section{Aims}
+We hope that these notes provide a self-contained and accessible introduction to
+the categorical aspects of realizability for graduate students in theoretical
+computer science.
+%
+More generally, we hope the reader will appreciate these notes as a testament of
+the deep connections between category theory, logic and computability theory.
+
+The notion of a realizability topos is fairly involved and for this reason we
+focus on the simpler categories of \emph{assemblies} instead (although we
+include a brief epilogue on realizability toposes).
+%
+While the category of assemblies lacks some features of a topos it supports more
+than enough structure for our present purposes. Besides, it is my view that an
+understanding of the assemblies is a prerequisite for a good understanding of
+realizability toposes.
+
+\paragraph{Outline of these notes}
+\begin{itemize}
+\item \cref{chap:PCA} introduces partial combinatory algebra (pcas) as
+  abstract models of computation and illustrate them with various examples.
+  %
+  Some familiarity with basic computability theory and topology is
+  helpful, but certainly not required.
+\item \cref{chap:assemblies} describes the category of assemblies and assembly maps
+  over a fixed but arbitrary pca.
+  %
+  Intuitively, an assembly is a set together with ``computability data'' and an
+  assembly map is a function of sets that is ``computable''. Here, the notion of
+  computability is prescribed by the pca.
+
+  We explore the categorical structure of this category and some familiarity
+  with basic category theory---say (co)limits and adjunctions---is necessary in
+  most places, although I am hopeful that those unfamiliar with category theory
+  can still benefit from this chapter and are perhaps inspired to learn some
+  category theory.
+\item
+  Finally, in \cref{chap:logic}, we turn to the logical aspects of the category
+  of assemblies.
+  \textcolor{Mulberry}{TODO: Continue}
+\end{itemize}
+
 
 \section{Exercises}
 
@@ -31,7 +108,7 @@ and included some additions in the form of
 In notation and terminology I have stayed close to Bauer's notes as I admire its
 readability.
 
-\section{Further reading}
+\section{Further reading}\label{sec:further-reading}
 
 Natural candidates for further reading are the aforementioned
 notes by Bauer~\cite{Bauer2023} and Streicher~\cite{Streicher2018}, as well as
@@ -40,7 +117,7 @@ the standard textbook by van Oosten~\cite{vanOosten2008}.
 The categorical semantics of (polymorphic) type theories using realizability is
 treated in a variety of works, such as Reus's tutorial paper~\cite{Reus1999},
 Streicher's notes~\cite{Streicher2018}, Amadio and Curien's
-textbook~\cite{AmadioCurien1998} and Jacob's textbook~\cite{Jacobs1999}; see
+textbook~\cite{AmadioCurien1998} and Jacobs's textbook~\cite{Jacobs1999}; see
 also the references listed on~\cite[p.~193]{vanOosten2008}.
 
 Those looking to learn more about general models of (higher-order) computability
