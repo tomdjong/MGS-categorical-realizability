@@ -25,7 +25,7 @@ jobs:
           tag_name: ${{ steps.name.outputs.name }}
 
       - name: Compile the main document
-        uses: xu-cheng/latex-action@v2
+        uses: xu-cheng/latex-action@v3
         with:
           root_file: main.tex
 	  texlive_version: 2022
