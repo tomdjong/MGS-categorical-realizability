@@ -28,7 +28,7 @@ jobs:
         uses: xu-cheng/latex-action@v3
         with:
           root_file: main.tex
-	  texlive_version: 2022
+          texlive_version: 2022
       - name: Upload the PDF to the release
         uses: actions/upload-release-asset@v1
         env:
