@@ -27,7 +27,7 @@ jobs:
       - name: Compile the main document
         uses: xu-cheng/latex-action@v2
         with:
-	  texliv_version: 2022
+	  texlive_version: 2022
           root_file: main.tex
       - name: Upload the PDF to the release
         uses: actions/upload-release-asset@v1
