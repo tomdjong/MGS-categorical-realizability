@@ -1,8 +1,8 @@
 # Categorical Realizability
 
-#### Lecture notes with exercises for the advanced course on *Categorical Realizability* at the [Midlands Graduate School (MGS) 2024](https://www.cs.le.ac.uk/events/mgs2024).
+### Lecture notes with exercises for the advanced course on *Categorical Realizability* at the [Midlands Graduate School (MGS) 2024](https://www.cs.le.ac.uk/events/mgs2024)
 
-#### [**Download the notes here**](MGS-categorical-realizability.pdf) (draft version)
+#### [Download the notes here](MGS-categorical-realizability.pdf) (draft version)
 
 #### Abstract
 
