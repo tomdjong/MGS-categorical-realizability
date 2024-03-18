@@ -5,17 +5,15 @@ computation known as a \emph{partial combinatory algebra}, or \emph{pca} for
 short.
 %
 The desire for a general model of computation is motivated by the many possible
-interesting examples
-(see~\cref{sec:basic-examples-of-pcas,sec:more-examples-of-pcas}).
+interesting examples.
 %
 Moreover, in the next chapter, we construct the \emph{category of assemblies}
-over a fixed but arbitrary pca. The construction itself works generally and is
+over an arbitrary pca. The construction itself works generally and is
 insensitive to any particular choice of pca. However, the choice of pca is
-reflected in the logical principles that the resulting category of assemblies
-validates.
+reflected in the logical principles that the resulting category validates.
 %
-Thinking of categories of assemblies as ``worlds of computable mathematics'', we
-can thus build different worlds by varying our notion of pca.
+Thinking of categories of assemblies as worlds of computable mathematics, we can
+thus build different worlds by varying our notion of pca.
 
 Having said all this, in these notes we have chosen to work with the
 \emph{untyped} notion of a pca. The \emph{typed} notion, as developed by
@@ -31,10 +29,10 @@ Bauer's more comprehensive notes~\cite{Bauer2023}.
 
 
 \begin{definition}[Partial combinatory algebra (pca), \(\kcomb\), \(\scomb\)]\label{def:pca}
-  A \textbf{partial combinatory algebra} (\textbf{pca}) is a set \(\AA\) together with a \emph{partial}
-  operation \(\AA \times \AA \pto \AA\), denoted by juxtaposition,
-  \((\pca{a},\pca{b}) \mapsto \pca{a}\pca{b}\), such that there exist elements \(\kcomb\) and \(\scomb\)
-  satisfying:
+  A \textbf{partial combinatory algebra} (\textbf{pca}) is a set \(\AA\)
+  together with a \emph{partial} operation \(\AA \times \AA \pto \AA\), denoted
+  by juxtaposition, \((\pca{a},\pca{b}) \mapsto \pca{a}\pca{b}\), such that
+  there exist elements \(\kcomb\) and \(\scomb\) satisfying:
   \begin{enumerate}[(i)]
   \item\label{k-behaviour} \((\kcomb \pca{a}) \pca{b} = \pca{a}\) for all elements
     \(\pca{a},\pca{b} \in \AA\),
@@ -48,10 +46,8 @@ Bauer's more comprehensive notes~\cite{Bauer2023}.
   The symbol \(\simeq\) is \emph{Kleene equality} and means: either both sides
   are undefined, or both are defined and are equal elements of \(\AA\).
   %
-  \begin{samepage}
   In particular, in~\ref{k-behaviour}, the operation \(\kcomb\pca{a}\) must be
   defined for all elements \(\pca{a} \in \AA\).
-  \end{samepage}
 \end{definition}
 
 We think of the elements of a pca as codes for programs that can also act as
@@ -442,7 +438,7 @@ natural number the structure of a pca.
   by \(\Scott\).
 
   The idea behind application on \(\PN\) is that when we apply a subset \(U\) to
-  a subset \(V\), then \(U\) can only ``use'' a finite amount of \(V\) to
+  a subset \(V\), then \(U\) can only use a finite amount of \(V\) to
   determine whether to include a number or not. We now make this idea formal.
 
   We first fix bijections
