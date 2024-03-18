@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Set release name
         id: name
@@ -25,8 +25,9 @@ jobs:
           tag_name: ${{ steps.name.outputs.name }}
 
       - name: Compile the main document
-        uses: xu-cheng/latex-action@v3
+        uses: xu-cheng/latex-action@v2
         with:
+	  texliv_version: 2022
           root_file: main.tex
       - name: Upload the PDF to the release
         uses: actions/upload-release-asset@v1
