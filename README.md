@@ -10,12 +10,11 @@
 computational content of mathematical proofs. In this course we study
 realizability from a categorical perspective. Starting from an abstract and
 general model of computation known as a partial combinatory algebra (pca), we
-construct the category the category of assemblies over it. Intuitively, an
-assembly is a set together with computability data and an assembly map is a
-function of sets that is computable. Here, the notion of computability is
-prescribed by the pca. Through the framework of categorical logic, the
-assemblies give rise to the realizability interpretation of logic, which we
-spell out in detail.*
+construct the category of assemblies over it. Intuitively, an assembly is a set
+together with computability data and an assembly map is a function of sets that
+is computable. Here, the notion of computability is prescribed by the
+pca. Through the framework of categorical logic, the assemblies give rise to the
+realizability interpretation of logic, which we spell out in detail.*
 
 *The central theme of this course is the interplay between category theory,
 logic and computability theory. While some familiarity with basic category
