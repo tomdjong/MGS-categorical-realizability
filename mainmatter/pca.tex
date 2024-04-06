@@ -170,8 +170,9 @@ write the clearer \(\icomb \coloneq \lambdapca{x}{\var{x}}\) instead.
 \end{notation}
 
 \begin{definition}[Defined terms]
-  A closed term is \textbf{defined} if, when we interpret \({s\,t}\) as
-  \(s\) applied to \(t\) in \(\AA\), all these applications are defined.
+  A closed term \(r\) is \textbf{defined} if, when we interpret all subterms of
+  \(r\) of the form \({s\,t}\) as \(s\) applied to \(t\) in \(\AA\), all these
+  applications are defined.
 
   We extend this to terms with variables: such a term \(t\) is \textbf{defined}
   if for all possible substitutions of all variables in \(t\) by elements of
