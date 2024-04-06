@@ -33,11 +33,14 @@ If you find an inaccuracy of any kind in the notes, then please help me fix it:
 - If you don't wish to use GitHub, please inform me of the inaccuracy by
   sending me an email at `tom.dejong[symbol]nottingham.ac.uk`.
 
-<!--
-## Post-lecture feedback
+#### Post-lecture feedback
 
 Your feedback is **anonymous** and will be used to improve future lectures.
-
+1. [Feedback form for Lecture 1](https://tinyurl.com/cat-real-1)
+<!--
+1. [Feedback form for Lecture 2](https://tinyurl.com/cat-real-2)
+1. [Feedback form for Lecture 3](https://tinyurl.com/cat-real-3)
+1. [Feedback form for Lecture 4](https://tinyurl.com/cat-real-4)
 -->
 ---
 
