@@ -619,13 +619,14 @@ them apart.
 In particular, we have an assembly map
 \(\nabla_\Two \colon \Two \to \nabla\set{0,1}\).
 %
-We do not expect a map in the reverse direction as it would mean that we can
+We don't expect a non-constant map in the reverse direction as its tracker would
 compute the relevant boolean (\(\pcatrue\) or \(\pcafalse\)) without receiving
 any relevant computational input. Indeed, we have:
 
 \begin{exercise}\label{exer:no-nabla-to-Two}
-  Show that there are no assembly maps \(f \colon \nabla\set{0,1} \to \Two\) in
-  \(\Asm{\AA}\) unless the pca \(\AA\) is trivial.
+  Show that there are no non-constant assembly maps
+  \(f \colon \nabla\set{0,1} \to \Two\) in \(\Asm{\AA}\) unless the pca \(\AA\)
+  is trivial.
 
   \emph{Hint}: Use~\cref{exer:nontrivial-pca}.
 \end{exercise}
