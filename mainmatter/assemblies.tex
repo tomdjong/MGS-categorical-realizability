@@ -153,6 +153,21 @@ there exists some tracker.
   category \(\Set\) of sets and functions as \(\Asm{\AA}\).
 \end{example}
 
+\begin{example}
+  A paradigmatic example of a function that is \emph{not} tracked is obtained by
+  taking \(\AA \coloneqq \Kone\) and considering the characteristic function of
+  the \emph{Halting set}:
+  \[
+    f \colon \carrier{\NatAsm} \to \carrier{\Two}
+    \quad\text{with}\quad
+    f(n) \coloneqq 1 \text{ if \(\prenum{n}(n)\) is defined}
+    \quad\text{and}\quad
+    f(n) \coloneqq 0 \text{ otherwise}.
+  \]
+  The existence of a tracker for this function says exactly that the Halting set
+  is computable, which it (famously) isn't.
+\end{example}
+
 \begin{remark}[Relative categories of assemblies]
   An interesting variation on the category of assemblies is obtained if we start
   with a pca \(\AA\) and an elementary sub-pca \(\AA^\#\)
@@ -185,7 +200,7 @@ structure. In particular, we will construct finite (co)products, exponentials
 (in slices) and (co)equalizers of assemblies.
 %
 This structure is important for the interpretation of first order logic in
-assemblies that we explore further in \cref{chap:logic}.
+assemblies (\cref{chap:logic}).%that we explore further in \cref{chap:logic}.
 %
 But besides this, presenting the required constructions provides excellent
 opportunities for improving our understanding of the category of assemblies.
@@ -406,7 +421,7 @@ equipped with morphisms \(z \colon 1 \to N\) (``zero'') and \(s \colon N \to N\)
 \((X,x \colon 1 \to X,f\colon X \to X)\) there is a unique morphism
 \(r \colon N \to X\) (defined by ``recursion'') making the diagram
 \[
-  \begin{tikzcd}[row sep=12mm,column sep=12mm]
+  \begin{tikzcd}[row sep=8mm,column sep=8mm]
     & N \ar[r,"s"] \ar[d,dashed,"r"] & N \ar[d,dashed,"r"] \\
     1 \ar[ur,"z"] \ar[r,"x"] & X \ar[r,"f"] & X
   \end{tikzcd}
