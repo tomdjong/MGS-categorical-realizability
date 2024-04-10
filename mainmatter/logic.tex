@@ -522,7 +522,7 @@ then, following the preceding development, we may interpret \(\phi\) as a
 realizability predicate on the assembly \(\sem{X_1} \times \cdots\times \sem{X_n}\).
 %
 We write \(\sem{\phi}\) for this predicate. Thus, for each
-\(\vec x \in \sem{X_1}\times\cdots\times\sem{X_n}\), we have a subset
+\(\vec x \in \carrier*{\sem{X_1}\times\cdots\times\sem{X_n}}\), we have a subset
 \(\sem{\phi}(\vec x) \subseteq \AA\) of realizers.
 
 Using the constructions of
@@ -593,9 +593,9 @@ have:
   The realizability predicates interpreting (double) negations satisfy
   \begin{alignat*}{2}
     &\pca{r} \in \sem{\lnot\phi}(\vec x) &&\quad\iff\quad
-    \set{\pca{r} \in \AA \mid \sem{\phi}(\vec x) = \emptyset}, \\
+    \sem{\phi}(\vec x) = \emptyset, \\
     &\pca{r} \in \sem{\lnot\lnot\phi}(\vec x) &&\quad\iff\quad
-    \set{\pca{r} \in \AA \mid \sem{\phi}(\vec x) \neq \emptyset}.
+    \sem{\phi}(\vec x) \neq \emptyset.
   \end{alignat*}
 \end{lemma}
 
