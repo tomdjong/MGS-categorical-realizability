@@ -1173,7 +1173,7 @@ valid in the internal logic of \(\Asm{\Kone}\).
   More formally, it is the statement:
   \[
     \forall\pa[\big]{\sigma:\Two^\NatAsm}.  \lnot(\forall(n : \NatAsm).\sigma(n)
-    = 0) \to (\exists(n : \NatAsm).\sigma(n) = 1).
+    = 0) \Rightarrow (\exists(n : \NatAsm).\sigma(n) = 1).
   \]
 \end{definition}
 
@@ -1182,7 +1182,7 @@ valid in the internal logic of \(\Asm{\Kone}\).
   \item Show that Markov's Principle is equivalent---over constructive logic---to
     \[
       \forall\pa[\big]{\sigma:\Two^\NatAsm}.  \lnot\lnot(\exists(n :
-      \NatAsm).\sigma(n) = 1) \to (\exists(n : \NatAsm).\sigma(n) = 1).
+      \NatAsm).\sigma(n) = 1) \Rightarrow (\exists(n : \NatAsm).\sigma(n) = 1).
     \]
   \item Show that Markov's Principle is realized if and only if every
     semidecidable realizability predicate is \(\lnot\lnot\)-stable.
