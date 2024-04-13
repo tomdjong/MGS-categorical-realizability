@@ -1062,11 +1062,10 @@ imply (check!) that membership of the Halting set \(K\) is computable which it
 (famously) isn't.
 
 Recall from computability theory that a subset \(A \subseteq \Nat\) is
-\textbf{computably enumerable} (or \textbf{c.e.} for short) if we have a partial
-computable function \(e \colon \Nat \to \Nat\) such that \(e(n)\) is defined if
-and only if \(n \in A\).
-%
-We say that \(e\) \textbf{enumerates} \(A\).
+\textbf{computably enumerable} (or \textbf{c.e.} for short) if it is empty or if
+we have a total computable function \(e \colon \Nat \to \Nat\) such that \(e\)
+\textbf{enumerates} \(A\) in the sense that the image of \(e\) and \(A\) are
+equal.
 %
 Note: instead of ``computably enumerable'', some (older) textbooks will use the terminology
 ``recursively enumerable'', or (potentially confusing for us) ``semidecidable''.
