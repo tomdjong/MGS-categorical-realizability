@@ -1,0 +1,25 @@
+\documentclass[a4paper, oneside, 12pt, openany]{book}
+\pdfoutput=1
+
+\usepackage{packages}
+\usepackage{packages-sols}
+\usepackage{macros}
+
+% \usepackage[skip=0.5\baselineskip plus 2pt minus 2pt]{parskip}
+\setlength\parindent{0pt}
+
+\newcommand{\chp}[1]{\section*{\cref{chap:#1}}}
+\newcommand{\exercise}[1]{{\bf\cref{exer:#1}.}\vspace{0.5\baselineskip}}
+
+\begin{document}
+
+\frontmatter
+
+\include{solutions/titlepage}
+\restoregeometry
+
+\mainmatter
+
+\include{solutions/pca}
+
+\end{document}

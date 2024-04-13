@@ -1,0 +1,5 @@
+pdflatex MGS-categorical-realizability &&
+biber MGS-categorical-realizability &&
+pdflatex MGS-categorical-realizability &&
+pdflatex MGS-categorical-realizability &&
+pdflatex MGS-categorical-realizability-solutions

@@ -1,0 +1,70 @@
+% Cross-reference lecture notes
+\usepackage{xr-hyper}
+\externaldocument{MGS-categorical-realizability}
+
+\usepackage[
+  colorlinks=true  % Remove the boxes
+, linktocpage=true % Make page numbers (not section titles) links in ToC
+, linkcolor=NavyBlue    % Colour for internal links
+, citecolor=Green  % Colour for bibliographical citations
+, urlcolor=BrickRed % Colour for (external) urls
+%
+% Metadata
+%
+, pdftitle={Categorical Realizability (Solutions to exercises)}%
+, pdfauthor={Tom de Jong, Joshua Chen}%
+, pdfsubject={Solutions to exercises for MGS 2024}%
+, pdfkeywords={category theory, computability theory, logic, realizability, logic}
+]{hyperref}
+
+\usepackage[noabbrev,capitalize]{cleveref}
+\creflabelformat{equation}{#2\textup{#1}#3} % Write Equation x.y.z instead of Equation (x.y.z)
+\creflabelformat{chapter}{\textup{#1}}
+\creflabelformat{exercise}{\textbf{#2\textup{#1}#3}}
+\Crefname{exercise}{Exercise}{Exercises}
+
+% Patch cleveref for use with xr,
+% see https://tex.stackexchange.com/questions/708441/cleveref-mistakenly-showing-filename-in-external-references
+\makeatletter
+\def\cref@getref#1#2{%
+  \expandafter\let\expandafter#2\csname r@#1@cref\endcsname%
+  \expandafter\expandafter\expandafter\def%
+    \expandafter\expandafter\expandafter#2%
+    \expandafter\expandafter\expandafter{%
+      \expandafter\@firstoffive#2}}% <-------- five
+\def\cpageref@getref#1#2{%
+  \expandafter\let\expandafter#2\csname r@#1@cref\endcsname%
+  \expandafter\expandafter\expandafter\def%
+    \expandafter\expandafter\expandafter#2%
+    \expandafter\expandafter\expandafter{%
+      \expandafter\@secondoffive#2}}% <----------- five
+
+\AtBeginDocument{%
+  \def\label@noarg#1{%
+    \cref@old@label{#1}%
+    \@bsphack%
+    \edef\@tempa{{page}{\the\c@page}}%
+    \setcounter{page}{1}%
+    \edef\@tempb{\thepage}%
+    \expandafter\setcounter\@tempa%
+    \cref@constructprefix{page}{\cref@result}%
+    \protected@write\@auxout{}%
+      {\string\newlabel{#1@cref}{{\cref@currentlabel}%
+      {[\@tempb][\arabic{page}][\cref@result]\thepage}{}{}{}}}% <----- five
+    \@esphack}%
+  \def\label@optarg[#1]#2{%
+    \cref@old@label{#2}%
+    \@bsphack%
+    \edef\@tempa{{page}{\the\c@page}}%
+    \setcounter{page}{1}%
+    \edef\@tempb{\thepage}%
+    \expandafter\setcounter\@tempa%
+    \cref@constructprefix{page}{\cref@result}%
+    \protected@edef\cref@currentlabel{%
+      \expandafter\cref@override@label@type%
+        \cref@currentlabel\@nil{#1}}%
+    \protected@write\@auxout{}%
+      {\string\newlabel{#2@cref}{{\cref@currentlabel}%
+      {[\@tempb][\arabic{page}][\cref@result]\thepage}{}{}{}}}% <------- five
+    \@esphack}%
+    }

@@ -201,8 +201,8 @@ We now define something resembling \(\lambda\)-abstraction for pcas.
   \begin{itemize}
   \item \(\lambdapca{x}{x} \coloneqq \icomb = \scomb\kcomb\kcomb\),
   \item \(\lambdapca{x}{y} \coloneqq \kcomb y\) if \(y\) is a variable different from \(x\),
-  \item \(\lambdapca{x}{\pca{a}} \coloneqq \kcomb\pca{a}\) for \(\pca{a} \in \AA\),
-  \item \(\lambdapca{x}{(t_1\,t_2)} \coloneqq \scomb(\lambdapca{x}{t_1})\,(\lambdapca{x}{t_2})\).
+  \item \(\lambdapca{x}{\pca{a}} \coloneqq \kcomb \pca{a}\) for \(\pca{a} \in \AA\),
+  \item \(\lambdapca{x}{(t_1\,t_2)} \coloneqq \scomb\,(\lambdapca{x}{t_1})\,(\lambdapca{x}{t_2})\).
   \end{itemize}
 \end{definition}
 
