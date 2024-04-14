@@ -5,11 +5,15 @@
 \usepackage{packages-sols}
 \usepackage{macros}
 
-% \usepackage[skip=0.5\baselineskip plus 2pt minus 2pt]{parskip}
-\setlength\parindent{0pt}
+% Renew fancyhdr marks
+\markboth{Categorical Realizability}{}
 
-\newcommand{\chp}[1]{\section*{\cref{chap:#1}}}
-\newcommand{\exercise}[1]{{\bf\cref{exer:#1}.}\vspace{0.5\baselineskip}}
+\newcommand{\chpttl}{}
+\newcommand{\chp}[1]{%
+  \renewcommand{\chpttl}{Solutions to \cref{chap:#1}}%
+  \section*{\chpttl}\markright{\chpttl}}
+
+\newcommand{\exercise}[1]{\paragraph{\cref{exer:#1}.}}
 
 \begin{document}
 
@@ -21,5 +25,6 @@
 \mainmatter
 
 \include{solutions/pca}
+% \include{solutions/assemblies}
 
 \end{document}
