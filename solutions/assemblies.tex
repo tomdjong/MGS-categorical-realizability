@@ -147,8 +147,8 @@ In particular, a right adjoint \(R \colon \Asm\AA \to \Set\) would satisfy
 \[ \Asm\AA(\natwo, \Two) \cong \Set(\{0,1\}, R(\Two)). \]
 By \cref{exer:no-nabla-to-Two} and the fact that constant functions are always
 tracked, the left hand side has size \(2\) when \(\AA\) is nontrivial.
-On the other hand, the right hand set has size \(\lvert R(\Two)\rvert^2\), which
-cannot be the case.
+On the other hand, the right hand set has size \(\lvert R(\Two)\rvert^2\), and
+it cannot be the case that this is equal to \(2\).
 
 
 % ==== 3.32 ====
@@ -180,3 +180,26 @@ cannot be the case.
     However, the \(\AA\)-indexed coproduct of terminal objects exists in
     \(\Set\) but not in \(\Asm\AA\).
 \end{enumerate}
+
+
+% ==== 3.34 ====
+
+% \exercise{characterize-regular-epis}
+
+% For the forward direction, assume that \(f \colon X \to Y\) coequalizes
+% \(Z \overset{g}{\underset{h}{\rightrightarrows}} X\).
+% By \cref{prop:coequalizers} there's an isomorphism of assemblies
+% \[ s \colon Y \xrightarrow{\cong} X/\sim \, ,\]
+% tracked by \(\pca s \in \AA\) and such that \(s(f(x)) = [x]\)
+% for all \(x \in X\).
+
+% Coequalizers are always epi, so \(f\) is epi and hence surjective by
+% \cref{prop:characterize-epis-and-monos}.
+% Suppose \(y \in Y\) and \(x \in f^{-1}(y)\).
+% If \(\pca b \realizes_Y y\) then \(\pca{s} \pca{b} \realizes_{X/\sim} s(y) = [x]\),
+% and so \(\pca{s} \pca{b} \realizes_X x^\prime\) for some \(x^\prime \sim x \in X\).
+% Then we have that
+% \[ f(x^\prime) = s^{-1}([x^\prime]) = s^{-1}([x]) = f(x) = y. \]
+
+% For the converse, assume there exists \(\pca s \in \AA\) satisfying the stated property.
+% Assuming the axiom of choice in \(\Set\), this gives us a section \(s \colon Y \to X\)
