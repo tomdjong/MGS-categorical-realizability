@@ -1,0 +1,205 @@
+\chp{assemblies}
+
+% ==== 3.20 ====
+
+\exercise{coproducts}
+
+The inclusion maps
+\[ \inl \colon X \to X + Y \quad \text{and} \quad \inr \colon Y \to X + Y \]
+are given by the usual coproduct inclusions in \(\Set\),
+and tracked by \(\pcaleft\) and \(\pcaright\) respectively.
+
+To check that the definition gives a coproduct in \(\Asm{\AA}\),
+it's enough to show that for any assembly \(Z\) and assembly maps
+\(f \colon X \to Z\) and \(g\colon Y \to Z\), the induced function
+\([f,g] \colon \carrier{X+Y} \to \carrier Z\) is tracked.
+That is, we need \(\pca{t}_{[f,g]} \in \AA\) such that for all
+\(x \in X\), \(y \in Y\) and realizers
+\(\pca a \realizes_X x\) and \(\pca b \realizes_Y y\),
+\[ \pcapair \pcafalse \pca{a} \realizes_{X+Y} \inl(x) \implies
+  \pca{t}_{[f,g]} (\pcapair \pcafalse \pca a) \realizes_Z [f,g](\inl(x)) = f(x) \]
+and
+\[ \pcapair \pcatrue \pca{b} \realizes_{X+Y} \inr(y) \implies
+  \pca{t}_{[f,g]} (\pcapair \pcatrue \pca b) \realizes_Z [f,g](\inr(y)) = g(y). \]
+
+Denoting the trackers of \(f\) and \(g\) by \(\pca{t}_f\) and \(\pca{t}_g\)
+respectively, we may define
+\[ \pca{t}_{[f,g]} \defeq
+  \lambdapca{w}{\pcaif \, (\pcafst w) \, \pca{t}_f \, \pca{t}_g \, (\pcasnd w)}. \]
+
+
+% ==== 3.20 ====
+
+\exercise{coproduct-booleans}
+
+The map out of the coproduct
+\begin{align*}
+  \One + \One & \to \Two \\
+  \inl(\singleton) & \mapsto 0 \\
+  \inr(\singleton) & \mapsto 1
+\end{align*}
+(induced by the constant maps \(\One \to \Two\) at \(0\) and \(1\))
+is bijective on the carriers.
+Its inverse function is tracked by
+\[ \lambdapca{w}{\pcapair \, w \, \pca a} \]
+for any \(\pca a \in \AA\), and so we get a pair of inverse assembly
+isomorphisms.
+
+
+% ==== 3.23 ====
+
+\exercise{nno}
+
+\begin{enumerate}[(i)]
+  \item
+    The full details of this depend on the particular set theory, but
+    the idea of the proof will hold for any ``good'' definition of \(\Set\)
+    (in particular, for \(\ZFC\)) and is as follows.
+
+    The morphisms \(z \colon 1 \to \Nat\) and \(s \colon \Nat \to \Nat\) are
+    given by the constant function at \(0\) and the successor function,
+    respectively.
+    Given any set \(X\) and functions \(x \colon 1 \to X\) and
+    \(f \colon X \to X\), recursively define a sequence of functions
+    \[ \big(r_n \colon \{0, \dotsc, n\} \to X \big)_{n \in \Nat} \]
+    by
+    \begin{align*}
+      r_0(0) & \defeq x, \\
+      r_{n+1}(m) & \defeq \left\{\ 
+        \begin{aligned}
+            & r_n(m) && \quad\text{if \(m \le n\)} \\
+            & f(r_n(n)) && \quad\text{if \(m = n+1\)}
+        \end{aligned} \right.
+    \end{align*}
+    (where we have, as is customary, used the same name \(x\) to refer to the
+    constant function \(1 \xrightarrow{x} X\) and its value \(x \in X\)).
+
+    By induction,
+    \(r_{n+1} \restriction \{0, \dotsc, n\} = r_n\) for all \(n \in \Nat\),
+    and the universal morphism \(r \colon \Nat \to X\) is the union of this
+    sequence of functions.
+    In particular, we have that
+    \[ r(n+1) = r_{n+1}(n+1) = f(r_n(n)) = f(r(n)) \]
+    for all \(n \in \Nat\).
+
+  \item
+    The zero and successor functions of \(\carrier{\NatAsm} = \Nat\) are
+    tracked by \(\kcomb \numeral{0}\) and \(\pcasucc\) respectively.
+    We claim that these are also the morphisms making \(\NatAsm\) an nno in
+    \(\Asm\AA\).
+
+    To show this, it's enough to show that given any assembly \(X\) and maps
+    \(x \colon \One \to X\) and \(f \colon X \to X\) such that
+    \(\pca{a} \realizes_X x\) and \(\pca{t}_f\) tracks \(f\), the function
+    \(r \colon \carrier{\NatAsm} \to \carrier{X}\) defined in part (i) is
+    tracked.
+    And indeed it is: show, by induction, that
+    \[ \pcarec \, \pca{a} \, (\kcomb \, \pca{t}_f) \]
+    tracks \(r\).
+\end{enumerate}
+
+
+% ==== 3.26 ====
+
+\exercise{Gamma-global-sections}
+
+Any constant function \(x \colon \carrier{\One} \to \carrier{X}\) for any
+assembly \(X\) is tracked (by \(\kcomb\,\pca{a}\) for any realizer
+\(\pca{a} \realizes_X x\)), so
+\[ \Asm\AA(\One, X) \cong \Set(\carrier{\One},\carrier{X}) \cong \carrier{X}. \]
+Naturality of this bijection is immediate because the action of any assembly map
+is just the action of its underlying function.
+
+
+% ==== 3.28 ====
+
+\exercise{Gamma-left-adjoint-to-nabla}
+
+For any assembly \(X\) and set \(Y\), we have that any function
+\(\carrier{X} \to \carrier{\nabla(Y)}\) is tracked by \(\icomb\), so
+\[ \Set(\carrier{X},Y) = \Set(\carrier{X},\carrier{\nabla(Y)}) \cong \Asm\AA(X,\nabla(Y)). \]
+Again, naturality in the arguments holds straightforwardly (check!).
+
+
+% ==== 3.30 ====
+
+\exercise{no-nabla-to-Two}
+
+\newcommand{\natwo}{\nabla\{0,1\}}
+
+If there is a nonconstant map \(\natwo \to \Two\) with tracker \(\pca t\), then
+for any \(\pca a \in \AA\) we have that
+\(\pca a \realizes_{\natwo} 0\) and
+\(\pca a \realizes_{\natwo} 1\), and hence that
+\(\pca t \pca a \realizes_{\Two} 0\) and
+\(\pca t \pca a \realizes_{\Two} 1\).
+But the realizers of \(0\) and \(1\) in \(\Two\) are \(\pcatrue\) and
+\(\pcafalse\) respectively, and so
+\[ \pcatrue = \pca t \pca a = \pcafalse. \]
+By \cref{exer:nontrivial-pca}, this means that \(\AA\) is trivial.
+
+
+% ==== 3.31 ====
+
+\exercise{nabla-no-right-adjoint}
+
+In particular, a right adjoint \(R \colon \Asm\AA \to \Set\) would satisfy
+\[ \Asm\AA(\natwo, \Two) \cong \Set(\{0,1\}, R(\Two)). \]
+By \cref{exer:no-nabla-to-Two} and the fact that constant functions are always
+tracked, the left hand side has size \(2\) when \(\AA\) is nontrivial.
+On the other hand, the right hand set has size \(\lvert R(\Two)\rvert^2\), and
+it cannot be the case that this is equal to \(2\).
+
+
+% ==== 3.32 ====
+
+\exercise{Gamma-no-left-adjoint}
+
+\begin{enumerate}[(i)]
+  \item
+    We show that any two distinct assembly maps
+    \(f, g \colon X \to \Two\)
+    must have distinct trackers.
+    To this end assume that \(f(x) = 0\) and \(g(x) = 1\) for some \(x \in X\)
+    with realizer \(\pca a \realizes_X x\).
+    If \(\pca t \in \AA\) tracks both \(f\) and \(g\), then
+    \(\pca{t} a \realizes_{\Two} f(x)\) and also
+    \(\pca{t} a \realizes_{\Two} g(x)\).
+    Thus \(\pcatrue = \pcafalse\) and \(\AA\) is trivial, which we assumed
+    was not the case.
+    Hence \(f\) and \(g\) have distinct trackers, and there can be at most
+    \(\carrier{\AA}\)-many.
+
+  \item
+    Because otherwise, by the universal property of coproducts there would be
+    exactly \(2^{\carrier{\AA}} > \carrier{\AA}\) maps from
+    \(\coprod_{\pca{a} \in \AA} \One\) to \(\Two\).
+
+  \item
+    Left adjoints preserve colimits, in particular coproducts.
+    However, the \(\AA\)-indexed coproduct of terminal objects exists in
+    \(\Set\) but not in \(\Asm\AA\).
+\end{enumerate}
+
+
+% ==== 3.34 ====
+
+% \exercise{characterize-regular-epis}
+
+% For the forward direction, assume that \(f \colon X \to Y\) coequalizes
+% \(Z \overset{g}{\underset{h}{\rightrightarrows}} X\).
+% By \cref{prop:coequalizers} there's an isomorphism of assemblies
+% \[ s \colon Y \xrightarrow{\cong} X/\sim \, ,\]
+% tracked by \(\pca s \in \AA\) and such that \(s(f(x)) = [x]\)
+% for all \(x \in X\).
+
+% Coequalizers are always epi, so \(f\) is epi and hence surjective by
+% \cref{prop:characterize-epis-and-monos}.
+% Suppose \(y \in Y\) and \(x \in f^{-1}(y)\).
+% If \(\pca b \realizes_Y y\) then \(\pca{s} \pca{b} \realizes_{X/\sim} s(y) = [x]\),
+% and so \(\pca{s} \pca{b} \realizes_X x^\prime\) for some \(x^\prime \sim x \in X\).
+% Then we have that
+% \[ f(x^\prime) = s^{-1}([x^\prime]) = s^{-1}([x]) = f(x) = y. \]
+
+% For the converse, assume there exists \(\pca s \in \AA\) satisfying the stated property.
+% Assuming the axiom of choice in \(\Set\), this gives us a section \(s \colon Y \to X\)

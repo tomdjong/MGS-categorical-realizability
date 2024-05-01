@@ -1,0 +1,167 @@
+\chp{PCA}
+
+% ==== 2.11 ====
+
+\exercise{properties-of-lambda-pca}
+
+Each of the properties (i)--(iii) are proved by induction on the structure of the
+body term \(t\).
+
+\begin{enumerate}[(i)]
+  \item
+    The claim holds when \(t = x\),
+    when \(t = y\) is a variable distinct from \(x\),
+    and when \(t = \pca a \in \AA\).
+
+    Finally, by the induction hypothesis the set of variables in the term
+    \[ \lambdapca{x}{(t_1\,t_2)} =
+      \scomb\,(\lambdapca{x}{t_1})\,(\lambdapca{x}{t_2}) \]
+    is exactly
+    \((\Var{t_1} \setminus x) \cup (\Var{t_2} \setminus x)\),
+    where \(\Var t\) denotes the set of variables in the term \(t\).
+    The result in this case now follows since
+    \[ \Var{t_1\,t_2} \setminus x =
+      (\Var{t_1} \setminus x) \cup (\Var{t_2} \setminus x). \]
+
+  \item
+    The term \(\lambdapca{x}{t}\) is defined when \(t\) is a variable or an
+    element of \(\AA\) since, by \cref{def:pca}, \(\kcomb \pca a\) and
+    \(\scomb \pca a \pca b\) are defined for any \(\pca a, \pca b \in \AA\).
+
+    Finally, if \(\lambdapca{x}{t_1}\) and \(\lambdapca{x}{t_2}\) are
+    defined then any substitution into the variables of
+    \[ \lambdapca{x}{(t_1\,t_2)} =
+      \scomb\,(\lambdapca{x}{t_1})\,(\lambdapca{x}{t_2}) \]
+    yields an element of \(\AA\) of the form \(\scomb\,\pca a\,\pca b\)
+    for some $\pca a, \pca b \in \AA$.
+
+  \item
+    By straightforward computation in the case where \(t\) is not an
+    application.
+    When \(t = t_1\,t_2\),
+    \begin{align*}
+         & (\lambdapca{x}{(t_1\,t_2)}) \pca a \\
+      =\ & \scomb \, (\lambdapca{x}{t_1}) \, (\lambdapca{x}{t_2}) \, \pca a \\
+      \simeq\ & ((\lambdapca{x}{t_1}) \pca a) \, ((\lambdapca{x}{t_2}) \pca a) \\
+      \simeq\ & (t_1[\pca a/x]) \, (t_2[\pca a/x])
+        \qquad \text{(by the induction hypothesis)} \\
+      \simeq\ & (t_1\,t_2)[\pca a/x].
+    \end{align*}
+\end{enumerate}
+
+
+% ==== 2.14 ====
+
+\exercise{pairing-projection}
+
+\begin{enumerate}[(i)]
+  \item
+    \( \pcapair \pca a \pca b =
+      (\lambdapca{xyz}{zxy}) \pca a \pca b =
+      \lambdapca{z}{z \pca a \pca b}\)
+    is defined by \cref{exer:properties-of-lambda-pca}.
+
+  \item
+    By computation, taking care to note throughout that all applications are
+    defined in \(\AA\).
+\end{enumerate}
+
+% ==== 2.15 ====
+
+\exercise{arithmetic}
+
+A possible set of definitions is
+\begin{align*}
+    \pcaiszero & \defeq \pcafst \\
+    \pcasucc & \defeq \pcapair \pcafalse \\
+    \pcapred & \defeq \lambdapca{n}{\pcaif\,(\pcaiszero n)\,\numeral{0}\,(\pcasnd n)}
+\end{align*}
+(check that these satisfy the required equations).
+
+
+% ==== 2.16 ====
+
+\exercise{primitive-recursion}
+
+\newcommand\spec{\pcacomb{spec}}
+
+From the specification of  \(\pcarec\), we would like our definition to satisfy
+the equation
+\[ \pcarec \pca{a} \pca{f} \simeq
+  \lambdapca{n}{\big(
+    \pcaif \, (\pcaiszero n) \,
+      \pca{a} \,
+      \big(\pca{f} \, (\pcapred n) \, (\pcarec \pca{a} \pca{f} \, (\pcapred n))\big)
+  \big)}
+\]
+for any \(\pca a, \pca f \in \AA\).
+
+This suggests that the term \(\pcarec \pca{a} \pca{f}\) should be constructed as
+a fixed point of the abstraction
+\begin{equation} \label{eq:spec}
+\lambdapca{r}{\big(
+  \lambdapca{n}{\big(
+    \pcaif \, (\pcaiszero n) \,
+      \pca{a} \,
+      \big(\pca{f} \, (\pcapred n) \, (r \, (\pcapred n))\big)
+  \big)}
+\big)},
+\end{equation}
+and so we might try to define
+\[ \spec^\prime \defeq
+\lambdapca{af}{\lambdapca{rn}{
+  \pcaif \, (\pcaiszero n) \,
+    a \,
+    \big(f \, (\pcapred n) \, (r \, (\pcapred n))\big)
+}}
+\]
+and
+\[ \pcarec^\prime \defeq \lambdapca{af}{\pcaz \, (\spec^\prime a \, f)}. \]
+However, this definition does not satisfy the requirement that
+\(\pcarec^\prime \pca{a} \pca{f} \numeral{0}\) is always defined (expand the
+definition and check!).
+
+Instead, we tweak the abstraction \eqref{eq:spec} whose fixed point we take,
+and define
+\begin{align*}
+\spec & \defeq
+\lambdapca{af}{\lambdapca{rn}{
+  \pcaif \, (\pcaiszero n) \, (\kcomb a) \, (\scomb f r)
+    (\pcapred n)
+}}, \\
+\pcarec & \defeq \lambdapca{af}{\pcaz \, (\spec a \, f)}.
+\end{align*}
+We can then check (do so!) that the required equations are satisfied.
+
+
+% ==== 2.17 ====
+
+\exercise{nontrivial-pca}
+
+\begin{description}
+
+\item[(i) \(\Longrightarrow\) (ii):]
+  Assuming \(\pcatrue \neq \pcafalse\), we show that
+  \(\numeral{m} \neq \numeral{n}\) for all \(n \in \Nat\) and \(m < n\),
+  by case distinction on \(n\) and then induction on \(m < n\).
+  This is trivial for \(n = 0\).
+
+  Assume that \(n = n^\prime + 1\).
+  For \(m = 0\),
+  \[ \pcaiszero \numeral{m} = \pcatrue \neq \pcafalse = \pcaiszero \numeral{n} \]
+  and so \(\numeral m \neq \numeral n\).
+  If \(m+1 < n\) then \(m < n^\prime\) and
+  \[ \pcapred \numeral{m+1} = \numeral m
+    \neq \numeral{n^\prime} = \pcapred \numeral{n} \]
+  by induction, so \(\numeral{m+1} \neq \numeral n\).
+
+\item[(ii) \(\Longrightarrow\) (iii):]
+  Immediate.
+
+\item[(iii) \(\Longrightarrow\) (i):]
+  Because if \(\pcatrue = \pcafalse\) then
+  \[ \pca a = \pcaif \pcatrue \pca{a} \pca{b} =
+    \pcaif \pcafalse \pca{a} \pca{b} = \pca b \]
+  for all \(\pca a, \pca b \in \AA\).
+
+\end{description}

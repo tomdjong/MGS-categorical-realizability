@@ -1,0 +1,42 @@
+\documentclass[a4paper, oneside, 12pt, openany]{book}
+\pdfoutput=1
+
+\usepackage{packages}
+\usepackage{packages-sols}
+\usepackage{macros}
+
+% Renew fancyhdr marks
+\markboth{Categorical Realizability}{}
+
+\newcommand{\chpttl}{}
+\newcommand{\chp}[1]{%
+  \renewcommand{\chpttl}{Solutions to \cref{chap:#1}}%
+  \section*{\chpttl}\markright{\chpttl}}
+
+\newcommand{\exercise}[1]{\paragraph{\cref{exer:#1}.}}
+
+\begin{document}
+
+\frontmatter
+
+\include{solutions/titlepage}
+
+% Note for when we used xr-hyper cross-doc links.
+% \thispagestyle{empty}
+% \begin{center}
+%   \textsc{Note to the Reader}
+% \end{center}
+% The hyperlinks in this document reference the URL
+% \href{MGS-categorical-realizability.pdf}{MGS-categorical-realizability.pdf},
+% which should be the PDF of the
+% \href{https://github.com/tomdjong/MGS-categorical-realizability/blob/main/MGS-categorical-realizability.pdf?raw=1}{lecture notes},
+% and in the same folder as this document.
+
+\restoregeometry
+
+\mainmatter
+
+\include{solutions/pca}
+\include{solutions/assemblies}
+
+\end{document}
