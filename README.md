@@ -17,10 +17,9 @@ pca. Through the framework of categorical logic, the assemblies give rise to the
 realizability interpretation of logic, which we spell out in detail.*
 
 *The central theme of this course is the interplay between category theory,
-logic and computability theory. While some familiarity with basic category
-theory (e.g. (co)limits and adjunctions) is required for some parts of the
-notes, the course hopefully offers plenty to those unfamiliar with category
-theory.*
+logic and computability theory. While category theory is not strictly required
+to follow the course, some familiarity with basic category theory will help in
+understanding the connections with more general constructions.*
 
 #### Fixing inaccuracies
 
