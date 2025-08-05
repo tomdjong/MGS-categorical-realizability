@@ -36,8 +36,8 @@ If you find an inaccuracy of any kind in the notes, then please help me fix it:
 
 Your feedback is **anonymous** and will be used to improve future lectures.
 1. [Feedback form for Lecture 1](https://tinyurl.com/1-cat-real)
-<!--
 1. [Feedback form for Lecture 2](https://tinyurl.com/2-cat-real)
+<!--
 1. [Feedback form for Lecture 3](https://tinyurl.com/3-cat-real)
 1. [Feedback form for Lecture 4](https://tinyurl.com/4-cat-real)
 1. [Feedback form for Lecture 5](https://tinyurl.com/5-cat-real)
