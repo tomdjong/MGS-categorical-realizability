@@ -1216,15 +1216,12 @@ mention of computability and simply restrict to constructively sound reasoning.
 \end{proof}
 
 \begin{lemma}\label{not-not-decidable}
-  For any realizability predicate \(\phi\), we have that
-  \(\lnot\lnot(\phi\lor\lnot\phi)\) and \(\top\) are equivalent in the preorder
-  of realizability predicates.
+  For any realizability predicate \(\phi\), the statement
+  \[
+    \forall (x : X).\lnot\lnot(\phi(x) \lor \lnot \phi(x))
+  \] is realized.
 \end{lemma}
 \begin{proof}
-  If \(\phi\) is a realizability predicate on an assembly \(X\), then it
-  suffices to show that \(\forall(x : X).\lnot\lnot(\phi(x)\lor\lnot\phi(x))\)
-  is realized.
-  %
   We show that \(\lnot\lnot(p \lor \lnot p)\) holds generally in constructive
   logic.
   %
